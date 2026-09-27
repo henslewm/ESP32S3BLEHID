@@ -9,7 +9,8 @@
     "diag3",
     "diag4-pio",
     "0c1fa862dd-dirty-pio-dev",
-    "2ed7b2090c-dirty-srceed3f97e-pio-dev"
+    "2ed7b2090c-dirty-srceed3f97e-pio-dev",
+    "ce83a47fac-srcb5d63715-pio-dev"
   ],
   "builds": [
     {
@@ -59,6 +60,12 @@
       "elfSha256": "bdfa775501d2a119ce7a9a1297c0da77fe39455730f3bd92652cc7772561b6cf",
       "binSha256": "2cbcf447a7475dbac09c46ed1ff195175e861ebeec4b35d1b4c6367be27007b9",
       "binBytes": 636640
+    },
+    {
+      "build": "ce83a47fac-srcb5d63715-pio-dev (runtime elf_sha256 matches disk)",
+      "elfSha256": "27a30b5bd2cbbf8323f6904dcddd010fa449a81d4d8720ec975bc460756c952d",
+      "binSha256": "39fe8612213808cb6588dc1867c2f4c25b2516b583f91fc6940146316ef2a6be",
+      "binBytes": 636704
     }
   ],
   "files": [
@@ -85,6 +92,10 @@
     {
       "file": "diag6-srchash.log",
       "sha256": "8cc329dff18a7c5b239cc17c2ac873fff971f9d7de43b23993394e1ad7e23bac"
+    },
+    {
+      "file": "diag7-elfsha.log",
+      "sha256": "96d505cc3db9a29207a27cca6d70fd5c8ed9576cf0c1e1b50866871f625cef31"
     },
     {
       "file": "pair-diag2-1.json",
