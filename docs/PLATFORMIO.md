@@ -27,7 +27,7 @@ Every Arduino or ESP32 firmware project keeps a root `platformio.ini` next to it
 8. **Monitor.** Include `monitor_filters = esp32_exception_decoder, time` so crashes decode against the exact ELF.
 9. **Ignore output.** Add `.pio/` to `.gitignore`.
 10. **Keep builds equivalent.** Record the arduino-cli FQBN and `--build-property` values that produce the same configuration, and state which toolchain produced any flashed artifact. A PlatformIO ELF and an arduino-cli ELF are different artifacts.
-11. **Generate the build identifier.** Don't hard-code it. Inject a firmware build ID from build metadata (git short SHA, `-dirty` when the tree has changes, toolchain, environment) through an `extra_scripts` pre-script, and through `--build-property compiler.cpp.extra_flags=-DFIRMWARE_BUILD_ID=...` for arduino-cli, so serial evidence binds to the exact artifact.
+11. **Generate the build identifier.** Don't hard-code it. Inject a firmware build ID from build metadata (git short SHA, `-dirty` when the tree has changes, a content hash of every file under `src_dir` plus `platformio.ini` so different uncommitted experiments never share an ID, toolchain, environment) through an `extra_scripts` pre-script, and through `--build-property compiler.cpp.extra_flags=-DFIRMWARE_BUILD_ID=...` for arduino-cli, so serial evidence binds to the exact artifact.
 12. **Verify before relying on it.** `pio run -e <default>` must succeed. For hardware claims, upload, run the project's smoke test and record the build ID and ELF SHA-256. A successful compile is not hardware verification.
 
 ## This project

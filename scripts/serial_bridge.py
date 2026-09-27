@@ -7,7 +7,7 @@ line to a timestamped log, and sends any text appended to an inbox file.
   # send a command from another shell:
   #   Add-Content build/serial/inbox.txt 'q'
 
-Each inbox line is sent followed by '\n'. The inbox is consumed by offset, so
+Each newline-terminated inbox line is sent followed by '\n'; a partial line waits for its newline. The inbox is consumed by offset, so
 the file may be appended to at any time. Stop with Ctrl+C or by writing the
 line '__quit__'.
 """
@@ -42,6 +42,7 @@ def main() -> None:
             args.log.open("a", encoding="utf-8", buffering=1) as log:
         log.write(f"{stamp()} # bridge open {args.port} {args.baud}\n")
         pending = b""
+        inbox_carry = b""  # partial inbox line; dispatched only once its newline arrives
         while True:
             data = port.read(4096)
             if data:
@@ -55,8 +56,10 @@ def main() -> None:
                     f.seek(offset)
                     chunk = f.read(size - offset)  # bytes appended after the size check wait for the next poll
                 offset += len(chunk)
-                for raw in chunk.decode("utf-8", "replace").splitlines():
-                    cmd = raw.strip("\r")
+                inbox_carry += chunk
+                *complete, inbox_carry = inbox_carry.split(b"\n")
+                for raw in complete:
+                    cmd = raw.decode("utf-8", "replace").strip("\r")
                     if cmd == "__quit__":
                         log.write(f"{stamp()} # bridge quit\n")
                         return

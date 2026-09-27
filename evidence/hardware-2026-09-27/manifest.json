@@ -8,7 +8,8 @@
     "diag2",
     "diag3",
     "diag4-pio",
-    "0c1fa862dd-dirty-pio-dev"
+    "0c1fa862dd-dirty-pio-dev",
+    "2ed7b2090c-dirty-srceed3f97e-pio-dev"
   ],
   "builds": [
     {
@@ -52,6 +53,12 @@
       "elfSha256": "1d19cdddb14337a515f0483f4f6b08ade26836de0ecdaf21582ad6e13809cb3f",
       "binSha256": "fad16c4cd0a3d62b9af2345d0110144b917771ea8fa9d41415ba4e6819149e15",
       "binBytes": 636640
+    },
+    {
+      "build": "2ed7b2090c-dirty-srceed3f97e-pio-dev (source-hash build ID)",
+      "elfSha256": "bdfa775501d2a119ce7a9a1297c0da77fe39455730f3bd92652cc7772561b6cf",
+      "binSha256": "2cbcf447a7475dbac09c46ed1ff195175e861ebeec4b35d1b4c6367be27007b9",
+      "binBytes": 636640
     }
   ],
   "files": [
@@ -74,6 +81,10 @@
     {
       "file": "diag5-buildid.log",
       "sha256": "8e8f05bb3f8d01bbd9f9ccfcc345bc1139b56070fa355873f744d0680c24a834"
+    },
+    {
+      "file": "diag6-srchash.log",
+      "sha256": "8cc329dff18a7c5b239cc17c2ac873fff971f9d7de43b23993394e1ad7e23bac"
     },
     {
       "file": "pair-diag2-1.json",
