@@ -1,5 +1,7 @@
 # Mouse subscription investigation handoff
 
+> **Resolved 2026-09-27.** The root cause was core 3.3.12 dropping the duplicate-UUID mouse report characteristic, now fixed in `hid_core_workaround.cpp`. Both subscriptions are observed on hardware; see [the record](../evidence/mouse-fix-2026-09-27.md). Only operator visual confirmation of cursor motion is outstanding. The text below is the original investigation brief.
+
 Tracking issue: [#1 — Windows subscribes to keyboard but not mouse report](https://github.com/henslewm/ESP32S3BLEHID/issues/1). Implementation/evidence checkpoint: [43281a2](https://github.com/henslewm/ESP32S3BLEHID/commit/43281a201e1879c06ed054bfc27a04f14e911b7a).
 
 ## Problem

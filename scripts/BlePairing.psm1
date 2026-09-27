@@ -34,6 +34,37 @@ function Initialize-BleRuntime {
     $null = [Windows.Devices.Enumeration.DeviceInformationCollection, Windows.Devices.Enumeration, ContentType=WindowsRuntime]
     $null = [Windows.Devices.Enumeration.DevicePairingResult, Windows.Devices.Enumeration, ContentType=WindowsRuntime]
     $null = [Windows.Devices.Enumeration.DeviceUnpairingResult, Windows.Devices.Enumeration, ContentType=WindowsRuntime]
+    $null = [Windows.Devices.Bluetooth.BluetoothLEDevice, Windows.Devices.Bluetooth, ContentType=WindowsRuntime]
+    # The custom-pairing helper needs the Windows SDK; it is loaded only when a Pair mutation starts,
+    # so discovery and unpair-only runs work on hosts without it.
+}
+
+function Import-BleCustomPairing {
+    # Compiles scripts/BleCustomPairing.cs once into build/pairing (ignored) and loads it.
+    if ('BleCustomPairing' -as [type]) { return }
+    $source = Join-Path $PSScriptRoot 'BleCustomPairing.cs'
+    $outDir = Join-Path (Split-Path $PSScriptRoot -Parent) 'build\pairing'
+    $hash = (Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash.Substring(0, 12)
+    $dll = Join-Path $outDir "BleCustomPairing-$hash.dll"
+    if (-not (Test-Path -LiteralPath $dll)) {
+        # Versioned SDK folders only; UnionMetadata\Facade holds a forwarding stub that cannot be compiled against.
+        $winmd = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\UnionMetadata\*\Windows.winmd' -ErrorAction SilentlyContinue |
+            Where-Object { $_.Directory.Name -match '^\d+\.\d+\.\d+\.\d+$' } |
+            Sort-Object { [version]$_.Directory.Name } -Descending | Select-Object -First 1
+        if ($null -eq $winmd) { throw 'Windows SDK UnionMetadata\Windows.winmd is required to build the pairing helper.' }
+        $gac = Join-Path $env:WINDIR 'Microsoft.NET\assembly\GAC_MSIL'
+        $refs = @(
+            $winmd.FullName,
+            (Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\System.Runtime.WindowsRuntime.dll'),
+            (Get-ChildItem (Join-Path $gac 'System.Runtime') -Recurse -Filter System.Runtime.dll | Select-Object -First 1).FullName,
+            (Get-ChildItem (Join-Path $gac 'System.Runtime.InteropServices.WindowsRuntime') -Recurse -Filter *.dll | Select-Object -First 1).FullName
+        )
+        $null = [IO.Directory]::CreateDirectory($outDir)
+        $csc = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
+        $output = & $csc /nologo /target:library "/out:$dll" ($refs | ForEach-Object { "/r:$_" }) $source 2>&1
+        if ($LASTEXITCODE -ne 0) { throw "Pairing helper build failed: $($output -join ' ')" }
+    }
+    Add-Type -Path $dll
 }
 
 function Get-BleException {
@@ -120,6 +151,26 @@ function Get-BleDiscovery {
     param([string]$Address)
     $properties = [string[]]@('System.Devices.Aep.DeviceAddress','System.Devices.Aep.IsPaired',
         'System.Devices.Aep.IsPresent','System.Devices.Aep.Bluetooth.Le.IsConnectable')
+    if ($Address) {
+        # Exact-address lookup. FindAllAsync over unpaired LE AEPs did not complete
+        # within 30 s on this host; opening the device by address returns in ~50 ms.
+        $raw = [Convert]::ToUInt64(($Address -replace ':', ''), 16)
+        $open = Invoke-BleNativeOperation -Method FromBluetoothAddressAsync -TimeoutSeconds 30 -ResultType ([Windows.Devices.Bluetooth.BluetoothLEDevice]) -Start {
+            [Windows.Devices.Bluetooth.BluetoothLEDevice]::FromBluetoothAddressAsync($raw)
+        }
+        if ($open.exception -or $open.timedOut -or $null -eq $open.value) {
+            return [pscustomobject]@{ operation=$open; devices=@() }
+        }
+        $deviceId = $open.value.DeviceId
+        $record = Invoke-BleNativeOperation -Method CreateFromIdAsync -TimeoutSeconds 30 -ResultType ([Windows.Devices.Enumeration.DeviceInformation]) -Start {
+            [Windows.Devices.Enumeration.DeviceInformation]::CreateFromIdAsync($deviceId, $properties,
+                [Windows.Devices.Enumeration.DeviceInformationKind]::AssociationEndpoint)
+        }
+        # Never pipe the WinRT object: PowerShell enumerates it as its property bag.
+        $devices = @()
+        if ($null -ne $record.value) { $devices = @(,$record.value) }
+        return [pscustomobject]@{ operation=$record; devices=$devices }
+    }
     $selector = Get-BleAepSelector $Address
     $record = Invoke-BleNativeOperation -Method FindAllAsync -TimeoutSeconds 30 -ResultType ([Windows.Devices.Enumeration.DeviceInformationCollection]) -Start {
         [Windows.Devices.Enumeration.DeviceInformation]::FindAllAsync($selector, $properties,
@@ -130,7 +181,14 @@ function Get-BleDiscovery {
 
 function Get-BleProperty {
     param($Device, [string]$Name)
-    if ($null -ne $Device.Properties -and $Device.Properties.ContainsKey($Name)) { return $Device.Properties[$Name] }
+    $bag = $Device.Properties
+    if ($null -eq $bag) { return $null }
+    if ($bag -is [System.Collections.IDictionary]) {
+        if ($bag.Contains($Name)) { return $bag[$Name] }
+        return $null
+    }
+    # WinRT IMapView projects to PS 5.1 as an enumerable of key/value pairs without ContainsKey.
+    foreach ($entry in $bag) { if ($entry.Key -eq $Name) { return $entry.Value } }
     return $null
 }
 
@@ -164,7 +222,8 @@ function Invoke-BleMutation {
     if ($Action -eq 'Unpair') {
         return Invoke-BleNativeOperation -Method UnpairAsync -TimeoutSeconds 120 -ResultType ([Windows.Devices.Enumeration.DeviceUnpairingResult]) -Start { $Device.Pairing.UnpairAsync() }
     }
-    return Invoke-BleNativeOperation -Method PairAsync -TimeoutSeconds 120 -ResultType ([Windows.Devices.Enumeration.DevicePairingResult]) -Start { $Device.Pairing.PairAsync() }
+    # Custom ConfirmOnly pairing accepts the Just Works prompt in-process; plain PairAsync fails without UI.
+    return Invoke-BleNativeOperation -Method CustomPairAsync -TimeoutSeconds 120 -ResultType ([Windows.Devices.Enumeration.DevicePairingResult]) -Start { Import-BleCustomPairing; [BleCustomPairing]::StartConfirmOnlyPair($Device) }
 }
 
 function Invoke-BlePairing {

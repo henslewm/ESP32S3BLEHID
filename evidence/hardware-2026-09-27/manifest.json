@@ -1,0 +1,98 @@
+{
+  "fqbn": "esp32:esp32:esp32s3:CDCOnBoot=cdc",
+  "core": "esp32:esp32@3.3.12",
+  "cli": "arduino-cli 1.5.1",
+  "port": "COM10 (USB VID_303A PID_1001 native USB-Serial/JTAG)",
+  "flashed": [
+    "diag1",
+    "diag2",
+    "diag3",
+    "diag4-pio",
+    "0c1fa862dd-dirty-pio-dev",
+    "2ed7b2090c-dirty-srceed3f97e-pio-dev"
+  ],
+  "builds": [
+    {
+      "build": "ref-v7",
+      "elfSha256": "ec164ae06488df9591d820fe14593fd927f1396a309e5f72c9ebc8c048572a38",
+      "binSha256": "c7efac32972300ef6f2ea34742d1e2a27c0d15def42fe917486aaf37684cb9e2",
+      "binBytes": 607104
+    },
+    {
+      "build": "split-v7",
+      "elfSha256": "f9be2585b518a204050f385684dcd19e50eda8f4b1471c83d886e36aae0563b4",
+      "binSha256": "2837f0a77cd23b4218b29a0e4805a273fd1cb57212adf6f3bba4f2dbe2555d5c",
+      "binBytes": 607232
+    },
+    {
+      "build": "diag1",
+      "elfSha256": "e39241702aa272e6e564d3cbcc0a21703149e8dd8da0505966a837fd46740777",
+      "binSha256": "4ff8511c434468fc3424c512d87193ba79a87b846e5661e9d2e22da7f4605116",
+      "binBytes": 608480
+    },
+    {
+      "build": "diag2",
+      "elfSha256": "b6452b4c3e013335b6e1c31b5333539343965e57b97ef03a13d134d5a3a1b79d",
+      "binSha256": "b79553f6a5fb42ac8ca0df9967d942af09c05e82c6ac534f4e4342a1c8df0ef0",
+      "binBytes": 608848
+    },
+    {
+      "build": "diag3",
+      "elfSha256": "fc4701a2cb82c662b1756b1f9b475822891081e17a542ab58d3b64bdf8b134f0",
+      "binSha256": "2f5cd0dd0cbc550296dac74d6ec6322d7d4940687bbcf81f10f594f9b3ad5bb3",
+      "binBytes": 609616
+    },
+    {
+      "build": "diag4-pio (PlatformIO dev, pioarduino 55.03.312-1)",
+      "elfSha256": "55a30baf544201220afb90dc58d5c6bd0548df78342c4f558b4f631778ea52c1",
+      "binSha256": "427cc6c9127ead83c6ffc09039f875838b06abdd9dba0468d8be8f56640d4658",
+      "binBytes": 636624
+    },
+    {
+      "build": "0c1fa862dd-dirty-pio-dev (generated build ID, review fixes)",
+      "elfSha256": "1d19cdddb14337a515f0483f4f6b08ade26836de0ecdaf21582ad6e13809cb3f",
+      "binSha256": "fad16c4cd0a3d62b9af2345d0110144b917771ea8fa9d41415ba4e6819149e15",
+      "binBytes": 636640
+    },
+    {
+      "build": "2ed7b2090c-dirty-srceed3f97e-pio-dev (source-hash build ID)",
+      "elfSha256": "bdfa775501d2a119ce7a9a1297c0da77fe39455730f3bd92652cc7772561b6cf",
+      "binSha256": "2cbcf447a7475dbac09c46ed1ff195175e861ebeec4b35d1b4c6367be27007b9",
+      "binBytes": 636640
+    }
+  ],
+  "files": [
+    {
+      "file": "diag1.log",
+      "sha256": "a85e7a38634f6b8075752ca485e987100ed27893a372c588b9233b3ef7650dd7"
+    },
+    {
+      "file": "diag2.log",
+      "sha256": "e0f11e3327a305a5949781950ef5fac443a0e477dad0cab3ab0774c7919a5dc5"
+    },
+    {
+      "file": "diag3.log",
+      "sha256": "2e74bec749362cd18f4d37de5522ce53649dcdd0559cd4bee4a238fd7d1d5581"
+    },
+    {
+      "file": "diag4-pio.log",
+      "sha256": "e6e785da9feff9b4ba216f706853301a4630a145a7e2858564a9ecd086329bce"
+    },
+    {
+      "file": "diag5-buildid.log",
+      "sha256": "8e8f05bb3f8d01bbd9f9ccfcc345bc1139b56070fa355873f744d0680c24a834"
+    },
+    {
+      "file": "diag6-srchash.log",
+      "sha256": "8cc329dff18a7c5b239cc17c2ac873fff971f9d7de43b23993394e1ad7e23bac"
+    },
+    {
+      "file": "pair-diag2-1.json",
+      "sha256": "62b7715177a419d40a98bf31f3b26e10bc7eb52f7a8e6232b414cb5a8914eda7"
+    },
+    {
+      "file": "unpair-pair-diag3d.json",
+      "sha256": "52227e1b964e0d58f480af9965ca4114fa48775c2ead30961337dcefda2bb9b3"
+    }
+  ]
+}

@@ -46,6 +46,7 @@ Determine and resolve why Windows subscribes to keyboard report ID 1 but not mou
 - Keyboard injection or modifier testing, unrelated devices, scanner redesign, and declaring HID complete without every hardware acceptance observation.
 - Changing BLE backend, framework, board family, security model, or public command/report interface without renewed architecture approval.
 - Continuing the inherited universal-ai-project-template issue sequence or publishing to its remote.
+- FE1.1s USB hub integration or any USB-hub hardware path; this project is BLE HID only.
 
 ## Constraints and approval gates
 
@@ -56,6 +57,7 @@ Determine and resolve why Windows subscribes to keyboard report ID 1 but not mou
 - Keep t mouse-only; no Ctrl/Shift/Alt/GUI test reports while notification stability is unresolved; no t before mouse_sub=yes.
 - Before changing report map bytes, parse the existing descriptor and inspect the exact 3.3.12 implementation and primary Windows HOGP expectations.
 - Use small testable changes and retain each result; a successful build is not hardware verification.
+- Keep code modular so a model can work on one part without re-reading the whole codebase. Firmware lives in single-responsibility modules listed in `firmware/BLEScanner_WORKING_v7/MODULES.md`, each with a header that is its contract. New behavior goes in its owning module or a new one, never back into a monolithic sketch, and the index is updated in the same change. Scripts follow the same rule: one focused module or helper per concern.
 - No hardware operation, Windows pairing/cache changes, flash/erase, Git publication, communications, credential access, permissions changes, or toolchain migration without the applicable explicit authority.
 - Preserve pre-existing archive/BLEScanner.ino and untracked scripts/Invoke-BleAutoPair.ps1; their presence does not authorize execution.
 
