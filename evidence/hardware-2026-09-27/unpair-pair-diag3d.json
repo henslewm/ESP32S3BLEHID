@@ -1,0 +1,114 @@
+{
+    "schemaVersion":  1,
+    "startedUtc":  "2026-09-27T13:18:22.1836202Z",
+    "endedUtc":  "2026-09-27T13:18:25.1563547Z",
+    "hostName":  "WINSTONDESKTOP",
+    "processId":  50516,
+    "address":  "7C:4F:AD:21:52:89",
+    "nameLabel":  "S3-HID-KM-v7",
+    "outcome":  "succeeded",
+    "exitCode":  0,
+    "message":  "Requested Windows state verified for the exact address. HID subscription still requires serial q.",
+    "exception":  null,
+    "operations":  [
+                       {
+                           "method":  "CreateFromIdAsync",
+                           "startedUtc":  "2026-09-27T13:18:22.4404473Z",
+                           "endedUtc":  "2026-09-27T13:18:22.4542700Z",
+                           "elapsedMs":  13,
+                           "nativeStatus":  null,
+                           "exception":  null,
+                           "timedOut":  false,
+                           "cancellationRequested":  false,
+                           "cancellationError":  null,
+                           "terminal":  true,
+                           "terminalObservedUtc":  "2026-09-27T13:18:22.4512699Z"
+                       },
+                       {
+                           "method":  "UnpairAsync",
+                           "startedUtc":  "2026-09-27T13:18:22.4933382Z",
+                           "endedUtc":  "2026-09-27T13:18:23.7653298Z",
+                           "elapsedMs":  1271,
+                           "nativeStatus":  "Unpaired",
+                           "exception":  null,
+                           "timedOut":  false,
+                           "cancellationRequested":  false,
+                           "cancellationError":  null,
+                           "terminal":  true,
+                           "terminalObservedUtc":  "2026-09-27T13:18:23.7776070Z"
+                       },
+                       {
+                           "method":  "CreateFromIdAsync",
+                           "startedUtc":  "2026-09-27T13:18:23.7756038Z",
+                           "endedUtc":  "2026-09-27T13:18:23.7766064Z",
+                           "elapsedMs":  1,
+                           "nativeStatus":  null,
+                           "exception":  null,
+                           "timedOut":  false,
+                           "cancellationRequested":  false,
+                           "cancellationError":  null,
+                           "terminal":  true,
+                           "terminalObservedUtc":  "2026-09-27T13:18:23.7766064Z"
+                       },
+                       {
+                           "method":  "CustomPairAsync",
+                           "startedUtc":  "2026-09-27T13:18:23.7872015Z",
+                           "endedUtc":  "2026-09-27T13:18:25.1161262Z",
+                           "elapsedMs":  1328,
+                           "nativeStatus":  "Paired",
+                           "exception":  null,
+                           "timedOut":  false,
+                           "cancellationRequested":  false,
+                           "cancellationError":  null,
+                           "terminal":  true,
+                           "terminalObservedUtc":  "2026-09-27T13:18:25.1490532Z"
+                       },
+                       {
+                           "method":  "CreateFromIdAsync",
+                           "startedUtc":  "2026-09-27T13:18:25.1440538Z",
+                           "endedUtc":  "2026-09-27T13:18:25.1480471Z",
+                           "elapsedMs":  4,
+                           "nativeStatus":  null,
+                           "exception":  null,
+                           "timedOut":  false,
+                           "cancellationRequested":  false,
+                           "cancellationError":  null,
+                           "terminal":  true,
+                           "terminalObservedUtc":  "2026-09-27T13:18:25.1480471Z"
+                       }
+                   ],
+    "devices":  [
+                    {
+                        "address":  "7C:4F:AD:21:52:89",
+                        "name":  "S3-HID-KM-v7",
+                        "aepId":  "BluetoothLE#BluetoothLE70:32:17:45:b7:d9-7c:4f:ad:21:52:89",
+                        "kind":  "AssociationEndpoint",
+                        "isPaired":  true,
+                        "canPair":  false,
+                        "isPresent":  true,
+                        "isConnectable":  false
+                    }
+                ],
+    "stateBefore":  {
+                        "address":  "7C:4F:AD:21:52:89",
+                        "name":  "S3-HID-KM-v7",
+                        "aepId":  "BluetoothLE#BluetoothLE70:32:17:45:b7:d9-7c:4f:ad:21:52:89",
+                        "kind":  "AssociationEndpoint",
+                        "isPaired":  true,
+                        "canPair":  false,
+                        "isPresent":  true,
+                        "isConnectable":  false
+                    },
+    "stateAfter":  {
+                       "address":  "7C:4F:AD:21:52:89",
+                       "name":  "S3-HID-KM-v7",
+                       "aepId":  "BluetoothLE#BluetoothLE70:32:17:45:b7:d9-7c:4f:ad:21:52:89",
+                       "kind":  "AssociationEndpoint",
+                       "isPaired":  true,
+                       "canPair":  false,
+                       "isPresent":  true,
+                       "isConnectable":  false
+                   },
+    "scriptSha256":  "DB1E29DB283BF8546045496687F2A2C6A6C4C1AFAE2DD6A4041BCFA7B04CF196",
+    "moduleSha256":  "0031097F405895E25C8C49DF55E7624F71909D911F7A61A6148442CAF5B15270"
+}

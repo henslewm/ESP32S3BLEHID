@@ -157,6 +157,43 @@ InModuleScope BlePairing {
             Assert-MockCalled -Scope It Invoke-BleMutation -Times 1
         }
     }
+    Describe 'Exact-address lookup and custom pairing wrappers' {
+        It 'opens an addressed device directly and never enumerates all endpoints' {
+            Mock Invoke-BleNativeOperation {
+                $op = New-TestOperation ''
+                if ($Method -eq 'FromBluetoothAddressAsync') { $op.value = [pscustomobject]@{ DeviceId='BluetoothLE#x-7c:4f:ad:21:52:89' } }
+                if ($Method -eq 'CreateFromIdAsync') { $op.value = New-TestDevice '7C:4F:AD:21:52:89' }
+                $op
+            }
+            $found = Get-BleDiscovery -Address '7C:4F:AD:21:52:89'
+            @($found.devices).Count | Should Be 1
+            Assert-MockCalled -Scope It Invoke-BleNativeOperation -Times 1 -ParameterFilter { $Method -eq 'FromBluetoothAddressAsync' }
+            Assert-MockCalled -Scope It Invoke-BleNativeOperation -Times 1 -ParameterFilter { $Method -eq 'CreateFromIdAsync' }
+            Assert-MockCalled -Scope It Invoke-BleNativeOperation -Times 0 -ParameterFilter { $Method -eq 'FindAllAsync' }
+        }
+        It 'returns no device and no endpoint query when the address is not known' {
+            Mock Invoke-BleNativeOperation { New-TestOperation '' }
+            $found = Get-BleDiscovery -Address '7C:4F:AD:21:52:89'
+            @($found.devices).Count | Should Be 0
+            $found.operation.method | Should Be 'Test'
+            Assert-MockCalled -Scope It Invoke-BleNativeOperation -Times 0 -ParameterFilter { $Method -eq 'CreateFromIdAsync' }
+        }
+        It 'reads properties from a WinRT-style key/value sequence without ContainsKey' {
+            $pairs = [System.Collections.Generic.List[System.Collections.Generic.KeyValuePair[string,object]]]::new()
+            $pairs.Add([System.Collections.Generic.KeyValuePair[string,object]]::new('System.Devices.Aep.DeviceAddress', '7c:4f:ad:21:52:89'))
+            $device = [pscustomobject]@{ Properties=$pairs.AsReadOnly() }
+            Get-BleProperty $device 'System.Devices.Aep.DeviceAddress' | Should Be '7c:4f:ad:21:52:89'
+            Get-BleProperty $device 'System.Devices.Aep.IsPaired' | Should BeNullOrEmpty
+        }
+        It 'pairs through the in-process ConfirmOnly helper and unpairs natively' {
+            Mock Invoke-BleNativeOperation { New-TestOperation }
+            $null = Invoke-BleMutation (New-TestDevice) 'Pair'
+            $null = Invoke-BleMutation (New-TestDevice) 'Unpair'
+            Assert-MockCalled -Scope It Invoke-BleNativeOperation -Times 1 -ParameterFilter { $Method -eq 'CustomPairAsync' }
+            Assert-MockCalled -Scope It Invoke-BleNativeOperation -Times 1 -ParameterFilter { $Method -eq 'UnpairAsync' }
+            Assert-MockCalled -Scope It Invoke-BleNativeOperation -Times 0 -ParameterFilter { $Method -eq 'PairAsync' }
+        }
+    }
     Describe 'Bounded operation wrappers' {
         It 'requests cancellation when the native wait times out' {
             Mock ConvertTo-BleTask { [pscustomobject]@{ IsCompleted=$false } }

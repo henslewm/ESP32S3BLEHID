@@ -1,0 +1,121 @@
+2026-09-27T10:04:01.162 # bridge open COM10 921600
+2026-09-27T10:04:04.601 > i
+2026-09-27T10:04:04.680 < 
+2026-09-27T10:04:04.680 < SYSTEM INFO
+2026-09-27T10:04:04.680 < Build: v7-split-diag4-pio compiled Sep 27 2026 10:03:39
+2026-09-27T10:04:04.680 < BLE stack: NimBLE
+2026-09-27T10:04:04.680 < CPU: 240 MHz
+2026-09-27T10:04:04.680 < Flash: 16777216 bytes
+2026-09-27T10:04:04.680 < Free heap: 178036 bytes
+2026-09-27T10:04:04.680 < PSRAM: 8388608 bytes
+2026-09-27T10:04:04.680 < NimBLE BLE5 feature support: yes
+2026-09-27T10:04:04.680 < Low-level NimBLE EXT_SCAN: not enabled
+2026-09-27T10:04:04.680 < HID mode: off connected=no keyboard_sub=no mouse_sub=no
+2026-09-27T10:04:04.680 < 
+2026-09-27T10:04:06.152 > b
+2026-09-27T10:04:06.231 < [HID] Building GATT/HID services...
+2026-09-27T10:04:06.231 < Build: v7-split-diag4-pio compiled Sep 27 2026 10:03:39
+2026-09-27T10:04:06.231 < [DIAG] report value handles: keyboard(ID1)=29 mouse(ID2)=33
+2026-09-27T10:04:06.231 < [DIAG] GAP listener register rc=0
+2026-09-27T10:04:06.231 < 
+2026-09-27T10:04:06.231 < [HID] Mode STARTED. Advertising as S3-HID-KM-v7 (Generic HID keyboard + mouse).
+2026-09-27T10:04:06.231 < [HID] Pairing: Just Works (no PIN). Bonding enabled.
+2026-09-27T10:04:06.231 < [HID] GAP appearance=0x03C0 Generic HID; PnP vendor source=Bluetooth SIG, vendor=0x02E5.
+2026-09-27T10:04:06.231 < [HID] The scanner is paused. Use 1-4 to resume scanning,
+2026-09-27T10:04:06.231 < [HID] or B to stop HID mode.
+2026-09-27T10:04:06.231 < [HID] After the target pairs and connects, press t to
+2026-09-27T10:04:06.231 < [HID] run the mouse-only notification diagnostic.
+2026-09-27T10:04:07.322 < [DIAG 17354] connect status=0 conn=1 encrypted=0 authenticated=0 bonded=0 key_size=0 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:07.322 < 
+2026-09-27T10:04:07.322 < [HID] Central CONNECTED. Pairing/bonding in progress.
+2026-09-27T10:04:07.322 < [HID] Watch the Win11 target now: Defender history,
+2026-09-27T10:04:07.322 < [HID] Sysmon events, and the Bluetooth devices list.
+2026-09-27T10:04:07.385 < [DIAG 17444] enc_change status=0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:07.385 < [DIAG 17444] subscribe attr=8(OTHER) reason=restore notify 0->0 indicate 0->1 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:07.385 < [DIAG 17444] subscribe attr=38(OTHER) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:07.385 < [DIAG 17445] subscribe attr=29(keyboard(ID1)) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:07.385 < [HID] keyboard notifications: SUBSCRIBED
+2026-09-27T10:04:07.385 < [DIAG 17446] subscribe attr=33(mouse(ID2)) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:07.385 < [HID] mouse notifications: SUBSCRIBED
+2026-09-27T10:04:16.168 > q
+2026-09-27T10:04:16.246 < [HID] mode=yes connected=yes keyboard_sub=yes mouse_sub=yes
+2026-09-27T10:04:17.167 > t
+2026-09-27T10:04:17.244 < 
+2026-09-27T10:04:17.244 < [HID t] mouse-only diagnostic test
+2026-09-27T10:04:17.244 < [HID t] mode=yes connected=yes mouse_subscribed=yes
+2026-09-27T10:04:17.244 < [HID t] STEP 1 -> neutral mouse notify
+2026-09-27T10:04:17.383 < [HID t] STEP 2 -> mouse dx=6 dy=0
+2026-09-27T10:04:17.525 < [HID t] STEP 3 -> mouse dx=0 dy=6
+2026-09-27T10:04:17.666 < [HID t] STEP 4 -> mouse dx=-6 dy=0
+2026-09-27T10:04:17.807 < [HID t] STEP 5 -> mouse dx=0 dy=-6
+2026-09-27T10:04:17.947 < [HID t] STEP 6 -> final neutral mouse notify
+2026-09-27T10:04:18.088 < [HID t] PASS: mouse-only HID notification path stayed connected.
+2026-09-27T10:04:19.713 > 1
+2026-09-27T10:04:19.792 < [HID] stop: sending neutral mouse report...
+2026-09-27T10:04:19.792 < [HID] stop: disconnecting conn=1
+2026-09-27T10:04:19.792 < 
+2026-09-27T10:04:19.792 < [HID] Mode STOPPED. HID advertising halted.
+2026-09-27T10:04:19.792 < [HID] The scanner remains paused; use 1-4 to scan again.
+2026-09-27T10:04:19.792 < Starting ACTIVE scan (quiet output)...
+2026-09-27T10:04:19.792 < [DIAG 29835] subscribe attr=8(OTHER) reason=term notify 0->0 indicate 1->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:19.792 < [DIAG 29835] subscribe attr=29(keyboard(ID1)) reason=term notify 1->0 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:19.792 < [HID] keyboard notifications: off
+2026-09-27T10:04:19.792 < [DIAG 29836] subscribe attr=33(mouse(ID2)) reason=term notify 1->0 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:19.792 < [HID] mouse notifications: off
+2026-09-27T10:04:19.792 < [DIAG 29837] subscribe attr=38(OTHER) reason=term notify 1->0 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:19.792 < [DIAG 29837] disconnect reason=0x216
+2026-09-27T10:04:19.792 < [HID] Central disconnected.
+2026-09-27T10:04:25.728 > s
+2026-09-27T10:04:25.748 < 
+2026-09-27T10:04:25.748 < ================ NIMBLE RESEARCH SUMMARY ================
+2026-09-27T10:04:25.748 < stack=NimBLE scanning=yes active=yes duplicates=kept slices=1 hid_mode=off
+2026-09-27T10:04:25.748 < reports=363 queue_drops=0 stats_drops=0 scan_start_failures=0
+2026-09-27T10:04:25.748 < heap_free=160720 heap_min=160592 psram_total=8388608 psram_free=8386096
+2026-09-27T10:04:25.748 < addr=1B:A3:F2:CE:E5:12 type=random/non_resolvable_private reports=49 changes=0 conn=no scan=no rssi[min/mean/max/sd]=-82/-36.0/-20/20.9 cadence[min/mean/max]=101/123.0/326_ms evt[adv=0 dir=0 scan=0 nonconn=49 rsp=0 other=0] company=0x0006(Microsoft) age=53_ms fp=F4F9B396
+2026-09-27T10:04:25.748 < addr=6C:C8:40:3E:9B:3A type=public/n/a reports=23 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-85/-74.7/-71/4.5 cadence[min/mean/max]=161/262.6/499_ms evt[adv=23 dir=0 scan=0 nonconn=0 rsp=0 other=0] name="PROV_3E9B38F" age=160_ms fp=F942495D
+2026-09-27T10:04:25.748 < addr=DC:73:B0:74:06:28 type=random/static_random reports=57 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-93/-87.7/-85/1.7 cadence[min/mean/max]=39/105.6/295_ms evt[adv=57 dir=0 scan=0 nonconn=0 rsp=0 other=0] name="EcoNet-FRN-W222323470" age=16_ms fp=429A174A
+2026-09-27T10:04:25.748 < addr=6D:AD:AD:16:45:04 type=random/resolvable_private reports=1 changes=0 conn=no scan=yes rssi[min/mean/max/sd]=-91/-91.0/-91/0.0 evt[adv=0 dir=0 scan=1 nonconn=0 rsp=0 other=0] company=0x00E0(Google) age=5915_ms fp=E079466B
+2026-09-27T10:04:25.748 < addr=64:50:BA:9A:D1:BE type=random/resolvable_private reports=15 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-57/-49.5/-45/3.0 cadence[min/mean/max]=270/413.9/831_ms evt[adv=15 dir=0 scan=0 nonconn=0 rsp=0 other=0] company=0x004C(Apple) tx=8_dBm age=66_ms fp=763EFFCF
+2026-09-27T10:04:25.748 < addr=70:32:17:45:B7:D9 type=public_identity/n/a reports=45 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-28/-25.8/-20/1.8 cadence[min/mean/max]=95/133.1/315_ms evt[adv=45 dir=0 scan=0 nonconn=0 rsp=0 other=0] name="WINSTONDESKTOP" age=2_ms fp=008558B7
+2026-09-27T10:04:25.748 < addr=CC:7B:C0:27:63:13 type=random/static_random reports=2 changes=0 conn=no scan=no rssi[min/mean/max/sd]=-53/-49.0/-45/5.7 cadence[min/mean/max]=2000/2000.0/2000_ms evt[adv=0 dir=0 scan=0 nonconn=2 rsp=0 other=0] company=0x004C(Apple) age=3844_ms fp=CF8709CA
+2026-09-27T10:04:25.748 < addr=30:09:F9:72:0D:F1 type=public/n/a reports=14 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-89/-82.7/-81/2.7 cadence[min/mean/max]=302/439.5/928_ms evt[adv=14 dir=0 scan=0 nonconn=0 rsp=0 other=0] company=0x0600 name="IoT_PWS." age=7_ms fp=40617B08
+2026-09-27T10:04:25.748 < addr=A4:30:7A:87:56:B7 type=public/n/a reports=30 changes=0 conn=no scan=no rssi[min/mean/max/sd]=-88/-82.8/-78/2.6 cadence[min/mean/max]=150/191.4/605_ms evt[adv=0 dir=0 scan=0 nonconn=30 rsp=0 other=0] company=0x0075 age=148_ms fp=4C5E1783
+2026-09-27T10:04:25.748 < addr=F0:C7:B5:8B:94:A4 type=random/static_random reports=69 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-91/-86.7/-82/2.2 cadence[min/mean/max]=40/83.1/398_ms evt[adv=69 dir=0 scan=0 nonconn=0 rsp=0 other=0] name="EcoNet-ODU-W112416801" age=38_ms fp=095CA2E3
+2026-09-27T10:04:25.748 < addr=F5:FB:FB:41:17:EA type=random/static_random reports=3 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-71/-66.3/-64/4.0 cadence[min/mean/max]=2002/2005.0/2008_ms evt[adv=3 dir=0 scan=0 nonconn=0 rsp=0 other=0] company=0x004C(Apple) age=1482_ms fp=8296B4F6
+2026-09-27T10:04:25.748 < addr=D8:D6:68:D7:4C:EE type=public/n/a reports=16 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-92/-90.2/-88/1.2 cadence[min/mean/max]=101/271.1/937_ms evt[adv=16 dir=0 scan=0 nonconn=0 rsp=0 other=0] company=0x07D0 name="TY" age=756_ms fp=175CDD5A
+2026-09-27T10:04:25.748 < addr=63:C6:74:46:1D:EE type=random/resolvable_private reports=15 changes=0 conn=no scan=yes rssi[min/mean/max/sd]=-72/-62.0/-59/3.7 cadence[min/mean/max]=251/331.5/1022_ms evt[adv=0 dir=0 scan=15 nonconn=0 rsp=0 other=0] company=0x00E0(Google) age=131_ms fp=8BC5C328
+2026-09-27T10:04:25.748 < addr=79:79:79:8D:3B:7A type=random/resolvable_private reports=13 changes=0 conn=no scan=yes rssi[min/mean/max/sd]=-86/-84.7/-83/1.2 cadence[min/mean/max]=253/344.8/518_ms evt[adv=0 dir=0 scan=13 nonconn=0 rsp=0 other=0] company=0x00E0(Google) age=421_ms fp=5E6DF7DC
+2026-09-27T10:04:25.806 < addr=C4:D0:0C:9F:88:B7 type=random/static_random reports=2 changes=0 conn=no scan=no rssi[min/mean/max/sd]=-74/-74.0/-74/0.0 cadence[min/mean/max]=2005/2005.0/2005_ms evt[adv=0 dir=0 scan=0 nonconn=2 rsp=0 other=0] company=0x004C(Apple) age=2323_ms fp=D0870B5D
+2026-09-27T10:04:25.806 < addr=D1:D7:DF:06:88:00 type=random/static_random reports=1 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-47/-47.0/-47/0.0 evt[adv=1 dir=0 scan=0 nonconn=0 rsp=0 other=0] age=3858_ms fp=A114CC8E
+2026-09-27T10:04:25.806 < addr=A3:7B:B0:8D:1F:39 type=public/n/a reports=5 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-93/-91.8/-91/0.8 cadence[min/mean/max]=104/682.5/1682_ms evt[adv=5 dir=0 scan=0 nonconn=0 rsp=0 other=0] age=43_ms fp=DF9A8498
+2026-09-27T10:04:25.806 < addr=80:16:09:02:1A:D1 type=public/n/a reports=1 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-93/-93.0/-93/0.0 evt[adv=1 dir=0 scan=0 nonconn=0 rsp=0 other=0] company=0xFFFF name="Smart bed 021AD1" age=2724_ms fp=65BE15DC
+2026-09-27T10:04:25.806 < addr=BC:04:35:DB:79:59 type=public/n/a reports=2 changes=0 conn=yes scan=yes rssi[min/mean/max/sd]=-93/-92.5/-92/0.7 cadence[min/mean/max]=925/925.0/925_ms evt[adv=2 dir=0 scan=0 nonconn=0 rsp=0 other=0] company=0x06A8 name="net" age=1612_ms fp=83EE0FC3
+2026-09-27T10:04:25.806 < tracked=19/256 rssi_print_floor=-127 verbose=off raw=off decode=on
+2026-09-27T10:04:25.806 < =========================================================
+2026-09-27T10:04:27.201 > p
+2026-09-27T10:04:27.279 < Pausing scanner...
+2026-09-27T10:04:28.044 > b
+2026-09-27T10:04:28.123 < Build: v7-split-diag4-pio compiled Sep 27 2026 10:03:39
+2026-09-27T10:04:28.123 < [DIAG] report value handles: keyboard(ID1)=29 mouse(ID2)=33
+2026-09-27T10:04:28.123 < 
+2026-09-27T10:04:28.123 < [HID] Mode STARTED. Advertising as S3-HID-KM-v7 (Generic HID keyboard + mouse).
+2026-09-27T10:04:28.123 < [HID] Pairing: Just Works (no PIN). Bonding enabled.
+2026-09-27T10:04:28.123 < [HID] GAP appearance=0x03C0 Generic HID; PnP vendor source=Bluetooth SIG, vendor=0x02E5.
+2026-09-27T10:04:28.123 < [HID] The scanner is paused. Use 1-4 to resume scanning,
+2026-09-27T10:04:28.123 < [HID] or B to stop HID mode.
+2026-09-27T10:04:28.123 < [HID] After the target pairs and connects, press t to
+2026-09-27T10:04:28.123 < [HID] run the mouse-only notification diagnostic.
+2026-09-27T10:04:29.201 < [DIAG 39225] connect status=0 conn=1 encrypted=0 authenticated=0 bonded=0 key_size=0 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:29.201 < 
+2026-09-27T10:04:29.201 < [HID] Central CONNECTED. Pairing/bonding in progress.
+2026-09-27T10:04:29.201 < [HID] Watch the Win11 target now: Defender history,
+2026-09-27T10:04:29.201 < [HID] Sysmon events, and the Bluetooth devices list.
+2026-09-27T10:04:29.264 < [DIAG 39315] enc_change status=0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:29.264 < [DIAG 39315] subscribe attr=8(OTHER) reason=restore notify 0->0 indicate 0->1 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:29.264 < [DIAG 39315] subscribe attr=38(OTHER) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:29.264 < [DIAG 39316] subscribe attr=29(keyboard(ID1)) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:29.264 < [HID] keyboard notifications: SUBSCRIBED
+2026-09-27T10:04:29.264 < [DIAG 39316] subscribe attr=33(mouse(ID2)) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T10:04:29.264 < [HID] mouse notifications: SUBSCRIBED
+2026-09-27T10:04:36.051 > q
+2026-09-27T10:04:36.129 < [HID] mode=yes connected=yes keyboard_sub=yes mouse_sub=yes

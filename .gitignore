@@ -37,3 +37,6 @@ bootstrap-answers.local.json
 
 # Claude desktop app session artifacts saved into the working folder
 Claude outputs/
+
+# PlatformIO build output
+.pio/

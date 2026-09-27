@@ -1,0 +1,43 @@
+{
+    "schemaVersion":  1,
+    "startedUtc":  "2026-09-27T13:06:15.8489149Z",
+    "endedUtc":  "2026-09-27T13:06:46.0169472Z",
+    "hostName":  "WINSTONDESKTOP",
+    "processId":  3508,
+    "address":  "7C:4F:AD:21:52:89",
+    "nameLabel":  "S3-HID-KM-v7",
+    "outcome":  "unknown",
+    "exitCode":  3,
+    "message":  "Discovery failed: A task was canceled.",
+    "exception":  {
+                      "type":  "System.Management.Automation.RuntimeException",
+                      "message":  "Discovery failed: A task was canceled.",
+                      "hresult":  "0x80131501"
+                  },
+    "operations":  [
+                       {
+                           "method":  "FindAllAsync",
+                           "startedUtc":  "2026-09-27T13:06:15.9154019Z",
+                           "endedUtc":  "2026-09-27T13:06:45.9950448Z",
+                           "elapsedMs":  30078,
+                           "nativeStatus":  null,
+                           "exception":  {
+                                             "type":  "System.Threading.Tasks.TaskCanceledException",
+                                             "message":  "A task was canceled.",
+                                             "hresult":  "0x8013153B"
+                                         },
+                           "timedOut":  true,
+                           "cancellationRequested":  true,
+                           "cancellationError":  null,
+                           "terminal":  true,
+                           "terminalObservedUtc":  "2026-09-27T13:06:45.9573831Z"
+                       }
+                   ],
+    "devices":  [
+
+                ],
+    "stateBefore":  null,
+    "stateAfter":  null,
+    "scriptSha256":  "DB1E29DB283BF8546045496687F2A2C6A6C4C1AFAE2DD6A4041BCFA7B04CF196",
+    "moduleSha256":  "5D453E96C2FE14C0029178957E2BD451D4FF6B1CC2B602DCA2F73920698665D8"
+}

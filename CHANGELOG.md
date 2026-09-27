@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-09-27 — PlatformIO build and template hand-off
+
+- Adapted the user's `platformio.ini` (original archived): pioarduino `55.03.312-1` for Arduino 3.3.12, `src_dir` set to the sketch, quiet `dev` log level, 921600 monitor. Board confirmed N16R8 by esptool. Build `v7-split-diag4-pio` flashed and passed the hardware smoke test with 8 MB PSRAM visible.
+- Added PlatformIO rules: `docs/PLATFORMIO.md`, `.claude/rules/06-platformio.md` and a `DOMAIN_PROFILE.md` Build configuration section (bound, so re-approval is needed). Verified the arduino-cli equivalent compiles.
+- Posted sanitized template issue henslewm/universal-ai-project-template#51 and opened PR #52 (not merged) adding the modular-code and PlatformIO rules to the template. Placeholder values are kept locally in ignored `build/local-identifiers.ps1`.
+
+## 2026-09-27 — mouse fixed, automatic pairing, modular firmware
+
+- Excluded FE1.1s USB hub integration in the charter (ESP-ADR-012); renewed approval recorded.
+- Split the working sketch into 14 modules with `MODULES.md`, generated from the locked baseline by `scripts/split_v7_sketch.py`. Added a modular-code charter rule and `.claude/rules/05-modular-code.md`. The charter change needs re-approval.
+- Root cause of `mouse_sub=no`: core 3.3.12 silently drops the second 0x2A4D input report. Fixed with `hid_core_workaround.cpp`. Added observation-only `hid_diag` (build ID, handles, GAP subscribe/encryption log).
+- `stopHidMode` now disconnects the host (a pre-existing bug left Windows connected).
+- Pairing script: exact-address lookup plus in-process ConfirmOnly custom pairing (`BleCustomPairing.cs`); fixed WinRT property-bag access. 44/44 Pester tests pass.
+- Hardware (COM10): both subscriptions, HID keyboard and mouse devices present, `t` PASS, scanner return, automatic reconnect, and automatic unpair/re-pair exit 0. Added `scripts/serial_bridge.py`. [Record](evidence/mouse-fix-2026-09-27.md).
+
 ## 2026-09-27 — publication checkpoint and focused mouse handoff
 
 - User authorized documenting, committing and pushing the current work and opening a mouse issue for smaller chat continuations. Verified that the inherited origin is the template and requested the correct destination before publication.

@@ -6,6 +6,10 @@ This project specializes [the canonical software-hardware profile](templates/sof
 
 Keep immutable v7 evidence and experiment only in copied sketches. Pin esp32:esp32:esp32s3, Arduino-ESP32 3.3.12, built-in NimBLE and serial 921600. Preserve quiet boot, scanner command behavior, manufacturer-characteristic creation workaround, separate keyboard report 1/mouse report 2, and Report Reference semantics. Never prepend report IDs to GATT values, use clearDuplicateCache(), reintroduce Bluedroid-only APIs, or send Ctrl/Shift/Alt/GUI tests while notification stability is unresolved.
 
+## Build configuration
+
+Keep a root `platformio.ini` generated under [docs/PLATFORMIO.md](docs/PLATFORMIO.md): observed hardware, a pinned platform matching Arduino-ESP32 3.3.12 (pioarduino `55.03.312-1`), hardware-ID ports and a quiet default log level. arduino-cli with the documented equivalent FQBN remains a supported build path. Evidence names the toolchain and ELF hash of every flashed build. Firmware code follows the modular rule in `PROJECT_CHARTER.md` and `firmware/BLEScanner_WORKING_v7/MODULES.md`.
+
 ## Ordered investigation
 
 1. Parse the existing descriptor byte-for-byte and retain offsets, collections, IDs and report lengths.

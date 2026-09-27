@@ -1,33 +1,28 @@
 # Current Handoff
 
-## Current direction
+## Where things stand (2026-09-27)
 
-On 2026-09-27 the user requested documentation, commit/push and a new mouse issue so subsequent chat branches can work on smaller pieces. This closeout preserves the current work; it does not continue firmware or hardware investigation. Wazuh and VM lab remain deferred.
+The ESP32-S3 now pairs with WINSTONDESKTOP as a BLE keyboard and mouse. Windows can remove and re-add it automatically.
 
-The user clarified that the earlier PowerShell pop-up question was not a stop instruction and rejected unauthorized master-file edits. Their targeted rollback is complete. The approved Write-Output 'background-check' returned exit 0, but its window behavior was not separately confirmed. Use captured output and hidden child helpers; do not claim the console issue is fixed. No new goals or requirements were approved through that episode.
+- **Mouse fix.** Core 3.3.12 silently dropped the second HID input report (same UUID 0x2A4D). `hid_core_workaround.cpp` registers it. Hardware now shows `connected=yes keyboard_sub=yes mouse_sub=yes`, HID Keyboard Device plus HID-compliant mouse in Windows, `t` PASS and no resets. [Record](evidence/mouse-fix-2026-09-27.md).
+- **Automatic pairing.** `powershell.exe -File scripts/Invoke-BleAutoPair.ps1 -BleAddress 7C:4F:AD:21:52:89 -Unpair -Pair` exits 0. It opens the device by exact address and accepts Just Works in-process (ConfirmOnly helper). After a reset or `B`/`b`, the bonded host reconnects on its own.
+- **Modular firmware.** Start at [MODULES.md](firmware/BLEScanner_WORKING_v7/MODULES.md) and open only the owning module. The charter now requires this (the rule is pending re-approval).
+- **Build and flash:**
+  - Compile with `arduino-cli compile -b esp32:esp32:esp32s3:CDCOnBoot=cdc --build-path build/<id> --output-dir build/<id>-out firmware/BLEScanner_WORKING_v7`.
+  - Upload with `-p COM10`.
+  - Serial runs through `python scripts/serial_bridge.py --port COM10 --log build/serial/<id>.log`; append commands to `build/serial/inbox.txt` and send `__quit__` before uploading.
+  - Current flashed build: `v7-split-diag4-pio` (PlatformIO; see below).
 
-## Next mouse chat
+## PlatformIO
 
-Start with [mouse issue #1](https://github.com/henslewm/ESP32S3BLEHID/issues/1) and [docs/MOUSE_INVESTIGATION.md](docs/MOUSE_INVESTIGATION.md). The unresolved observation is q twice reporting `mode=yes connected=yes keyboard_sub=yes mouse_sub=no` after the operator's manual Settings action. [Exact operator text](evidence/operator-serial-q-2026-09-27.md).
+The root `platformio.ini` builds this sketch with Arduino 3.3.12 through pioarduino `55.03.312-1`. Use `pio run -e dev -t upload` (the port is selected by USB ID). Rules are in `docs/PLATFORMIO.md`. The flashed build is now `v7-split-diag4-pio` (ELF `55a30baf…52c1`). Template issue #51 and PR #52 carry the sanitized write-up and the rules. Placeholder values are in ignored `build/local-identifiers.ps1`.
 
-The suggested first small slice is the existing descriptor/report-reference audit: parse v7's map, trace keyboard ID 1 and mouse ID 2 through the exact core/GATT construction, and return evidence plus one bounded next experiment proposal. [Reference review](evidence/hid-reference-review-2026-09-27.md) covers combo/Hijel construction, Bit Pirate v1.6 report corrections and USB/BLE/Classic distinctions. No replacement library was selected.
+## Open
 
-Some running serial instrumentation is absent from the preserved source; exact flashed artifact and type99 meaning remain unknown. Establish build identity before attributing a code finding to the operator's device.
+1. The user re-approves the foundation (`python scripts/bootstrap_gate.py activate`) for the modular-code charter rule. The gate is inactive until then.
+2. The operator visually confirms that `t` moves the cursor. Agent cursor sampling was swamped by real mouse motion.
+3. Commit/push, issue #1 update and an upstream core bug report are all unperformed and need authority.
+4. Keyboard input beyond neutral reports stays out of scope under the current charter. Scripted automation of real work needs a charter revision.
+5. The telemetry comparison and cross-family acceptance review (ESP-007) remain.
 
-## Implementation and evidence
-
-- Pairing CLI/module: `scripts/Invoke-BleAutoPair.ps1`, `scripts/BlePairing.psm1`. Exact-address AEP selection, native unpair, bounded Windows pairing, cancellation/reconciliation and structured outcomes.
-- Telemetry CLI/module: `scripts/Invoke-BlePairingJournal.ps1`, `scripts/BlePairingTelemetry.psm1`. Local categorical comparison with process/fragment/coverage checks and ten-second tails. Real comparison remains pending.
-- Software: 40 passing PS5.1/Pester 3.4 tests, existing-file WinRT bridge, prior read-only collector and synthetic journal smoke. [Validation record](evidence/pairing-validation-2026-09-27.md); not hardware acceptance.
-- [Actual discovery](evidence/local-discovery-2026-09-27.md): E_ACCESSDENIED in the sandbox, desktop queries time out at 30 seconds. No agent PairAsync/UnpairAsync occurred. Selected raw results are tracked under `evidence/discovery-2026-09-27/`; other build output remains ignored.
-- Original pairing script: `archive/Invoke-BleAutoPair.before-repair-2026-09-27.ps1`, preserving CRLF bytes; its LF-normalized content matches the original staged Git blob `c14d9ed72f4809e3415b8ba4e6b7515bb72992c6`.
-
-Locked/working v7 SHA-256 remains `9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6`; older archive SHA-256 remains `310041fecca6c570ce1be86b5c5c90d69a2ad171c09377389297adf7a2d53580`. No firmware edit, build, agent serial command, flash or HID input occurred. Follow the existing charter: t remains mouse-only and requires fresh mouse_sub=yes.
-
-## Foundation and publication
-
-ACTIVE validation passed under Winston's carried approval for fingerprint `e0e761e7c553168d736883930d282a074856095928ed7e45e82c091397b630b2`. This closeout does not change bound architecture documents. README records the existing fallback Python. No installation occurred. A future execution worker still needs its validated packet/environment; the mouse issue is investigation intake, not a dispatched packet.
-
-Prepared on main from `508764d`. At the user's request, [henslewm/ESP32S3BLEHID](https://github.com/henslewm/ESP32S3BLEHID) was created and verified private with ADMIN access; origin now points there. Implementation/evidence checkpoint [43281a2](https://github.com/henslewm/ESP32S3BLEHID/commit/43281a201e1879c06ed054bfc27a04f14e911b7a) was pushed to main and verified by GitHub branch readback. Mouse issue [#1](https://github.com/henslewm/ESP32S3BLEHID/issues/1) is OPEN, with its body verified against the prepared text. This follow-up links those receipts. No write to the inherited template repository occurred.
-
-Suggested opening instruction for the next chat: "Work on issue #1's first descriptor/report-reference audit slice. Read the current handoff and issue, inspect source only, and return findings plus one bounded next experiment proposal."
+Locked baseline SHA-256 `9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6` is unchanged. The working sketch now differs by design (split plus fixes).

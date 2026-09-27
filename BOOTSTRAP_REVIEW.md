@@ -2,7 +2,7 @@
 
 State: AWAITING_APPROVAL — autonomy is OFF until explicit activation.
 Profile: software-hardware
-Architecture fingerprint: `e0e761e7c553168d736883930d282a074856095928ed7e45e82c091397b630b2`
+Architecture fingerprint: `20fc20c2a951b6fc177e186d8566047d820b9d1c04034bd16bd2c4eb9ed5b040`
 
 ## Charter
 
@@ -234,10 +234,10 @@ Architecture fingerprint: `e0e761e7c553168d736883930d282a074856095928ed7e45e82c0
 
 ```json
 {
-  "PROJECT_CHARTER.md": "db74348b838e058c063ef2cec65c4950990217605ce35c5fff736397af0101f3",
+  "PROJECT_CHARTER.md": "d8275774ca3daecd3403847f4ede4c61a49d23a6ac35fd8ef05849cb3a700d00",
   "CONNECTOR_PLAN.md": "45dbdbf4b6513e11517d7d383fcae540616e352ab380f8c380a1e26de96b6667",
   "SKILL_PLAN.md": "e14a47b63afe11db1ff7e9237373a20288ee068f79caa6896289dcee345319a4",
-  "DOMAIN_PROFILE.md": "f8993afd9c350181d571514fcc9fb6445b39e5537d4467d0fff1e83f197ea74f"
+  "DOMAIN_PROFILE.md": "d32cc097e21402e79950cad27b7f0c63a89fc4293fec736eefcf95b4c8113f73"
 }
 ```
 
@@ -295,6 +295,7 @@ Determine and resolve why Windows subscribes to keyboard report ID 1 but not mou
 - Keyboard injection or modifier testing, unrelated devices, scanner redesign, and declaring HID complete without every hardware acceptance observation.
 - Changing BLE backend, framework, board family, security model, or public command/report interface without renewed architecture approval.
 - Continuing the inherited universal-ai-project-template issue sequence or publishing to its remote.
+- FE1.1s USB hub integration or any USB-hub hardware path; this project is BLE HID only.
 
 ## Constraints and approval gates
 
@@ -305,6 +306,7 @@ Determine and resolve why Windows subscribes to keyboard report ID 1 but not mou
 - Keep t mouse-only; no Ctrl/Shift/Alt/GUI test reports while notification stability is unresolved; no t before mouse_sub=yes.
 - Before changing report map bytes, parse the existing descriptor and inspect the exact 3.3.12 implementation and primary Windows HOGP expectations.
 - Use small testable changes and retain each result; a successful build is not hardware verification.
+- Keep code modular so a model can work on one part without re-reading the whole codebase. Firmware lives in single-responsibility modules listed in `firmware/BLEScanner_WORKING_v7/MODULES.md`, each with a header that is its contract. New behavior goes in its owning module or a new one, never back into a monolithic sketch, and the index is updated in the same change. Scripts follow the same rule: one focused module or helper per concern.
 - No hardware operation, Windows pairing/cache changes, flash/erase, Git publication, communications, credential access, permissions changes, or toolchain migration without the applicable explicit authority.
 - Preserve pre-existing archive/BLEScanner.ino and untracked scripts/Invoke-BleAutoPair.ps1; their presence does not authorize execution.
 
@@ -357,6 +359,10 @@ This project specializes [the canonical software-hardware profile](templates/sof
 ## Fixed foundation
 
 Keep immutable v7 evidence and experiment only in copied sketches. Pin esp32:esp32:esp32s3, Arduino-ESP32 3.3.12, built-in NimBLE and serial 921600. Preserve quiet boot, scanner command behavior, manufacturer-characteristic creation workaround, separate keyboard report 1/mouse report 2, and Report Reference semantics. Never prepend report IDs to GATT values, use clearDuplicateCache(), reintroduce Bluedroid-only APIs, or send Ctrl/Shift/Alt/GUI tests while notification stability is unresolved.
+
+## Build configuration
+
+Keep a root `platformio.ini` generated under [docs/PLATFORMIO.md](docs/PLATFORMIO.md): observed hardware, a pinned platform matching Arduino-ESP32 3.3.12 (pioarduino `55.03.312-1`), hardware-ID ports and a quiet default log level. arduino-cli with the documented equivalent FQBN remains a supported build path. Evidence names the toolchain and ELF hash of every flashed build. Firmware code follows the modular rule in `PROJECT_CHARTER.md` and `firmware/BLEScanner_WORKING_v7/MODULES.md`.
 
 ## Ordered investigation
 
