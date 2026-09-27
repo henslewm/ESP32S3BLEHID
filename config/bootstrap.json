@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "domain_profile": "software-hardware",
-  "state": "AWAITING_APPROVAL",
+  "state": "ACTIVE",
   "project": {
     "name": "ESP32-S3 BLE Scanner / HID Research",
     "objective": "Phase 1 (done 2026-09-27): determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner. Phase 2 (ESP-ADR-020): use the board as a BLE keyboard and mouse the owner drives from their own PC to automate their own work; input only on explicit host commands, with release-all safety rails.",
@@ -214,9 +214,9 @@
     "DOMAIN_PROFILE.md": "2c1dcd48c9a2dcc56ad0bea54d022cc1e3c25949f95ad2499e12228fce7a216c"
   },
   "approval": {
-    "approved": false,
-    "approved_by": null,
-    "approved_at": null,
-    "architecture_fingerprint": null
+    "approved": true,
+    "approved_by": "Winston",
+    "approved_at": "2026-09-27T22:22:16.505968+00:00",
+    "architecture_fingerprint": "4f53ec2d9c5d58acd6fbbbceec1d4211f26d0a7cd823dcd76859c57648415aac"
   }
 }
