@@ -14,11 +14,11 @@ The ESP32-S3 pairs with the Windows host as a BLE keyboard and mouse, and Window
 
 ## Open
 
-1. **Foundation re-approval.** The bootstrap gate is `AWAITING_APPROVAL` (charter modular rule plus profile build section). The user runs `python scripts/bootstrap_gate.py activate`; the fingerprint is in `BOOTSTRAP_REVIEW.md`.
+1. **Foundation re-approval.** Completed: the bootstrap gate is `ACTIVE` (charter modular rule plus profile build section), approved by Winston 2026-09-27, fingerprint 20fc20c2… in `config/bootstrap.json`.
 2. **Cursor motion from `t`.** The operator has not yet confirmed it visually; agent cursor sampling was swamped by real mouse motion.
 3. **Issue #1.** It can be updated and closed, and the core duplicate-UUID bug can be reported upstream. Each needs authority.
 4. **Charter scope.** Keyboard input beyond neutral reports stays out of scope. Scripted automation of real work needs a charter revision.
-5. **Remaining items.** The telemetry comparison, cross-family acceptance (ESP-007), and the pre-existing CI failure: inherited template test `test_bootstrap_in_place` fails in this generated project.
+5. **Remaining items.** The telemetry comparison and cross-family acceptance (ESP-007). The pre-existing CI failure (ESP-014, `test_bootstrap_in_place`) is fixed; the test skips outside a template checkout and CI is green.
 6. **Template follow-ups.** Template PR #52 is merged. Any Codex findings from its final review are tracked in a new template issue linked from ESP-013.
 
 Locked baseline SHA-256 `9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6` is unchanged. The working sketch differs by design (split plus fixes). Placeholder values for the public template issue are in ignored `build/local-identifiers.ps1`.
