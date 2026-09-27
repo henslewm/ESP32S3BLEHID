@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-09-27 — ESP-007 and ESP-012
+
+- Cross-family acceptance review by Codex of the implemented firmware against a charter checklist (PR #10): C1-C9 reviewed. Evidence added: hash-bound 3.3.12 core excerpts and a post-reset capture. Unmet charter deliverables split to #11 and #12.
+- Reported the core duplicate-UUID drop upstream as espressif/arduino-esp32#12951 (checked unfixed on master, no duplicates), with a minimal repro captured on this board.
+
 ## 2026-09-27 — mouse hardware acceptance
 
 - Flashed `main` (`b30d71f`) with PlatformIO. The runtime `elf_sha256` matched the ELF, both HID subscriptions came back, `t` PASS, and the operator confirmed the pointer moved. Closes ESP-005.

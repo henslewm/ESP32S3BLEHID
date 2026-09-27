@@ -1,7 +1,7 @@
 # Project State
 
 - **Status:** ACTIVE — approved foundation
-- **Updated:** 2026-09-27 session close; all work merged to origin/main (PRs #2-#5).
+- **Updated:** 2026-09-27 session close; all work merged to origin/main (PRs #2-#7, #9, #10).
 - **Current task:** mouse issue #1 resolved on hardware and operator-confirmed on `main` `b30d71f` (ESP-005 Completed); foundation re-approved (ACTIVE, fingerprint 20fc20c2…).
 
 ## Verified state
@@ -26,5 +26,5 @@
 
 1. Foundation re-approval is complete (ESP-001); validate the gate each session with `python scripts/validate_bootstrap.py config/bootstrap.json --require-active`.
 2. Cursor motion confirmed. No keyboard report is sent by any diagnostic, so there is no stuck-key risk.
-3. Optional: update/close issue #1 and report the core duplicate-UUID bug upstream (each external write needs authority).
+3. Issue #1 closed with a resolution note; core duplicate-UUID bug filed upstream as espressif/arduino-esp32#12951 (ESP-012). Cross-family Codex review (ESP-007) done in PR #10 (C1-C9); unmet charter deliverables tracked as #11 (descriptor parser output) and #12 (Windows HOGP primary sources).
 4. Keyboard input beyond neutral reports is still out of scope until the charter is revised.
