@@ -1,0 +1,49 @@
+
+SYSTEM INFO
+Build: unlabeled core=3.3.12 elf_sha256=52e09739142c05a217478827050cc801fb8fb9ed3437b66469c0a01d0076a8c3
+BLE stack: NimBLE
+CPU: 240 MHz
+Flash: 16777216 bytes
+Free heap: 178036 bytes
+PSRAM: 8388608 bytes
+NimBLE BLE5 feature support: yes
+Low-level NimBLE EXT_SCAN: not enabled
+HID mode: off connected=no keyboard_sub=no mouse_sub=no
+
+[HID] Building GATT/HID services...
+Build: unlabeled core=3.3.12 elf_sha256=52e09739142c05a217478827050cc801fb8fb9ed3437b66469c0a01d0076a8c3
+[DIAG] report value handles: keyboard(ID1)=29 mouse(ID2)=33
+[DIAG] GAP listener register rc=0
+
+[HID] Mode STARTED. Advertising as S3-HID-KM-v7 (Generic HID keyboard + mouse).
+[HID] Pairing: Just Works (no PIN). Bonding enabled.
+[HID] GAP appearance=0x03C0 Generic HID; PnP vendor source=Bluetooth SIG, vendor=0x02E5.
+[HID] The scanner is paused. Use 1-4 to resume scanning,
+[HID] or B to stop HID mode.
+[HID] After the target pairs and connects, press t to
+[HID] run the mouse-only notification diagnostic.
+[DIAG 15949] connect status=0 conn=1 encrypted=0 authenticated=0 bonded=0 key_size=0 peer_id=70:32:17:45:B7:D9/0
+
+[HID] Central CONNECTED. Pairing/bonding in progress.
+[HID] Watch the Win11 target now: Defender history,
+[HID] Sysmon events, and the Bluetooth devices list.
+[DIAG 16039] enc_change status=0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+[DIAG 16039] subscribe attr=8(OTHER) reason=restore notify 0->0 indicate 0->1 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+[DIAG 16039] subscribe attr=38(OTHER) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+[DIAG 16040] subscribe attr=29(keyboard(ID1)) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+[HID] keyboard notifications: SUBSCRIBED
+[DIAG 16040] subscribe attr=33(mouse(ID2)) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+[HID] mouse notifications: SUBSCRIBED
+
+SYSTEM INFO
+Build: unlabeled core=3.3.12 elf_sha256=52e09739142c05a217478827050cc801fb8fb9ed3437b66469c0a01d0076a8c3
+BLE stack: NimBLE
+CPU: 240 MHz
+Flash: 16777216 bytes
+Free heap: 166312 bytes
+PSRAM: 8388608 bytes
+NimBLE BLE5 feature support: yes
+Low-level NimBLE EXT_SCAN: not enabled
+HID mode: active connected=yes keyboard_sub=yes mouse_sub=yes
+
+[HID] mode=yes connected=yes keyboard_sub=yes mouse_sub=yes
