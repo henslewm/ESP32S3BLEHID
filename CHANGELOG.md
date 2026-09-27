@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-09-27 — mouse hardware acceptance
+
+- Flashed `main` (`b30d71f`) with PlatformIO. The runtime `elf_sha256` matched the ELF, both HID subscriptions came back, `t` PASS, and the operator confirmed the pointer moved. Closes ESP-005.
+
 ## 2026-09-27 — ESP-014
 
 - `test_bootstrap_in_place` skips outside a template checkout (`template_mode: false`). It bootstraps the repository in place, which `bootstrap_project.py` correctly refuses in a generated project. This clears the CI failure present since the first checkpoint. Payload copy kept identical.
