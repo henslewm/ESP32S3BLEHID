@@ -1,38 +1,81 @@
 {
-  "template_mode": true,
-  "template_version": "1.0.0",
-  "created": "2026-08-29",
-  "project_name": "{{PROJECT_NAME}}",
-  "project_slug": "{{PROJECT_SLUG}}",
-  "objective": "{{OBJECTIVE}}",
-  "problem_statement": "{{PROBLEM_STATEMENT}}",
-  "success_criteria": [],
-  "deliverables": [],
-  "target_date": "",
-  "domain": "other",
-  "jurisdiction_or_version": "",
-  "risk_tier": "medium",
+  "project_name": "ESP32-S3 BLE Scanner / HID Research",
+  "project_slug": "esp32s3blehid",
+  "domain_profile": "software-hardware",
+  "objective": "Determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner.",
+  "problem_statement": "The owner reports a compiling and booting composite BLE HID baseline whose Windows mouse-input subscription remains unresolved. The existing repository is an unactivated template with an older archived sketch.",
+  "owner": "Repository owner (hensl); approving identity must be supplied by the user",
+  "risk_tier": "high",
   "sensitivity": "private",
-  "owner": "",
+  "target_date": "",
+  "jurisdiction_or_version": "ESP32-S3 Dev Module; esp32:esp32:esp32s3; Arduino-ESP32 3.3.12; built-in NimBLE; serial 921600",
   "ai_clients": [
-    "chatgpt",
     "codex",
+    "chatgpt",
     "claude",
     "claude-code"
   ],
   "connectors": [
-    "github",
-    "web"
+    "web",
+    "github"
   ],
   "connector_permissions": {
-    "github": "read-and-project-write",
-    "web": "read"
+    "web": "read-only primary technical sources",
+    "github": "read-only official upstream source; project publication disabled until owner identifies the correct remote and authorizes writes"
   },
-  "source_locations": [],
-  "repeatable_workflows": [],
-  "output_formats": [
-    "markdown"
+  "success_criteria": [
+    "Locked baseline SHA-256 remains 9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6.",
+    "Board boots quietly to READY HIDDIAG-v7. h=help; b enters HID mode without reset; Windows sees S3-HID-KM-v7 and connects without reset.",
+    "q reports connected=yes, keyboard_sub=yes, and mouse_sub=yes in a recorded hardware run.",
+    "Only after mouse_sub=yes, t produces mouse movement only, with no stuck keyboard modifiers and no ESP32 reset.",
+    "Returning to scan mode still works; original interactive scanner commands remain available.",
+    "Evidence distinguishes source checks, compilation, and operator-observed hardware results; any backtrace is decoded against the exact run's ELF."
   ],
-  "constraints": [],
-  "out_of_scope": []
+  "deliverables": [
+    "Hash-verified preserved handoff and baseline with provenance; isolated editable Arduino sketch.",
+    "Byte-for-byte HID descriptor parser output and Arduino-ESP32 3.3.12 input-report/GATT implementation audit.",
+    "Primary-source Windows HOGP findings and a small diagnostic experiment logging subscriptions and security without sending HID input.",
+    "Bounded fixes, compile records, exact ELF/build metadata, operator hardware evidence, and current repository handoff."
+  ],
+  "source_locations": [
+    "Owner handoff of 2026-09-27; preserved at evidence/baseline-v7/CODEX_CLI_HANDOFF_BLEScanner_v7.md (historical hardware observations, not refreshed proof).",
+    "C:/Users/hensl/Downloads/BLEScanner_FULL_CORRECTED_HIDDIAG_v7_GENERIC_HID.ino; verified SHA-256 9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6; copied byte-for-byte to evidence/baseline-v7/BLEScanner_LOCKED_BASELINE_v7.ino.",
+    "archive/handoff-import-2026-09-27/Prepare-BLEScanner-Codex-Handoff.ps1 and its adjacent preserved input bundle.",
+    "C:/Users/hensl/AppData/Local/Arduino15/packages/esp32/hardware/esp32/3.3.12/libraries/BLE/src; official espressif/arduino-esp32 3.3.12 sources to be inspected before firmware changes.",
+    "USB-IF HID descriptor specification, Bluetooth SIG HID Service/HOGP specifications, and Microsoft Learn HID documentation: primary sources to retrieve and cite during the approved investigation.",
+    "Local repository at main 508764d; archive/BLEScanner.ino is an older baseline and is preserved separately."
+  ],
+  "repeatable_workflows": [
+    "Hash and provenance verification",
+    "Descriptor and GATT contract inspection",
+    "Pinned-toolchain compile with exact ELF retention",
+    "Operator subscription log and scanner regression review"
+  ],
+  "output_formats": [
+    "markdown",
+    "json",
+    "Arduino C++ source",
+    "serial logs",
+    "ELF and build metadata"
+  ],
+  "constraints": [
+    "Never modify or overwrite the locked baseline or Downloads originals. Experiments belong in firmware/BLEScanner_WORKING_v7 or a separate experiment copy.",
+    "Preserve scanner functionality, all existing command meanings, and quiet boot.",
+    "Pin Arduino-ESP32 3.3.12, built-in NimBLE, and esp32:esp32:esp32s3; do not reintroduce Bluedroid-only APIs or call BLEScan::clearDuplicateCache().",
+    "Create BLEHIDDevice manufacturer characteristic with manufacturer() before setting its value; never prepend report IDs to GATT input values.",
+    "Keep t mouse-only; no Ctrl/Shift/Alt/GUI test reports while notification stability is unresolved; no t before mouse_sub=yes.",
+    "Before changing report map bytes, parse the existing descriptor and inspect the exact 3.3.12 implementation and primary Windows HOGP expectations.",
+    "Use small testable changes and retain each result; a successful build is not hardware verification.",
+    "No hardware operation, Windows pairing/cache changes, flash/erase, Git publication, communications, credential access, permissions changes, or toolchain migration without the applicable explicit authority.",
+    "Preserve pre-existing archive/BLEScanner.ino and untracked scripts/Invoke-BleAutoPair.ps1; their presence does not authorize execution."
+  ],
+  "out_of_scope": [
+    "Keyboard injection or modifier testing, unrelated devices, scanner redesign, and declaring HID complete without every hardware acceptance observation.",
+    "Changing BLE backend, framework, board family, security model, or public command/report interface without renewed architecture approval.",
+    "Continuing the inherited universal-ai-project-template issue sequence or publishing to its remote."
+  ],
+  "domain": "software-hardware",
+  "template_mode": false,
+  "template_version": "1.0.0",
+  "created": "2026-09-27"
 }

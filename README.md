@@ -1,133 +1,28 @@
-# Universal AI Project Template
+# ESP32-S3 BLE Scanner / HID Research
 
-A repo-first operating system for complex, ongoing, high-stakes, or multi-session work across **ChatGPT, Codex, Claude, Claude Code, and GitHub**.
+Start with [PROJECT_STATE.md](PROJECT_STATE.md) and [HANDOFF_CURRENT.md](HANDOFF_CURRENT.md). The unchanged [foundation](BOOTSTRAP_REVIEW.md) is ACTIVE under Winston's carried approval. Validate the gate each session.
 
-The repository is the durable source of truth. Each AI surface gets a small native entry file that loads the same project charter, state, decisions, sources, and handoff record. The result is continuity without depending on a single chat thread or a single vendor's memory.
+Windows pairing and telemetry tooling is documented in [BLE_PAIRING.md](docs/BLE_PAIRING.md). Exact-device pairing and mouse subscription remain unverified. Run `powershell.exe -NoProfile -File scripts/Test-BlePairing.ps1` for software checks without Bluetooth actions.
 
-## What this template solves
+The next focused chat starts with [MOUSE_INVESTIGATION.md](docs/MOUSE_INVESTIGATION.md), the [two q observations](evidence/operator-serial-q-2026-09-27.md) and the [reference-library review](evidence/hid-reference-review-2026-09-27.md). The user requested a publication checkpoint and a dedicated mouse issue.
 
-- Starts a complicated project with one reusable intake prompt.
-- Reuses verified intake and asks only missing, decision-relevant questions in stages.
-- Produces a tailored project charter, state file, source ledger, risk register, connector plan, and skill plan.
-- Gives Codex and Claude Code native instruction files they automatically discover.
-- Gives ChatGPT and Claude web exact Project instructions and a minimal file/source list.
-- Creates portable `SKILL.md` workflows for Codex, ChatGPT, and Claude Code.
-- Preserves session handoffs so another model can continue from the same branch and state.
-- Validates the repository before work is committed or handed off.
-- Keeps generated projects inactive until the architecture package is ready and the user explicitly approves its fingerprint.
+- Locked source: [evidence/baseline-v7/BLEScanner_LOCKED_BASELINE_v7.ino](evidence/baseline-v7/BLEScanner_LOCKED_BASELINE_v7.ino). Never modify or overwrite it.
+- Editable sketch: [firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino](firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino). Currently byte-identical to the baseline.
+- Owner handoff: [evidence/baseline-v7/CODEX_CLI_HANDOFF_BLEScanner_v7.md](evidence/baseline-v7/CODEX_CLI_HANDOFF_BLEScanner_v7.md).
+- Import provenance: [evidence/baseline-v7/IMPORT_RECORD.md](evidence/baseline-v7/IMPORT_RECORD.md).
 
-## Fastest start
+Expected SHA-256: `9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6`.
 
-### From the base template repository
+Target: ESP32-S3 Dev Module, `esp32:esp32:esp32s3`, Arduino-ESP32 `3.3.12`, built-in NimBLE, serial `921600`. Next question: why does Windows subscribe to keyboard report 1 but not mouse report 2?
 
-Choose a canonical profile: `software-hardware`, `family-law`, or `civil-rights-nc`. Create a separate project in a new/empty directory:
+Build only the isolated working sketch directory. The preserved script output has multiple full `.ino` copies and is not a build target. Keep `t` mouse-only and wait for fresh `mouse_sub=yes` before running it.
 
-```bash
-python scripts/bootstrap_project.py --interactive --profile software-hardware --destination ../my-project --no-git
+The private project remote is [henslewm/ESP32S3BLEHID](https://github.com/henslewm/ESP32S3BLEHID), created at the user's request. This checkout retains inherited template Git history, but no ESP32 work is published to `henslewm/universal-ai-project-template`. Inherited template controls are preserved under `archive/template-control-2026-09-27/` and do not define this project's task queue.
+
+Python is not on PATH. Setup was validated with this existing interpreter (recheck availability in future sessions):
+
+```powershell
+& 'C:\Users\hensl\Documents\GitHub\_acceptance-demo-10\review-2\.python-runtime\cpython-3.12-windows-x86_64-none\python.exe' -B scripts/validate_project.py
 ```
 
-After using GitHub **Use this template**, tailor the uninitialized repository in place:
-
-```bash
-python scripts/bootstrap_project.py --interactive --profile software-hardware --destination . --no-git
-```
-
-To reuse verified intake, add `--answers verified-intake.json`; interactive mode asks only missing common and profile orientation fields. The generator writes tailored files, `config/bootstrap.json` in `INTAKE` with autonomy off, and `BOOTSTRAP_REVIEW.md` with readiness gaps. `--no-git` keeps preparation separate from Git initialization or publishing. Rebootstrap of an initialized project is refused; preserve existing records through a retrofit or revise its existing bootstrap package.
-
-### Review and activate the foundation
-
-Use [`prompts/INTERACTIVE_BOOTSTRAP.md`](prompts/INTERACTIVE_BOOTSTRAP.md) to complete the architecture, sources, risks, routing, GitHub workflow, reserved actions, and domain orientation in `config/bootstrap.json`. Resolve the `unresolved` architecture blockers, then run from the generated project's root:
-
-```bash
-python scripts/bootstrap_gate.py review
-```
-
-Review revokes any previous approval first, snapshots `config/project.json`, hashes `PROJECT_CHARTER.md`, `CONNECTOR_PLAN.md`, `SKILL_PLAN.md`, and `DOMAIN_PROFILE.md`, and checks readiness. Success writes `AWAITING_APPROVAL` and the review package. Present `BOOTSTRAP_REVIEW.md` and those documents to the user.
-
-Only after explicit user authorization for the approval interaction, run:
-
-```bash
-python scripts/bootstrap_gate.py activate
-python scripts/validate_bootstrap.py config/bootstrap.json --require-active
-```
-
-Activation presents the exact package and asks for the user's identity and `APPROVE <fingerprint>`; there is no noninteractive autoapprove option. The receipt lives in `config/bootstrap.json`, while the review file remains the pre-approval proposal. The fingerprint binds project/architecture data, sources, risks, routing, human gates, `domain`, `workflow`, `unresolved`, configuration, and document hashes.
-
-Every new session must pass `--require-active` against the current configuration and documents before autonomous substantive work. Missing, invalid, or inactive state, stale bindings, or no available runtime means no autonomy. Resume bootstrap/review or prepare a runtime handoff. After activation, routine approved-scope work can continue within existing permissions; reserved actions and consequential external writes retain their explicit-authority requirements. See [`BOOTSTRAP_PROTOCOL.md`](BOOTSTRAP_PROTOCOL.md) for the full state and recovery rules.
-
-The local gate prevents normal workflow bypass and detects stale approvals. It does not authenticate humans or constrain actors who rewrite gate code or approval records. Activation does not configure providers, change permissions, initialize Git, or publish a repository. See [`docs/GITHUB_PUBLISH.md`](docs/GITHUB_PUBLISH.md) for publishing when authorized.
-
-### From an AI chat
-
-Open [`prompts/BOOTSTRAP_NEW_PROJECT.md`](prompts/BOOTSTRAP_NEW_PROJECT.md), paste it into ChatGPT, Codex, Claude, or Claude Code, and answer only missing intake questions. A repository-capable client runs the setup/review flow; a web-only client without a validator runtime prepares files and a runtime handoff while autonomy remains off.
-
-## Architected work packets
-
-Use [`WORK_PACKET_PROTOCOL.md`](WORK_PACKET_PROTOCOL.md) to define bounded tasks with a shared JSON contract, dependency validation, versioned history and generated GitHub issue bodies. Examples cover software/hardware, family law and civil rights. Install `requirements-work-packets.txt` before using the packet commands. These tools record local metadata; live execution and external acceptance verification remain separate workstreams.
-
-[`MODEL_ROUTING.md`](MODEL_ROUTING.md) adds deterministic capability/effort routing with risk floors, cost-per-accepted-result estimates, bounded escalation and provider fallback. It saves replayable local decision records. The shipped provider resources are disabled synthetic examples; the router does not call models or activate autonomy.
-
-[`FEEDBACK_PROTOCOL.md`](FEEDBACK_PROTOCOL.md) adds durable dispatch reservations, cumulative task/tier limits, repeated-failure escalation, focused evidence context and architect/human holds. Its local event ledger survives restarts and preserves budgets across contract repairs. Model execution and independent acceptance remain separate gates.
-
-## Native entrypoints
-
-| Surface | Native entrypoint | Shared files it loads or directs the model to read |
-|---|---|---|
-| Codex | `AGENTS.md` | `MASTER_INSTRUCTIONS.md`, `MASTER_CODEX.md`, project state files |
-| Claude Code | `CLAUDE.md` | Imports the universal and Claude Code masters plus active state |
-| ChatGPT web Project | `.chatgpt/PROJECT_INSTRUCTIONS.md` | Add the compact control files and use the GitHub connector |
-| Claude web Project | `.claude-web/PROJECT_INSTRUCTIONS.md` | Add the GitHub repo/integration and active control files |
-| GitHub Copilot | `.github/copilot-instructions.md` | Universal rules and project state |
-
-## Repository map
-
-```text
-.
-├── MASTER_INSTRUCTIONS.md
-├── MASTER_CHATGPT.md
-├── MASTER_CODEX.md
-├── MASTER_CLAUDE.md
-├── MASTER_CLAUDE_CODE.md
-├── AGENTS.md
-├── CLAUDE.md
-├── PROJECT_CHARTER.md
-├── PROJECT_STATE.md
-├── OPEN_LOOPS.md
-├── DECISIONS.md
-├── FACTS_AND_ASSUMPTIONS.md
-├── SOURCE_INDEX.md
-├── RISK_REGISTER.md
-├── HANDOFF_CURRENT.md
-├── CONNECTOR_PLAN.md
-├── SKILL_PLAN.md
-├── prompts/
-├── instructions/profiles/
-├── .chatgpt/
-├── .claude-web/
-├── .codex/
-├── .claude/
-├── .agents/skills/
-├── skills/
-├── context/
-├── evidence/
-├── research/
-├── work/
-├── outputs/
-├── templates/
-├── scripts/
-└── tests/
-```
-
-## Operating rule
-
-**GitHub holds durable state; chats perform work.** A chat is not the record unless its decisions, sources, and next actions are written back to the repository.
-
-## Security default
-
-Use a private repository for personal, legal, regulated, proprietary, or identifying information. Keep secrets out of Git. Store sensitive originals in an appropriate controlled system and track them in `SOURCE_INDEX.md` by location, hash, authority, and access scope.
-
-## Template status
-
-This repository intentionally contains placeholders. Generated project repositories set `config/project.json -> template_mode` to `false`; repository validation then rejects unresolved placeholders. That setting is not activation: generated bootstrap state remains `INTAKE` until explicit approval. Canonical templates carry snapshots of existing domain documents; detailed domain schemas and workflows remain assigned to #9/#10/#11.
-
-Use [GITHUB_LEDGER_PROTOCOL.md](GITHUB_LEDGER_PROTOCOL.md) for canonical task/issue registration, durable attempt publication, recovery and drift checks in an approved initialized project.
+The activation receipt is in `config/bootstrap.json`; the review file remains the pre-approval proposal. Material foundation changes require renewed review through the gate.

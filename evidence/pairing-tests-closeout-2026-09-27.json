@@ -1,0 +1,10 @@
+{
+    "powershell":  "5.1.26100.9549",
+    "passed":  40,
+    "evidenceLevel":  "static and mocked unit; existing-file WinRT bridge; no Bluetooth or hardware acceptance",
+    "utc":  "2026-09-27T11:36:19.4381942Z",
+    "host":  "WINSTONDESKTOP",
+    "skipped":  0,
+    "pester":  "3.4.0",
+    "failed":  0
+}

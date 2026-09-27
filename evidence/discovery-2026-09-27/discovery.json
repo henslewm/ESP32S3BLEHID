@@ -1,0 +1,43 @@
+{
+    "schemaVersion":  1,
+    "startedUtc":  "2026-09-27T10:58:20.2495983Z",
+    "endedUtc":  "2026-09-27T10:58:20.4962575Z",
+    "hostName":  "WINSTONDESKTOP",
+    "processId":  48056,
+    "address":  "7C:4F:AD:21:52:89",
+    "nameLabel":  "S3-HID-KM-v7",
+    "outcome":  "unknown",
+    "exitCode":  3,
+    "message":  "Discovery did not complete reliably within 30 seconds.",
+    "exception":  {
+                      "type":  "System.Management.Automation.RuntimeException",
+                      "message":  "Discovery did not complete reliably within 30 seconds.",
+                      "hresult":  "0x80131501"
+                  },
+    "operations":  [
+                       {
+                           "method":  "FindAllAsync",
+                           "startedUtc":  "2026-09-27T10:58:20.2947316Z",
+                           "endedUtc":  "2026-09-27T10:58:20.4842565Z",
+                           "elapsedMs":  188,
+                           "nativeStatus":  null,
+                           "exception":  {
+                                             "type":  "System.UnauthorizedAccessException",
+                                             "message":  "Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))",
+                                             "hresult":  "0x80070005"
+                                         },
+                           "timedOut":  false,
+                           "cancellationRequested":  false,
+                           "cancellationError":  null,
+                           "terminal":  true,
+                           "terminalObservedUtc":  null
+                       }
+                   ],
+    "devices":  [
+
+                ],
+    "stateBefore":  null,
+    "stateAfter":  null,
+    "scriptSha256":  "DB1E29DB283BF8546045496687F2A2C6A6C4C1AFAE2DD6A4041BCFA7B04CF196",
+    "moduleSha256":  "C826026D60E23A0553260365AE31F95099C9CB904D4876B34C8EF9ADFDAD853A"
+}

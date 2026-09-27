@@ -1,0 +1,32 @@
+[
+  {
+    "source": "build\\pairing-runs\\local-20260927T105819Z-4484b0ec11f542adaa2eea4936b3223b\\discovery.json",
+    "retained": "evidence\\discovery-2026-09-27\\discovery.json",
+    "sha256": "F81B7D5F998DC20D5896D21E5B276CB9B3D8097FFFDC362FCF84216DC3DB440C"
+  },
+  {
+    "source": "build\\pairing-runs\\local-20260927T105819Z-4484b0ec11f542adaa2eea4936b3223b\\discovery-desktop.json",
+    "retained": "evidence\\discovery-2026-09-27\\discovery-desktop.json",
+    "sha256": "29F90983CD91BE01272D16506F4CCA48F5273A846699AD5A4B537B27BA27CB56"
+  },
+  {
+    "source": "build\\pairing-runs\\local-20260927T105819Z-4484b0ec11f542adaa2eea4936b3223b\\discovery-hidden.json",
+    "retained": "evidence\\discovery-2026-09-27\\discovery-hidden.json",
+    "sha256": "E2BAF649C01E0A093C4AC11E89573AB34ED003D1F15A8F647C5AF605916965BE"
+  },
+  {
+    "source": "build\\pairing-runs\\local-20260927T105819Z-4484b0ec11f542adaa2eea4936b3223b\\discovery-address-filter.json",
+    "retained": "evidence\\discovery-2026-09-27\\discovery-address-filter.json",
+    "sha256": "5012BF2FF8C078668CE7DAC37882E7F0D099E796780EA151182FED6800973C26"
+  },
+  {
+    "source": "build\\pairing-runs\\local-20260927T105819Z-4484b0ec11f542adaa2eea4936b3223b\\discovery-mta.json",
+    "retained": "evidence\\discovery-2026-09-27\\discovery-mta.json",
+    "sha256": "61CD8F3C7AE2EF6932C1C6F173C0A0F705041A6AD95E5E3855FB3E78A958DB1E"
+  },
+  {
+    "source": "build\\pairing-runs\\local-20260927T105819Z-4484b0ec11f542adaa2eea4936b3223b\\discovery-fixed.stdout.txt",
+    "retained": "evidence\\discovery-2026-09-27\\discovery-fixed.stdout.txt",
+    "sha256": "7B3A28A4A8F46771D47D3872EACB694C106F0B6FA72BDCB748BB68839C3AB7BA"
+  }
+]

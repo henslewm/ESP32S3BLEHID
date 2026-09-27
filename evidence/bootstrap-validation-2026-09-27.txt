@@ -1,0 +1,21 @@
+ESP32 preparation validation - 2026-09-27T09:51:55.0656691Z
+Runtime: C:\Users\hensl\Documents\GitHub\_acceptance-demo-10\review-2\.python-runtime\cpython-3.12-windows-x86_64-none\python.exe
+Command: python -B scripts/bootstrap_gate.py review (prepare review only; no activation)
+Bootstrap state: AWAITING_APPROVAL
+Exit: 0
+Command: python -B scripts/validate_project.py
+VALIDATION PASSED
+Repository: C:\Users\hensl\Documents\GitHub\ESP32S3BLEHID
+Mode: generated project
+Required paths checked: 81
+Exit: 0
+Command: python -B scripts/validate_bootstrap.py config/bootstrap.json
+BOOTSTRAP VALID: state=AWAITING_APPROVAL domain=software-hardware
+PROJECT NOT ACTIVE
+Exit: 0
+Command: python -B scripts/validate_bootstrap.py config/bootstrap.json --require-active
+BOOTSTRAP INVALID
+- project is not ACTIVE
+Exit: 1 (expected refusal: user approval absent)
+Final provenance: all 14 source/import/working entries match recorded sizes and SHA-256 values. Working sketch layout: one .ino; baseline digest unchanged. Native bootstrapper SKILL.md copies: identical. Approval state: AWAITING_APPROVAL; approved=false; identity absent.
+Git diff whitespace check: PASS

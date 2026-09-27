@@ -1,0 +1,27 @@
+{
+    "schemaVersion":  1,
+    "startedUtc":  "2026-09-27T10:58:38.0755919Z",
+    "endedUtc":  "2026-09-27T10:59:08.1760336Z",
+    "hostName":  "WINSTONDESKTOP",
+    "processId":  28424,
+    "address":  "7C:4F:AD:21:52:89",
+    "nameLabel":  "S3-HID-KM-v7",
+    "outcome":  "failed",
+    "exitCode":  1,
+    "message":  "The property \u0027value\u0027 cannot be found on this object. Verify that the property exists.",
+    "exception":  {
+                      "type":  "System.Management.Automation.PropertyNotFoundException",
+                      "message":  "The property \u0027value\u0027 cannot be found on this object. Verify that the property exists.",
+                      "hresult":  "0x80131501"
+                  },
+    "operations":  [
+
+                   ],
+    "devices":  [
+
+                ],
+    "stateBefore":  null,
+    "stateAfter":  null,
+    "scriptSha256":  "DB1E29DB283BF8546045496687F2A2C6A6C4C1AFAE2DD6A4041BCFA7B04CF196",
+    "moduleSha256":  "C826026D60E23A0553260365AE31F95099C9CB904D4876B34C8EF9ADFDAD853A"
+}

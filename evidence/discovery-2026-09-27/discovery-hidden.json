@@ -1,0 +1,39 @@
+{
+    "schemaVersion":  1,
+    "startedUtc":  "2026-09-27T11:01:47.8718360Z",
+    "endedUtc":  "2026-09-27T11:02:17.9722422Z",
+    "hostName":  "WINSTONDESKTOP",
+    "processId":  43424,
+    "address":  "7C:4F:AD:21:52:89",
+    "nameLabel":  "S3-HID-KM-v7",
+    "outcome":  "unknown",
+    "exitCode":  3,
+    "message":  "Discovery did not complete reliably within 30 seconds.",
+    "exception":  {
+                      "type":  "System.Management.Automation.RuntimeException",
+                      "message":  "Discovery did not complete reliably within 30 seconds.",
+                      "hresult":  "0x80131501"
+                  },
+    "operations":  [
+                       {
+                           "method":  "FindAllAsync",
+                           "startedUtc":  "2026-09-27T11:01:47.9190726Z",
+                           "endedUtc":  "2026-09-27T11:02:17.9552445Z",
+                           "elapsedMs":  30035,
+                           "nativeStatus":  null,
+                           "exception":  null,
+                           "timedOut":  true,
+                           "cancellationRequested":  true,
+                           "cancellationError":  null,
+                           "terminal":  false,
+                           "terminalObservedUtc":  null
+                       }
+                   ],
+    "devices":  [
+
+                ],
+    "stateBefore":  null,
+    "stateAfter":  null,
+    "scriptSha256":  "DB1E29DB283BF8546045496687F2A2C6A6C4C1AFAE2DD6A4041BCFA7B04CF196",
+    "moduleSha256":  "7777E8EB3474CCB102FF702F7445999150721D9AB91D2969830F1B7125A9D91B"
+}

@@ -1,0 +1,77 @@
+{
+  "recorded_at_utc": "2026-09-27T09:51:12.2828179Z",
+  "expected_baseline_sha256": "9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6",
+  "source_to_locked_name": "Byte-identical copy from Downloads v7_GENERIC_HID source; source was not renamed or edited",
+  "files": [
+    {
+      "path": "C:\\Users\\hensl\\Downloads\\BLEScanner_FULL_CORRECTED_HIDDIAG_v7_GENERIC_HID.ino",
+      "size_bytes": 61594,
+      "sha256": "9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6"
+    },
+    {
+      "path": "C:\\Users\\hensl\\Downloads\\Prepare-BLEScanner-Codex-Handoff.ps1",
+      "size_bytes": 1989,
+      "sha256": "aacde716f1d99d00a12a39aed404af9b0205ffc88c89f13813a1992ebf42e1ec"
+    },
+    {
+      "path": "C:\\Users\\hensl\\Downloads\\CODEX_CLI_HANDOFF_BLEScanner_v7.md",
+      "size_bytes": 4989,
+      "sha256": "76e50aa27be23f3d3280fa60ffe5940ae0f37f09c78adcff078f0330e14fe456"
+    },
+    {
+      "path": "C:\\Users\\hensl\\Downloads\\BLEScanner_LOCKED_BASELINE_v7.sha256.txt",
+      "size_bytes": 139,
+      "sha256": "d3d078b2ae965dccac70c458466709aecbbadb1077d0d9d656ee968f8d2c21e5"
+    },
+    {
+      "path": "archive\\handoff-import-2026-09-27\\BLEScanner_LOCKED_BASELINE_v7.ino",
+      "size_bytes": 61594,
+      "sha256": "9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6"
+    },
+    {
+      "path": "archive\\handoff-import-2026-09-27\\Prepare-BLEScanner-Codex-Handoff.ps1",
+      "size_bytes": 1989,
+      "sha256": "aacde716f1d99d00a12a39aed404af9b0205ffc88c89f13813a1992ebf42e1ec"
+    },
+    {
+      "path": "archive\\handoff-import-2026-09-27\\CODEX_CLI_HANDOFF_BLEScanner_v7.md",
+      "size_bytes": 4989,
+      "sha256": "76e50aa27be23f3d3280fa60ffe5940ae0f37f09c78adcff078f0330e14fe456"
+    },
+    {
+      "path": "archive\\handoff-import-2026-09-27\\BLEScanner_LOCKED_BASELINE_v7.sha256.txt",
+      "size_bytes": 139,
+      "sha256": "d3d078b2ae965dccac70c458466709aecbbadb1077d0d9d656ee968f8d2c21e5"
+    },
+    {
+      "path": "evidence\\baseline-v7\\BLEScanner_LOCKED_BASELINE_v7.ino",
+      "size_bytes": 61594,
+      "sha256": "9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6"
+    },
+    {
+      "path": "evidence\\baseline-v7\\BLEScanner_WORKING_v7.ino",
+      "size_bytes": 61594,
+      "sha256": "9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6"
+    },
+    {
+      "path": "evidence\\baseline-v7\\CODEX_CLI_HANDOFF_BLEScanner_v7.md",
+      "size_bytes": 4989,
+      "sha256": "76e50aa27be23f3d3280fa60ffe5940ae0f37f09c78adcff078f0330e14fe456"
+    },
+    {
+      "path": "evidence\\baseline-v7\\BLEScanner_LOCKED_BASELINE_v7.sha256.txt",
+      "size_bytes": 139,
+      "sha256": "d3d078b2ae965dccac70c458466709aecbbadb1077d0d9d656ee968f8d2c21e5"
+    },
+    {
+      "path": "firmware\\BLEScanner_WORKING_v7\\BLEScanner_WORKING_v7.ino",
+      "size_bytes": 61594,
+      "sha256": "9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6"
+    },
+    {
+      "path": "archive\\BLEScanner.ino",
+      "size_bytes": 54962,
+      "sha256": "310041fecca6c570ce1be86b5c5c90d69a2ad171c09377389297adf7a2d53580"
+    }
+  ]
+}

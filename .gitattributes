@@ -6,3 +6,10 @@
 *.docx binary
 *.xlsx binary
 *.pptx binary
+
+# Preserve imported source and recorded evidence byte-for-byte across clones.
+evidence/** -text
+archive/handoff-import-2026-09-27/** -text
+archive/Invoke-BleAutoPair.before-repair-2026-09-27.ps1 -text
+archive/BLEScanner.ino -text
+firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino -text
