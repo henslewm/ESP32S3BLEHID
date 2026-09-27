@@ -27,7 +27,7 @@ Every Arduino or ESP32 firmware project keeps a root `platformio.ini` next to it
 8. **Monitor.** Include `monitor_filters = esp32_exception_decoder, time` so crashes decode against the exact ELF.
 9. **Ignore output.** Add `.pio/` to `.gitignore`.
 10. **Keep builds equivalent.** Record the arduino-cli FQBN and `--build-property` values that produce the same configuration, and state which toolchain produced any flashed artifact. A PlatformIO ELF and an arduino-cli ELF are different artifacts.
-11. **Generate the build identifier.** Don't hard-code it. Inject a firmware build ID from build metadata (git short SHA, `-dirty` when the tree has changes, a content hash of every file under `src_dir` plus `platformio.ini` so different uncommitted experiments never share an ID, toolchain, environment) through an `extra_scripts` pre-script, and through `--build-property compiler.cpp.extra_flags=-DFIRMWARE_BUILD_ID=...` for arduino-cli, so serial evidence binds to the exact artifact.
+11. **Generate the build identifier.** Don't hard-code it. Inject a firmware build ID from build metadata (git short SHA plus, when the tree is dirty, a hash of `git diff HEAD --binary` and every untracked non-ignored file, so any build-affecting change, including `lib/` and `include/`, gets its own ID; then toolchain and environment) through an `extra_scripts` pre-script, and through `--build-property compiler.cpp.extra_flags=-DFIRMWARE_BUILD_ID=...` for arduino-cli, so serial evidence binds to the exact artifact.
 12. **Verify before relying on it.** `pio run -e <default>` must succeed. For hardware claims, upload, run the project's smoke test and record the build ID and ELF SHA-256. A successful compile is not hardware verification.
 
 ## This project
@@ -40,4 +40,4 @@ Every Arduino or ESP32 firmware project keeps a root `platformio.ini` next to it
   - `pio run -e dev -t upload` builds and uploads.
   - `pio device monitor` opens the serial monitor.
   - Close any monitor or `scripts/serial_bridge.py` before uploading.
-- arduino-cli equivalent: `arduino-cli compile -b esp32:esp32:esp32s3:CDCOnBoot=cdc,PSRAM=opi,FlashMode=qio,FlashSize=16M --build-property build.partitions=default_16MB --build-property upload.maximum_size=6553600 firmware/BLEScanner_WORKING_v7`. Earlier builds used plain `CDCOnBoot=cdc`, with PSRAM disabled and the default partitions.
+- arduino-cli equivalent, PowerShell, with the same build ID: `$id = python scripts/pio_build_id.py cli; arduino-cli compile -b esp32:esp32:esp32s3:CDCOnBoot=cdc,PSRAM=opi,FlashMode=qio,FlashSize=16M --build-property build.partitions=default_16MB --build-property upload.maximum_size=6553600 --build-property "compiler.cpp.extra_flags='-DFIRMWARE_BUILD_ID=`"$id`"'" firmware/BLEScanner_WORKING_v7`. Verified 2026-09-27: the binary contains the generated ID. Earlier builds used plain `CDCOnBoot=cdc`, with PSRAM disabled and the default partitions.
