@@ -2,7 +2,7 @@
 
 State: AWAITING_APPROVAL — autonomy is OFF until explicit activation.
 Profile: software-hardware
-Architecture fingerprint: `20fc20c2a951b6fc177e186d8566047d820b9d1c04034bd16bd2c4eb9ed5b040`
+Architecture fingerprint: `284df4292467c49ca6291f404da334e824e91292d7205dd54e3f25706b485701`
 
 ## Charter
 
@@ -234,10 +234,10 @@ Architecture fingerprint: `20fc20c2a951b6fc177e186d8566047d820b9d1c04034bd16bd2c
 
 ```json
 {
-  "PROJECT_CHARTER.md": "d8275774ca3daecd3403847f4ede4c61a49d23a6ac35fd8ef05849cb3a700d00",
+  "PROJECT_CHARTER.md": "61d21007fa35d1cb454d4c6e7234be9fa2ed20168f35e7575293a5510aa0281c",
   "CONNECTOR_PLAN.md": "45dbdbf4b6513e11517d7d383fcae540616e352ab380f8c380a1e26de96b6667",
   "SKILL_PLAN.md": "e14a47b63afe11db1ff7e9237373a20288ee068f79caa6896289dcee345319a4",
-  "DOMAIN_PROFILE.md": "d32cc097e21402e79950cad27b7f0c63a89fc4293fec736eefcf95b4c8113f73"
+  "DOMAIN_PROFILE.md": "2c1dcd48c9a2dcc56ad0bea54d022cc1e3c25949f95ad2499e12228fce7a216c"
 }
 ```
 
@@ -266,7 +266,9 @@ The owner reports a compiling and booting composite BLE HID baseline whose Windo
 
 ## Desired outcome
 
-Determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner.
+Phase 1 (done 2026-09-27): determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner.
+
+Phase 2 (approved by charter revision ESP-ADR-020): use the board as a BLE keyboard and mouse that the owner drives from their own PC to automate their own work. Input is sent only on explicit host commands, with safety rails that make stuck keys and unattended input impossible by design.
 
 ## Definition of done
 
@@ -276,6 +278,13 @@ Determine and resolve why Windows subscribes to keyboard report ID 1 but not mou
 - Only after mouse_sub=yes, t produces mouse movement only, with no stuck keyboard modifiers and no ESP32 reset.
 - Returning to scan mode still works; original interactive scanner commands remain available.
 - Evidence distinguishes source checks, compilation, and operator-observed hardware results; any backtrace is decoded against the exact run's ELF.
+
+### Phase 2 definition of done
+
+- A host-command protocol on the USB serial link types text, sends key chords (including Ctrl/Shift/Alt/GUI), and moves, clicks and scrolls the mouse. Commands are framed lines that cannot be confused with the existing single-character commands, and every existing command keeps its meaning.
+- Release-all (neutral keyboard and mouse reports) is sent after every chord, on a stop command, on leaving HID mode, on host disconnect, on an idle timeout and on any protocol error. Each case is observed on hardware with no stuck key or button.
+- A host-side PowerShell helper sends commands and reports each command's acknowledgement or error. Protocol tests run without hardware.
+- Operator-observed runs on the owner's PC show typed text, a modifier chord and mouse actions landing correctly, with no reset.
 
 ## Required deliverables
 
@@ -292,7 +301,9 @@ Determine and resolve why Windows subscribes to keyboard report ID 1 but not mou
 
 ### Out of scope
 
-- Keyboard injection or modifier testing, unrelated devices, scanner redesign, and declaring HID complete without every hardware acceptance observation.
+- Unrelated devices, scanner redesign, and declaring HID complete without every hardware acceptance observation.
+- Autonomous or stored input: no input at boot, no on-device scripts or timers that send input, and no input without a live host command.
+- Use against machines the owner does not own or control, and any credential capture or security-bypass use.
 - Changing BLE backend, framework, board family, security model, or public command/report interface without renewed architecture approval.
 - Continuing the inherited universal-ai-project-template issue sequence or publishing to its remote.
 - FE1.1s USB hub integration or any USB-hub hardware path; this project is BLE HID only.
@@ -303,7 +314,8 @@ Determine and resolve why Windows subscribes to keyboard report ID 1 but not mou
 - Preserve scanner functionality, all existing command meanings, and quiet boot.
 - Pin Arduino-ESP32 3.3.12, built-in NimBLE, and esp32:esp32:esp32s3; do not reintroduce Bluedroid-only APIs or call BLEScan::clearDuplicateCache().
 - Create BLEHIDDevice manufacturer characteristic with manufacturer() before setting its value; never prepend report IDs to GATT input values.
-- Keep t mouse-only; no Ctrl/Shift/Alt/GUI test reports while notification stability is unresolved; no t before mouse_sub=yes.
+- `t` stays the mouse-only diagnostic and never runs before mouse_sub=yes.
+- Keyboard and mouse input (phase 2) is sent only in response to explicit host commands and only while connected and subscribed to the target report. It must be bounded: a maximum text length per command, a per-report rate limit, and release-all after every chord and on each trigger listed in the phase 2 definition of done. Modifier chords are enabled only after release-all has been observed on hardware. New commands are additive and must not change the existing command meanings.
 - Before changing report map bytes, parse the existing descriptor and inspect the exact 3.3.12 implementation and primary Windows HOGP expectations.
 - Use small testable changes and retain each result; a successful build is not hardware verification.
 - Keep code modular so a model can work on one part without re-reading the whole codebase. Firmware lives in single-responsibility modules listed in `firmware/BLEScanner_WORKING_v7/MODULES.md`, each with a header that is its contract. New behavior goes in its owning module or a new one, never back into a monolithic sketch, and the index is updated in the same change. Scripts follow the same rule: one focused module or helper per concern.
@@ -358,7 +370,7 @@ This project specializes [the canonical software-hardware profile](templates/sof
 
 ## Fixed foundation
 
-Keep immutable v7 evidence and experiment only in copied sketches. Pin esp32:esp32:esp32s3, Arduino-ESP32 3.3.12, built-in NimBLE and serial 921600. Preserve quiet boot, scanner command behavior, manufacturer-characteristic creation workaround, separate keyboard report 1/mouse report 2, and Report Reference semantics. Never prepend report IDs to GATT values, use clearDuplicateCache(), reintroduce Bluedroid-only APIs, or send Ctrl/Shift/Alt/GUI tests while notification stability is unresolved.
+Keep immutable v7 evidence and experiment only in copied sketches. Pin esp32:esp32:esp32s3, Arduino-ESP32 3.3.12, built-in NimBLE and serial 921600. Preserve quiet boot, scanner command behavior, manufacturer-characteristic creation workaround, separate keyboard report 1/mouse report 2, and Report Reference semantics. Never prepend report IDs to GATT values, use clearDuplicateCache(), reintroduce Bluedroid-only APIs, or send keyboard or mouse input except under the charter's phase 2 rails (explicit host command, bounded, release-all on every stop path).
 
 ## Build configuration
 

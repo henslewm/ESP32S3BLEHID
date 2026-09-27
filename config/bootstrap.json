@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "domain_profile": "software-hardware",
-  "state": "ACTIVE",
+  "state": "AWAITING_APPROVAL",
   "project": {
     "name": "ESP32-S3 BLE Scanner / HID Research",
     "objective": "Determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner.",
@@ -179,15 +179,15 @@
     "created": "2026-09-27"
   },
   "documents": {
-    "PROJECT_CHARTER.md": "d8275774ca3daecd3403847f4ede4c61a49d23a6ac35fd8ef05849cb3a700d00",
+    "PROJECT_CHARTER.md": "61d21007fa35d1cb454d4c6e7234be9fa2ed20168f35e7575293a5510aa0281c",
     "CONNECTOR_PLAN.md": "45dbdbf4b6513e11517d7d383fcae540616e352ab380f8c380a1e26de96b6667",
     "SKILL_PLAN.md": "e14a47b63afe11db1ff7e9237373a20288ee068f79caa6896289dcee345319a4",
-    "DOMAIN_PROFILE.md": "d32cc097e21402e79950cad27b7f0c63a89fc4293fec736eefcf95b4c8113f73"
+    "DOMAIN_PROFILE.md": "2c1dcd48c9a2dcc56ad0bea54d022cc1e3c25949f95ad2499e12228fce7a216c"
   },
   "approval": {
-    "approved": true,
-    "approved_by": "Winston",
-    "approved_at": "2026-09-27T17:00:36.474724+00:00",
-    "architecture_fingerprint": "20fc20c2a951b6fc177e186d8566047d820b9d1c04034bd16bd2c4eb9ed5b040"
+    "approved": false,
+    "approved_by": null,
+    "approved_at": null,
+    "architecture_fingerprint": null
   }
 }
