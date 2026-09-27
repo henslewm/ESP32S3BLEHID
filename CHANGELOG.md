@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-09-27 — ESP-014
+
+- `test_bootstrap_in_place` skips outside a template checkout (`template_mode: false`). It bootstraps the repository in place, which `bootstrap_project.py` correctly refuses in a generated project. This clears the CI failure present since the first checkpoint. Payload copy kept identical.
+
 ## 2026-09-27 — session close
 
 - Firmware prints its embedded `elf_sha256` (verified equal to the flashed ELF); evidence binds to it. The review-driven build-label script (`pio_build_id.py`) was removed at the user's direction after seven Codex rounds on it; `FIRMWARE_BUILD_ID` is an optional `-D` label.

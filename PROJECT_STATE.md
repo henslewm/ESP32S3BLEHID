@@ -1,8 +1,8 @@
 # Project State
 
-- **Status:** SETUP — autonomy OFF
+- **Status:** ACTIVE — approved foundation
 - **Updated:** 2026-09-27 session close; all work merged to origin/main (PRs #2-#5).
-- **Current task:** mouse issue #1 resolved on hardware pending operator visual confirmation; modular-code rule awaiting renewed foundation approval.
+- **Current task:** mouse issue #1 resolved on hardware pending operator visual confirmation; foundation re-approved (ACTIVE, fingerprint 20fc20c2…).
 
 ## Verified state
 
