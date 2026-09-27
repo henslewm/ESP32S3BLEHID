@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-09-27 — phase 2 charter approved
+
+- Charter revision ESP-ADR-020 was approved by the owner (fingerprint 4f53ec2d…, PR #14): owner-driven keyboard and mouse automation over a framed host-command protocol, with release-all rails. Autonomous or stored input and use on others' machines remain out of scope.
+
 ## 2026-09-27 — ESP-007 and ESP-012
 
 - Cross-family acceptance review by Codex of the implemented firmware against a charter checklist (PR #10): C1-C9 reviewed. Evidence added: hash-bound 3.3.12 core excerpts and a post-reset capture. Unmet charter deliverables split to #11 and #12.
