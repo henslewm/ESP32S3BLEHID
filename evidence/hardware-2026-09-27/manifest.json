@@ -77,6 +77,10 @@
   ],
   "files": [
     {
+      "file": "boot-b30d71f.log",
+      "sha256": "3c57e31b753f4bbc9600f38cb98b8ced49fc8ede7f31d116157bdf0ec94f83d1"
+    },
+    {
       "file": "diag1.log",
       "sha256": "a85e7a38634f6b8075752ca485e987100ed27893a372c588b9233b3ef7650dd7"
     },

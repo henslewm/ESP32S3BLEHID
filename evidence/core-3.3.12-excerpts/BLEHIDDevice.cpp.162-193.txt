@@ -1,0 +1,32 @@
+BLECharacteristic *BLEHIDDevice::inputReport(uint8_t reportID) {
+  // Note: READ_ENC removed per HOGP specification - characteristics must be readable without encryption for enumeration
+  // Actual report data is still encrypted via BLE connection encryption after pairing
+  uint32_t properties = BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY;
+  // For NimBLE: Characteristic encryption properties can be added if needed
+  // For Bluedroid: Standard properties, permissions set separately below
+
+  BLECharacteristic *inputReportCharacteristic = m_hidService->createCharacteristic((uint16_t)0x2a4d, properties);
+  BLEDescriptor *inputReportDescriptor = new BLEDescriptor(BLEUUID((uint16_t)0x2908));
+
+  // For Bluedroid: Set access permissions (ignored by NimBLE, but doesn't hurt)
+  inputReportCharacteristic->setAccessPermissions(ESP_GATT_PERM_READ_ENCRYPTED | ESP_GATT_PERM_WRITE_ENCRYPTED);
+
+  // IMPORTANT: Report Reference Descriptor must be readable without encryption per HOGP specification
+  // HID hosts must read Report ID and Report Type during enumeration (before encryption is established)
+  // The descriptor only contains metadata; actual HID reports are encrypted via BLE connection
+  inputReportDescriptor->setAccessPermissions(ESP_GATT_PERM_READ | ESP_GATT_PERM_WRITE);
+
+  uint8_t desc1_val[] = {reportID, 0x01};
+  inputReportDescriptor->setValue((uint8_t *)desc1_val, 2);
+  inputReportCharacteristic->addDescriptor(inputReportDescriptor);
+
+#if CONFIG_BLUEDROID_ENABLED
+  BLE2902 *p2902 = new BLE2902();
+  // IMPORTANT: CCCD must be readable/writable without encryption for HID enumeration
+  // Host needs to enable notifications before encryption is established
+  p2902->setAccessPermissions(ESP_GATT_PERM_READ | ESP_GATT_PERM_WRITE);
+  inputReportCharacteristic->addDescriptor(p2902);
+#endif
+
+  return inputReportCharacteristic;
+}
