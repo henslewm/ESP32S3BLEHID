@@ -12,7 +12,7 @@
 | ESP-008 | Medium | Packet validation environment | Codex/user | Find or authorize the pinned jsonschema dependency before worker dispatch | — | Before worker dispatch | Pending; note: jsonschema 4.26.0 is importable in the current interpreter (unverified against the pin) |
 | ESP-009 | High | Fresh exact-device pairing acceptance | — | `Invoke-BleAutoPair.ps1 -Unpair -Pair` exit 0 with both subscriptions | — | — | Completed |
 | ESP-010 | Medium | Scripted/manual telemetry comparison | Operator | Resume local comparison when wanted; the scripted pairing path now works | — | Not fixed | Deferred by user |
-| ESP-011 | Medium | Publish this session's work | — | Merged to origin/main via PRs #2-#5 | — | 2026-09-27 | Completed; issue #1 update still optional |
+| ESP-011 | Medium | Publish this session's work | — | Merged to origin/main via PRs #2-#7, #9, #10 | — | 2026-09-27 | Completed; issue #1 closed with a resolution note |
 | ESP-013 | Medium | Template adoption | User | PR #52 merged by user direction; any final Codex findings tracked in a new template issue | Issue #51 | — | Merged |
 | ESP-014 | Medium | Pre-existing CI failure | — | `test_bootstrap_in_place` now skips when `template_mode` is false (template-only test) | — | 2026-09-27 | Completed; same fix proposed upstream |
 | ESP-012 | Low | Upstream core bug report | — | Filed espressif/arduino-esp32#12951 with a minimal repro captured on this board | — | 2026-09-27 | Completed; watch the upstream issue |

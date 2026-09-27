@@ -9,7 +9,7 @@
 | ESP-R05 | Wrong core/backend, cache or security assumptions | Medium | High | Inspect exact implementation/recipe; capture subscriptions/security and host/unit identity | Codex/operator | Open |
 | ESP-R06 | Publish to template origin | Medium | High | Use explicit verified henslewm/ESP32S3BLEHID target; origin now points there | Codex | New private project created at user's request; no template repository write |
 | ESP-R07 | Old template task queue or setup mistaken for authority | Medium | High | Archived controls; project records; unchanged foundation activated using carried Winston approval | Codex | ACTIVE validated; no inherited issue execution |
-| ESP-R08 | Independent acceptance reviewer unavailable | Medium | Medium | Arrange eligible cross-family review; no invented waiver | Integrator | Pending |
+| ESP-R08 | Independent acceptance reviewer unavailable | Medium | Medium | Arrange eligible cross-family review; no invented waiver | Integrator | Mitigated: Codex cross-family review done in PR #10 (C1-C9); hardware attestation stays the operator's; #11 and #12 open |
 | ESP-R09 | External fallback Python disappears | Medium | Medium | Record and recheck exact runtime each session | Codex | Known limitation |
 | ESP-R10 | Wrong-target or uncertain pairing mutation | Medium | High | Explicit address, AEP kind, duplicate rejection, fresh postchecks, cancellation, no retries | Codex/operator | Live exact-address unpair/pair exit 0 on 2026-09-27; mitigations retained |
 | ESP-R11 | Telemetry absence or observer activity misread as detection evidence | High | Medium | Lifetime/GUID correlation, coverage gaps, fragment flags, explicit target links, local-only claims | Codex/operator | Sysmon missing; Wazuh stopped; configuration unchanged |

@@ -2,18 +2,18 @@
 
 Start with [PROJECT_STATE.md](PROJECT_STATE.md) and [HANDOFF_CURRENT.md](HANDOFF_CURRENT.md). The unchanged [foundation](BOOTSTRAP_REVIEW.md) is ACTIVE under Winston's carried approval. Validate the gate each session.
 
-Windows pairing and telemetry tooling is documented in [BLE_PAIRING.md](docs/BLE_PAIRING.md). Exact-device pairing and mouse subscription remain unverified. Run `powershell.exe -NoProfile -File scripts/Test-BlePairing.ps1` for software checks without Bluetooth actions.
+Windows pairing and telemetry tooling is documented in [BLE_PAIRING.md](docs/BLE_PAIRING.md). Exact-device pairing (ESP-009) and mouse subscription/cursor motion (ESP-005) are operator-confirmed. Run `powershell.exe -NoProfile -File scripts/Test-BlePairing.ps1` for software checks without Bluetooth actions.
 
-The next focused chat starts with [mouse issue #1](https://github.com/henslewm/ESP32S3BLEHID/issues/1), [MOUSE_INVESTIGATION.md](docs/MOUSE_INVESTIGATION.md), the [two q observations](evidence/operator-serial-q-2026-09-27.md) and the [reference-library review](evidence/hid-reference-review-2026-09-27.md). The implementation/evidence checkpoint is [43281a2](https://github.com/henslewm/ESP32S3BLEHID/commit/43281a201e1879c06ed054bfc27a04f14e911b7a).
+[Mouse issue #1](https://github.com/henslewm/ESP32S3BLEHID/issues/1) is closed; root cause and fix are in [evidence/mouse-fix-2026-09-27.md](evidence/mouse-fix-2026-09-27.md), and the core bug is filed upstream as espressif/arduino-esp32#12951.
 
 - Locked source: [evidence/baseline-v7/BLEScanner_LOCKED_BASELINE_v7.ino](evidence/baseline-v7/BLEScanner_LOCKED_BASELINE_v7.ino). Never modify or overwrite it.
-- Editable sketch: [firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino](firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino). Currently byte-identical to the baseline.
+- Editable sketch: [firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino](firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino). Split into modules; differs from the baseline by design.
 - Owner handoff: [evidence/baseline-v7/CODEX_CLI_HANDOFF_BLEScanner_v7.md](evidence/baseline-v7/CODEX_CLI_HANDOFF_BLEScanner_v7.md).
 - Import provenance: [evidence/baseline-v7/IMPORT_RECORD.md](evidence/baseline-v7/IMPORT_RECORD.md).
 
 Expected SHA-256: `9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6`.
 
-Target: ESP32-S3 Dev Module, `esp32:esp32:esp32s3`, Arduino-ESP32 `3.3.12`, built-in NimBLE, serial `921600`. Next question: why does Windows subscribe to keyboard report 1 but not mouse report 2?
+Target: ESP32-S3 Dev Module, `esp32:esp32:esp32s3`, Arduino-ESP32 `3.3.12`, built-in NimBLE, serial `921600`.
 
 Build only the isolated working sketch directory. The preserved script output has multiple full `.ino` copies and is not a build target. Keep `t` mouse-only and wait for fresh `mouse_sub=yes` before running it.
 

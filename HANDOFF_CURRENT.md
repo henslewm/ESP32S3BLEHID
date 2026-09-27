@@ -2,7 +2,7 @@
 
 ## Where things stand (2026-09-27 session close)
 
-The ESP32-S3 pairs with the Windows host as a BLE keyboard and mouse, and Windows can remove and re-add it automatically. All work is merged to `main` on origin (PRs #2–#5).
+The ESP32-S3 pairs with the Windows host as a BLE keyboard and mouse, and Windows can remove and re-add it automatically. All work is merged to `main` on origin (PRs #2–#7, #9, #10).
 
 - **Mouse fix.** Core 3.3.12 silently dropped the second HID input report (same UUID 0x2A4D). `hid_core_workaround.cpp` registers it. Hardware shows `connected=yes keyboard_sub=yes mouse_sub=yes`, HID Keyboard Device plus HID-compliant mouse in Windows, `t` PASS and no resets. [Record](evidence/mouse-fix-2026-09-27.md).
 - **Automatic pairing.** `powershell.exe -File scripts/Invoke-BleAutoPair.ps1 -BleAddress <address> -Unpair -Pair` exits 0 (exact-address lookup plus in-process ConfirmOnly pairing). The bonded host reconnects on its own after a reset or `B`/`b`.
