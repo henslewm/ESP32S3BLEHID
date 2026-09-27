@@ -2,7 +2,7 @@
 
 - **Status:** ACTIVE — approved foundation
 - **Updated:** 2026-09-27 session close; all work merged to origin/main (PRs #2-#7, #9, #10).
-- **Current task:** mouse issue #1 resolved on hardware and operator-confirmed on `main` `b30d71f` (ESP-005 Completed); foundation re-approved (ACTIVE, fingerprint 20fc20c2…).
+- **Current task:** mouse issue #1 resolved on hardware and operator-confirmed on `main` `b30d71f` (ESP-005 Completed); phase 2 foundation (ESP-ADR-020) approved and ACTIVE, fingerprint 4f53ec2d….
 
 ## Verified state
 
