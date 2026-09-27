@@ -1,13 +1,13 @@
 # Project State
 
 - **Status:** SETUP — autonomy OFF
-- **Updated:** 2026-09-27; branch main at `23b7a84` plus uncommitted work from this session.
+- **Updated:** 2026-09-27 session close; all work merged to origin/main (PRs #2-#5).
 - **Current task:** mouse issue #1 resolved on hardware pending operator visual confirmation; modular-code rule awaiting renewed foundation approval.
 
 ## Verified state
 
 - **Mouse root cause found and fixed.** Arduino-ESP32 3.3.12 `BLEService::addCharacteristic` silently drops a second characteristic with the same UUID under NimBLE. The mouse input report (0x2A4D, ID 2) never reached the GATT table (handle 65535). A sketch-side workaround (`hid_core_workaround.cpp`) registers it without core, backend, report-map or payload changes. [Record](evidence/mouse-fix-2026-09-27.md).
-- **Hardware (build `v7-split-diag3-stopdisconnect`, COM10):**
+- **Hardware (arduino-cli builds diag1-3, then PlatformIO builds; the latest flashed build printed `elf_sha256` equal to its ELF):**
   - `q`: `connected=yes keyboard_sub=yes mouse_sub=yes`.
   - Windows shows HID Keyboard Device and HID-compliant mouse.
   - `t` passes with no reset.
@@ -19,11 +19,12 @@
 - **Firmware split into modules.** The sketch is now 14 modules listed in [MODULES.md](firmware/BLEScanner_WORKING_v7/MODULES.md), split mechanically from the locked baseline by `scripts/split_v7_sketch.py`. The unsplit and split builds are string-equivalent. The locked baseline SHA-256 `9f3c9099…14c6` is unchanged. The working sketch no longer matches it by design.
 - **Modular-code rule added** to `PROJECT_CHARTER.md` (constraints) and `.claude/rules/05-modular-code.md`, at the user's direction. The charter is hash-bound, so the foundation needs re-approval (see Next).
 - FE1.1s USB hub integration is explicitly out of scope (ESP-ADR-012; renewed approval recorded).
-- Tooling: `scripts/serial_bridge.py` holds COM10 and logs, sending commands appended to `build/serial/inbox.txt`. The build FQBN is `esp32:esp32:esp32s3:CDCOnBoot=cdc`.
+- Tooling: `scripts/serial_bridge.py` holds COM10, logs, and sends newline-terminated commands appended to `build/serial/inbox.txt`. Build with `pio run -e dev` (`platformio.ini`, pioarduino 55.03.312-1); see `docs/PLATFORMIO.md`.
+- **Artifact identity:** the firmware prints its embedded `elf_sha256`, and evidence binds to it. The generated build-label script was removed at the user's direction (ESP-ADR-018).
 
 ## Next
 
 1. The user runs `python scripts/bootstrap_gate.py activate` and approves the new fingerprint (the charter modular-code rule).
 2. The operator visually confirms cursor motion from `t` and that there are no stuck keys in normal use.
-3. Optional: commit/push this session's work, update issue #1, and report the core duplicate-UUID bug upstream (needs authority for each external write).
+3. Optional: update/close issue #1 and report the core duplicate-UUID bug upstream (each external write needs authority).
 4. Keyboard input beyond neutral reports is still out of scope until the charter is revised.

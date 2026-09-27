@@ -1,28 +1,24 @@
 # Current Handoff
 
-## Where things stand (2026-09-27)
+## Where things stand (2026-09-27 session close)
 
-The ESP32-S3 now pairs with WINSTONDESKTOP as a BLE keyboard and mouse. Windows can remove and re-add it automatically.
+The ESP32-S3 pairs with the Windows host as a BLE keyboard and mouse, and Windows can remove and re-add it automatically. All work is merged to `main` on origin (PRs #2–#5).
 
-- **Mouse fix.** Core 3.3.12 silently dropped the second HID input report (same UUID 0x2A4D). `hid_core_workaround.cpp` registers it. Hardware now shows `connected=yes keyboard_sub=yes mouse_sub=yes`, HID Keyboard Device plus HID-compliant mouse in Windows, `t` PASS and no resets. [Record](evidence/mouse-fix-2026-09-27.md).
-- **Automatic pairing.** `powershell.exe -File scripts/Invoke-BleAutoPair.ps1 -BleAddress 7C:4F:AD:21:52:89 -Unpair -Pair` exits 0. It opens the device by exact address and accepts Just Works in-process (ConfirmOnly helper). After a reset or `B`/`b`, the bonded host reconnects on its own.
-- **Modular firmware.** Start at [MODULES.md](firmware/BLEScanner_WORKING_v7/MODULES.md) and open only the owning module. The charter now requires this (the rule is pending re-approval).
-- **Build and flash:**
-  - Compile with `arduino-cli compile -b esp32:esp32:esp32s3:CDCOnBoot=cdc --build-path build/<id> --output-dir build/<id>-out firmware/BLEScanner_WORKING_v7`.
-  - Upload with `-p COM10`.
-  - Serial runs through `python scripts/serial_bridge.py --port COM10 --log build/serial/<id>.log`; append commands to `build/serial/inbox.txt` and send `__quit__` before uploading.
-  - Current flashed build: `v7-split-diag4-pio` (PlatformIO; see below).
-
-## PlatformIO
-
-The root `platformio.ini` builds this sketch with Arduino 3.3.12 through pioarduino `55.03.312-1`. Use `pio run -e dev -t upload` (the port is selected by USB ID). Rules are in `docs/PLATFORMIO.md`. The flashed build is now `v7-split-diag4-pio` (ELF `55a30baf…52c1`). Template issue #51 and PR #52 carry the sanitized write-up and the rules. Placeholder values are in ignored `build/local-identifiers.ps1`.
+- **Mouse fix.** Core 3.3.12 silently dropped the second HID input report (same UUID 0x2A4D). `hid_core_workaround.cpp` registers it. Hardware shows `connected=yes keyboard_sub=yes mouse_sub=yes`, HID Keyboard Device plus HID-compliant mouse in Windows, `t` PASS and no resets. [Record](evidence/mouse-fix-2026-09-27.md).
+- **Automatic pairing.** `powershell.exe -File scripts/Invoke-BleAutoPair.ps1 -BleAddress <address> -Unpair -Pair` exits 0 (exact-address lookup plus in-process ConfirmOnly pairing). The bonded host reconnects on its own after a reset or `B`/`b`.
+- **Modular firmware.** Start at [MODULES.md](firmware/BLEScanner_WORKING_v7/MODULES.md) and open only the owning module.
+- **Artifact identity.** The `i` command prints `elf_sha256=`, the ELF hash embedded in the app image. It equalled the flashed ELF exactly. Evidence binds to that value. `FIRMWARE_BUILD_ID` is only an optional `-D` label; the generated-label script was removed at the user's direction after seven review rounds on it.
+- **Build and flash.**
+  - Build and upload with `pio run -e dev -t upload`: root `platformio.ini`, pioarduino `55.03.312-1` = Arduino 3.3.12, port matched by USB ID. Rules are in `docs/PLATFORMIO.md`; an arduino-cli equivalent is documented there too.
+  - Serial: `python scripts/serial_bridge.py --port COM10 --log build/serial/<name>.log`. Append commands to `build/serial/inbox.txt`, and send `__quit__` before uploading.
 
 ## Open
 
-1. The user re-approves the foundation (`python scripts/bootstrap_gate.py activate`) for the modular-code charter rule. The gate is inactive until then.
-2. The operator visually confirms that `t` moves the cursor. Agent cursor sampling was swamped by real mouse motion.
-3. Commit/push, issue #1 update and an upstream core bug report are all unperformed and need authority.
-4. Keyboard input beyond neutral reports stays out of scope under the current charter. Scripted automation of real work needs a charter revision.
-5. The telemetry comparison and cross-family acceptance review (ESP-007) remain.
+1. **Foundation re-approval.** The bootstrap gate is `AWAITING_APPROVAL` (charter modular rule plus profile build section). The user runs `python scripts/bootstrap_gate.py activate`; the fingerprint is in `BOOTSTRAP_REVIEW.md`.
+2. **Cursor motion from `t`.** The operator has not yet confirmed it visually; agent cursor sampling was swamped by real mouse motion.
+3. **Issue #1.** It can be updated and closed, and the core duplicate-UUID bug can be reported upstream. Each needs authority.
+4. **Charter scope.** Keyboard input beyond neutral reports stays out of scope. Scripted automation of real work needs a charter revision.
+5. **Remaining items.** The telemetry comparison, cross-family acceptance (ESP-007), and the pre-existing CI failure: inherited template test `test_bootstrap_in_place` fails in this generated project.
+6. **Template follow-ups.** Template PR #52 is merged. Any Codex findings from its final review are tracked in a new template issue linked from ESP-013.
 
-Locked baseline SHA-256 `9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6` is unchanged. The working sketch now differs by design (split plus fixes).
+Locked baseline SHA-256 `9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6` is unchanged. The working sketch differs by design (split plus fixes). Placeholder values for the public template issue are in ignored `build/local-identifiers.ps1`.

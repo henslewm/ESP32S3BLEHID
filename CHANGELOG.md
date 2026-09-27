@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-27 — session close
+
+- Firmware prints its embedded `elf_sha256` (verified equal to the flashed ELF); evidence binds to it. The review-driven build-label script (`pio_build_id.py`) was removed at the user's direction after seven Codex rounds on it; `FIRMWARE_BUILD_ID` is an optional `-D` label.
+- The serial bridge dispatches only newline-terminated inbox lines. PlatformIO `maximum_size` is set to the app partition. The pairing helper loads only for Pair.
+- Merged PRs #2 (mouse fix, pairing, modules, PlatformIO), #3 and #4 (build identity), and #5 (this cleanup). Template PR #52 was merged by user direction.
+
 ## 2026-09-27 — PlatformIO build and template hand-off
 
 - Adapted the user's `platformio.ini` (original archived): pioarduino `55.03.312-1` for Arduino 3.3.12, `src_dir` set to the sketch, quiet `dev` log level, 921600 monitor. Board confirmed N16R8 by esptool. Build `v7-split-diag4-pio` flashed and passed the hardware smoke test with 8 MB PSRAM visible.
