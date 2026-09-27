@@ -53,8 +53,8 @@ def main() -> None:
             if size > offset:
                 with args.inbox.open("rb") as f:
                     f.seek(offset)
-                    chunk = f.read()
-                offset = size
+                    chunk = f.read(size - offset)  # bytes appended after the size check wait for the next poll
+                offset += len(chunk)
                 for raw in chunk.decode("utf-8", "replace").splitlines():
                     cmd = raw.strip("\r")
                     if cmd == "__quit__":

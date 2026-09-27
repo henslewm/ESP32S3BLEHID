@@ -4,4 +4,4 @@
 - Treat each module's header as its contract; change the header only when the contract changes.
 - Add new behavior to its owning module or a new module; keep `BLEScanner_WORKING_v7.ino` to `setup()`/`loop()`.
 - Update `MODULES.md` in the same change whenever a module, public function or ownership changes.
-- Bump `FIRMWARE_BUILD_ID` for every flashed build and record the ELF hash in evidence.
+- Never hard-code `FIRMWARE_BUILD_ID`: builds inject it from git SHA, toolchain and environment (`scripts/pio_build_id.py`, or `-DFIRMWARE_BUILD_ID=` for arduino-cli). Record the ELF hash of every flashed build in evidence.

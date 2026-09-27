@@ -185,6 +185,16 @@ InModuleScope BlePairing {
             Get-BleProperty $device 'System.Devices.Aep.DeviceAddress' | Should Be '7c:4f:ad:21:52:89'
             Get-BleProperty $device 'System.Devices.Aep.IsPaired' | Should BeNullOrEmpty
         }
+        It 'loads the SDK-built pairing helper only when a Pair mutation starts' {
+            Mock Import-BleCustomPairing { throw 'helper unavailable' }
+            Mock Invoke-BleNativeOperation { try { $null = & $Start } catch { }; New-TestOperation }
+            $device = New-TestDevice
+            $device.Pairing | Add-Member -MemberType ScriptMethod -Name UnpairAsync -Value { $null }
+            $null = Invoke-BleMutation $device 'Unpair'
+            Assert-MockCalled -Scope It Import-BleCustomPairing -Times 0
+            $null = Invoke-BleMutation $device 'Pair'
+            Assert-MockCalled -Scope It Import-BleCustomPairing -Times 1
+        }
         It 'pairs through the in-process ConfirmOnly helper and unpairs natively' {
             Mock Invoke-BleNativeOperation { New-TestOperation }
             $null = Invoke-BleMutation (New-TestDevice) 'Pair'

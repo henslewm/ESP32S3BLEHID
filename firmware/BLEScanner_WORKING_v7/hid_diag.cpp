@@ -82,7 +82,7 @@ static int diagGapEvent(struct ble_gap_event* event, void* arg) {
 }
 
 void printBuildIdentity() {
-  Serial.printf("Build: %s compiled %s %s\n", FIRMWARE_BUILD_ID, __DATE__, __TIME__);
+  Serial.printf("Build: %s core=%s compiled %s %s\n", FIRMWARE_BUILD_ID, ESP_ARDUINO_VERSION_STR, __DATE__, __TIME__);
 }
 
 void hidDiagBegin(uint16_t keyboardValueHandle, uint16_t mouseValueHandle) {

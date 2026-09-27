@@ -5,7 +5,11 @@
 #include "config.h"
 
 // Build identity printed by 'i' and at HID start so serial captures bind to an artifact.
-#define FIRMWARE_BUILD_ID "v7-split-diag4-pio"
+// Injected by the build (scripts/pio_build_id.py, or -DFIRMWARE_BUILD_ID for arduino-cli);
+// never hard-code it, or later builds would claim an already-tested artifact's identity.
+#ifndef FIRMWARE_BUILD_ID
+#define FIRMWARE_BUILD_ID "unlabeled"
+#endif
 
 void printBuildIdentity();
 

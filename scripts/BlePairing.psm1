@@ -35,7 +35,8 @@ function Initialize-BleRuntime {
     $null = [Windows.Devices.Enumeration.DevicePairingResult, Windows.Devices.Enumeration, ContentType=WindowsRuntime]
     $null = [Windows.Devices.Enumeration.DeviceUnpairingResult, Windows.Devices.Enumeration, ContentType=WindowsRuntime]
     $null = [Windows.Devices.Bluetooth.BluetoothLEDevice, Windows.Devices.Bluetooth, ContentType=WindowsRuntime]
-    Import-BleCustomPairing
+    # The custom-pairing helper needs the Windows SDK; it is loaded only when a Pair mutation starts,
+    # so discovery and unpair-only runs work on hosts without it.
 }
 
 function Import-BleCustomPairing {
@@ -222,7 +223,7 @@ function Invoke-BleMutation {
         return Invoke-BleNativeOperation -Method UnpairAsync -TimeoutSeconds 120 -ResultType ([Windows.Devices.Enumeration.DeviceUnpairingResult]) -Start { $Device.Pairing.UnpairAsync() }
     }
     # Custom ConfirmOnly pairing accepts the Just Works prompt in-process; plain PairAsync fails without UI.
-    return Invoke-BleNativeOperation -Method CustomPairAsync -TimeoutSeconds 120 -ResultType ([Windows.Devices.Enumeration.DevicePairingResult]) -Start { [BleCustomPairing]::StartConfirmOnlyPair($Device) }
+    return Invoke-BleNativeOperation -Method CustomPairAsync -TimeoutSeconds 120 -ResultType ([Windows.Devices.Enumeration.DevicePairingResult]) -Start { Import-BleCustomPairing; [BleCustomPairing]::StartConfirmOnlyPair($Device) }
 }
 
 function Invoke-BlePairing {
