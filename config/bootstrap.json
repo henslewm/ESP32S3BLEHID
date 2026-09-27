@@ -4,26 +4,34 @@
   "state": "AWAITING_APPROVAL",
   "project": {
     "name": "ESP32-S3 BLE Scanner / HID Research",
-    "objective": "Determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner.",
+    "objective": "Phase 1 (done 2026-09-27): determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner. Phase 2 (ESP-ADR-020): use the board as a BLE keyboard and mouse the owner drives from their own PC to automate their own work; input only on explicit host commands, with release-all safety rails.",
     "definition_of_done": [
       "Locked baseline SHA-256 remains 9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6.",
       "Board boots quietly to READY HIDDIAG-v7. h=help; b enters HID mode without reset; Windows sees S3-HID-KM-v7 and connects without reset.",
       "q reports connected=yes, keyboard_sub=yes, and mouse_sub=yes in a recorded hardware run.",
       "Only after mouse_sub=yes, t produces mouse movement only, with no stuck keyboard modifiers and no ESP32 reset.",
       "Returning to scan mode still works; original interactive scanner commands remain available.",
-      "Evidence distinguishes source checks, compilation, and operator-observed hardware results; any backtrace is decoded against the exact run's ELF."
+      "Evidence distinguishes source checks, compilation, and operator-observed hardware results; any backtrace is decoded against the exact run's ELF.",
+      "A host-command protocol on the USB serial link types text, sends key chords (including Ctrl/Shift/Alt/GUI), and moves, clicks and scrolls the mouse. Commands are framed lines that cannot be confused with the existing single-character commands, and every existing command keeps its meaning.",
+      "Release-all (neutral keyboard and mouse reports) is sent after every chord, on a stop command, before any device-initiated disconnect (including leaving HID mode), on an idle timeout and on any protocol error. On a remote disconnect or link loss the device clears its local key and button state and, after the host re-subscribes, sends neutral reports before accepting any new input command; the host's own release-on-disconnect behavior is tested, not assumed. Each case is observed on hardware with no stuck key or button.",
+      "A host-side PowerShell helper sends commands and reports each command's acknowledgement or error. Protocol tests run without hardware.",
+      "Operator-observed runs on the owner's PC show typed text, a modifier chord and mouse actions landing correctly, with no reset."
     ],
     "non_goals": [
-      "Keyboard injection or modifier testing, unrelated devices, scanner redesign, and declaring HID complete without every hardware acceptance observation.",
+      "Unrelated devices, scanner redesign, and declaring HID complete without every hardware acceptance observation.",
+      "Autonomous or stored input: no input at boot, no on-device scripts or timers that send input, and no input without a live host command.",
+      "Use against machines the owner does not own or control, and any credential capture or security-bypass use.",
       "Changing BLE backend, framework, board family, security model, or public command/report interface without renewed architecture approval.",
-      "Continuing the inherited universal-ai-project-template issue sequence or publishing to its remote."
+      "Continuing the inherited universal-ai-project-template issue sequence or publishing to its remote.",
+      "FE1.1s USB hub integration or any USB-hub hardware path; this project is BLE HID only."
     ],
     "constraints": [
       "Never modify or overwrite the locked baseline or Downloads originals. Experiments belong in firmware/BLEScanner_WORKING_v7 or a separate experiment copy.",
       "Preserve scanner functionality, all existing command meanings, and quiet boot.",
       "Pin Arduino-ESP32 3.3.12, built-in NimBLE, and esp32:esp32:esp32s3; do not reintroduce Bluedroid-only APIs or call BLEScan::clearDuplicateCache().",
       "Create BLEHIDDevice manufacturer characteristic with manufacturer() before setting its value; never prepend report IDs to GATT input values.",
-      "Keep t mouse-only; no Ctrl/Shift/Alt/GUI test reports while notification stability is unresolved; no t before mouse_sub=yes.",
+      "`t` stays the mouse-only diagnostic and never runs before mouse_sub=yes.",
+      "Keyboard and mouse input (phase 2) is sent only in response to explicit host commands and only while connected and subscribed to the target report. It must be bounded: a maximum text length per command, a per-report rate limit, and release-all after every chord and on each trigger listed in the phase 2 definition of done. Modifier chords are enabled only after release-all has been observed on hardware. New commands are additive and must not change the existing command meanings.",
       "Before changing report map bytes, parse the existing descriptor and inspect the exact 3.3.12 implementation and primary Windows HOGP expectations.",
       "Use small testable changes and retain each result; a successful build is not hardware verification.",
       "No hardware operation, Windows pairing/cache changes, flash/erase, Git publication, communications, credential access, permissions changes, or toolchain migration without the applicable explicit authority.",
@@ -31,14 +39,15 @@
     ]
   },
   "architecture": {
-    "summary": "Retain immutable v7 source evidence and an isolated editable Arduino sketch. Investigate the existing descriptor first, then exact-core GATT construction, required HID service characteristics and Windows composite HOGP expectations. Add observation-only instrumentation before any approved HID movement test. The serial/Windows hardware boundary remains operator controlled.",
+    "summary": "Retain immutable v7 source evidence and an isolated editable Arduino sketch. Investigate the existing descriptor first, then exact-core GATT construction, required HID service characteristics and Windows composite HOGP expectations. Add observation-only instrumentation before any approved HID movement test. The serial/Windows hardware boundary remains operator controlled. Phase 2 adds a framed serial host-command layer in its own module(s) that emits keyboard and mouse reports only on explicit host commands, bounded and ending every stop path in release-all.",
     "boundaries": [
       "Evidence: evidence/baseline-v7 and archive/handoff-import-2026-09-27 are preserved inputs, never experiment/build targets.",
       "Firmware: firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino is the working copy; scanner commands and quiet idle boot are invariants.",
       "Descriptor/GATT: keyboard report 1 and mouse report 2 retain separate Report Reference descriptors; payloads exclude the report ID byte.",
       "Telemetry: subscription, connection and security observations must be obtainable without emitting HID input.",
       "Host: Windows pairing and physical firmware runs require an operator-authorized session; approval of local research alone does not authorize device state changes.",
-      "Validation: static parser/source checks and pinned compilation precede operator-attested hardware results; exact artifacts and resets are traceable."
+      "Validation: static parser/source checks and pinned compilation precede operator-attested hardware results; exact artifacts and resets are traceable.",
+      "Input: HID reports are emitted only by the phase 2 command module in response to a framed host command while connected and subscribed; every stop path, timeout and protocol error ends in release-all."
     ],
     "milestones": [
       "Preserve baseline and approve foundation",
@@ -46,14 +55,22 @@
       "Audit core GATT and Windows HOGP",
       "Prepare observation-only diagnostic",
       "Observe both subscriptions on hardware",
-      "Verify mouse-only diagnostic and scanner return"
+      "Verify mouse-only diagnostic and scanner return",
+      "Design framed host-command protocol",
+      "Implement keyboard and mouse input with release-all rails",
+      "Host helper and hardware-free protocol tests",
+      "Observe phase 2 on hardware"
     ],
     "dependencies": [
       "Preserve baseline and approve foundation -> Parse descriptor bytes",
       "Parse descriptor bytes -> Audit core GATT and Windows HOGP",
       "Audit core GATT and Windows HOGP -> Prepare observation-only diagnostic",
       "Prepare observation-only diagnostic -> Observe both subscriptions on hardware",
-      "Observe both subscriptions on hardware -> Verify mouse-only diagnostic and scanner return"
+      "Observe both subscriptions on hardware -> Verify mouse-only diagnostic and scanner return",
+      "Verify mouse-only diagnostic and scanner return -> Design framed host-command protocol",
+      "Design framed host-command protocol -> Implement keyboard and mouse input with release-all rails",
+      "Implement keyboard and mouse input with release-all rails -> Host helper and hardware-free protocol tests",
+      "Host helper and hardware-free protocol tests -> Observe phase 2 on hardware"
     ]
   },
   "sources": [
@@ -70,7 +87,9 @@
     "Historical success mistaken for fresh hardware proof: handoff observations remain owner supplied until reproduced and recorded.",
     "Wrong GitHub target: origin currently names henslewm/universal-ai-project-template; no publication or remote mutation is authorized by setup.",
     "Toolchain/source mismatch: verify actual recipes, core version, board options and resolved BLE implementation before drawing conclusions.",
-    "Physical unit, COM port and exact Windows build have not been identified in this session; they must be recorded before hardware testing, not guessed."
+    "Physical unit, COM port and exact Windows build have not been identified in this session; they must be recorded before hardware testing, not guessed.",
+    "Stuck keys or runaway input on the owner's PC: bounded text length, per-report rate limit, release-all on every stop path, modifier chords only after release-all is hardware-observed; a remote disconnect cannot be released after the fact, so local state is cleared and neutral reports precede the first post-resubscribe command.",
+    "Misuse against machines the owner does not control or stored/autonomous input: excluded by charter non-goals."
   ],
   "routing": {
     "policy": "Use the current session's inherited model/resources for architecture and bounded read-only research; no paid provider, model installation or global configuration changes. Delegate independent scopes through the repository's agent roles. Future execution workers require canonical packets and EXECUTION_HARNESS_PROTOCOL.md. Hardware adapter/integration work is high risk and requires independent review and the profile's cross-family acceptance gate; absence of an eligible reviewer is a hold, not an implicit waiver. No worker performs hardware runs."
@@ -83,15 +102,16 @@
     "Operator identifies the physical ESP32 and host/COM port and authorizes the concrete hardware session before flash/erase, pairing/bond/cache changes or serial commands; t additionally requires freshly observed mouse_sub=yes.",
     "Owner approval for material changes to board/backend/core, security/authentication, report/command public interfaces or architecture boundaries; baseline immutability is mandatory.",
     "Explicit authority for Git publication/remote changes, communications, permissions, credentials, installations or external writes; no push to inherited template origin.",
-    "Hardware acceptance requires recorded operator observations bound to the exact build and an eligible independent review; do not self-attest or invent reviewer waivers."
+    "Hardware acceptance requires recorded operator observations bound to the exact build and an eligible independent review; do not self-attest or invent reviewer waivers.",
+    "Operator authorizes each phase 2 hardware session on their own PC; modifier-chord commands are enabled only after release-all has been observed on hardware."
   ],
   "domain": {
     "baseline": "Hash-verified v7 is 61,594 bytes, SHA-256 9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6, preserved under evidence/baseline-v7. Downloads source has the longer v7_GENERIC_HID filename. The older archive/BLEScanner.ino remains distinct; no firmware changes during bootstrap.",
     "hardware_identity": "Owner-specified ESP32-S3 Dev Module / ESP32-S3-WROOM-1 family, FQBN esp32:esp32:esp32s3, baseline v7. Exact physical board revision, unit identity and USB/COM mapping remain unobserved and are preconditions for an operator hardware session; local descriptor work does not depend on them.",
-    "interfaces": "BLE scan and composite HID over GATT using the built-in NimBLE backend, keyboard input report ID 1 and mouse input report ID 2, advertised S3-HID-KM-v7 and Generic HID 0x03C0. Serial 921600; user handoff defines every command. No report IDs prepended to characteristic payloads.",
+    "interfaces": "BLE scan and composite HID over GATT using the built-in NimBLE backend, keyboard input report ID 1 and mouse input report ID 2, advertised S3-HID-KM-v7 and Generic HID 0x03C0. Serial 921600; user handoff defines every command. No report IDs prepended to characteristic payloads. Phase 2 adds framed line commands on the same serial link; single-character commands keep their meanings.",
     "specifications": "Authoritative baseline is the owner's hash-pinned source. Implementation authority is installed Arduino-ESP32 3.3.12 BLE/NimBLE source and matching Espressif upstream. USB-IF HID, Bluetooth SIG HIDS/HOGP, and Microsoft Learn define the technical investigation sources; version/section details must be retrieved during the approved source audit before any report-map edit.",
     "environment": "Windows/PowerShell workspace. Core 3.3.12 directory and C:/Program Files/Arduino CLI/arduino-cli.exe are present, but no fresh build has run. Python is absent from PATH; existing CPython at C:/Users/hensl/Documents/GitHub/_acceptance-demo-10/review-2/.python-runtime/cpython-3.12-windows-x86_64-none/python.exe can run repository bootstrap validation. Exact host build, board menu options and resolved compile recipe await the relevant milestone.",
-    "known_paths": "Owner handoff reports successful compile, quiet boot, interactive scanner, stable HID service construction and keyboard subscription; mouse subscription is unresolved. These historical observations have not been independently reproduced. This intake independently verifies file hashes and installed paths only.",
+    "known_paths": "Phase 1 is hardware-confirmed (main b30d71f, 2026-09-27): quiet boot, scanner, both subscriptions stable, t PASS, scanner return. Keyboard text, modifier chords and mouse click/scroll over the host-command protocol are untested paths.",
     "validation_resources": "Repository bootstrap/project validators, preserved source and installed core/CLI are available. A host-side descriptor parser must be selected and validated during the first approved engineering milestone; none has yet been verified. No simulator, current serial capture, exact run ELF or operator hardware evidence has been supplied. Hardware checks remain pending and separate from static/compile checks.",
     "physical_access": "The owner controls the physical unit and Windows host. No unit identity or current hardware session has been established; no serial opening, pairing, upload or HID input occurs during bootstrap. Confirm target and obtain concrete operator authority when the hardware milestone is ready.",
     "architecture_boundaries": "Locked baseline, scanner command behavior, quiet boot, board family/FQBN, Arduino-ESP32 3.3.12, built-in NimBLE, HID identity and report payload contracts, security policy and operator boundary are fixed. Investigate the existing map before proposing changes; material changes return to review."
@@ -101,7 +121,7 @@
     "project_name": "ESP32-S3 BLE Scanner / HID Research",
     "project_slug": "esp32s3blehid",
     "domain_profile": "software-hardware",
-    "objective": "Determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner.",
+    "objective": "Phase 1 (done 2026-09-27): determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner. Phase 2 (ESP-ADR-020): use the board as a BLE keyboard and mouse the owner drives from their own PC to automate their own work; input only on explicit host commands, with release-all safety rails.",
     "problem_statement": "The owner reports a compiling and booting composite BLE HID baseline whose Windows mouse-input subscription remains unresolved. The existing repository is an unactivated template with an older archived sketch.",
     "owner": "Repository owner (hensl); approving identity must be supplied by the user",
     "risk_tier": "high",
@@ -128,13 +148,18 @@
       "q reports connected=yes, keyboard_sub=yes, and mouse_sub=yes in a recorded hardware run.",
       "Only after mouse_sub=yes, t produces mouse movement only, with no stuck keyboard modifiers and no ESP32 reset.",
       "Returning to scan mode still works; original interactive scanner commands remain available.",
-      "Evidence distinguishes source checks, compilation, and operator-observed hardware results; any backtrace is decoded against the exact run's ELF."
+      "Evidence distinguishes source checks, compilation, and operator-observed hardware results; any backtrace is decoded against the exact run's ELF.",
+      "A host-command protocol on the USB serial link types text, sends key chords (including Ctrl/Shift/Alt/GUI), and moves, clicks and scrolls the mouse. Commands are framed lines that cannot be confused with the existing single-character commands, and every existing command keeps its meaning.",
+      "Release-all (neutral keyboard and mouse reports) is sent after every chord, on a stop command, before any device-initiated disconnect (including leaving HID mode), on an idle timeout and on any protocol error. On a remote disconnect or link loss the device clears its local key and button state and, after the host re-subscribes, sends neutral reports before accepting any new input command; the host's own release-on-disconnect behavior is tested, not assumed. Each case is observed on hardware with no stuck key or button.",
+      "A host-side PowerShell helper sends commands and reports each command's acknowledgement or error. Protocol tests run without hardware.",
+      "Operator-observed runs on the owner's PC show typed text, a modifier chord and mouse actions landing correctly, with no reset."
     ],
     "deliverables": [
       "Hash-verified preserved handoff and baseline with provenance; isolated editable Arduino sketch.",
       "Byte-for-byte HID descriptor parser output and Arduino-ESP32 3.3.12 input-report/GATT implementation audit.",
       "Primary-source Windows HOGP findings and a small diagnostic experiment logging subscriptions and security without sending HID input.",
-      "Bounded fixes, compile records, exact ELF/build metadata, operator hardware evidence, and current repository handoff."
+      "Bounded fixes, compile records, exact ELF/build metadata, operator hardware evidence, and current repository handoff.",
+      "Phase 2: framed serial host-command module(s) with release-all rails, a host-side PowerShell helper, hardware-free protocol tests, and operator hardware evidence for text, a modifier chord, mouse actions and every release-all trigger."
     ],
     "source_locations": [
       "Owner handoff of 2026-09-27; preserved at evidence/baseline-v7/CODEX_CLI_HANDOFF_BLEScanner_v7.md (historical hardware observations, not refreshed proof).",
@@ -162,16 +187,20 @@
       "Preserve scanner functionality, all existing command meanings, and quiet boot.",
       "Pin Arduino-ESP32 3.3.12, built-in NimBLE, and esp32:esp32:esp32s3; do not reintroduce Bluedroid-only APIs or call BLEScan::clearDuplicateCache().",
       "Create BLEHIDDevice manufacturer characteristic with manufacturer() before setting its value; never prepend report IDs to GATT input values.",
-      "Keep t mouse-only; no Ctrl/Shift/Alt/GUI test reports while notification stability is unresolved; no t before mouse_sub=yes.",
+      "`t` stays the mouse-only diagnostic and never runs before mouse_sub=yes.",
+      "Keyboard and mouse input (phase 2) is sent only in response to explicit host commands and only while connected and subscribed to the target report. It must be bounded: a maximum text length per command, a per-report rate limit, and release-all after every chord and on each trigger listed in the phase 2 definition of done. Modifier chords are enabled only after release-all has been observed on hardware. New commands are additive and must not change the existing command meanings.",
       "Before changing report map bytes, parse the existing descriptor and inspect the exact 3.3.12 implementation and primary Windows HOGP expectations.",
       "Use small testable changes and retain each result; a successful build is not hardware verification.",
       "No hardware operation, Windows pairing/cache changes, flash/erase, Git publication, communications, credential access, permissions changes, or toolchain migration without the applicable explicit authority.",
       "Preserve pre-existing archive/BLEScanner.ino and untracked scripts/Invoke-BleAutoPair.ps1; their presence does not authorize execution."
     ],
     "out_of_scope": [
-      "Keyboard injection or modifier testing, unrelated devices, scanner redesign, and declaring HID complete without every hardware acceptance observation.",
+      "Unrelated devices, scanner redesign, and declaring HID complete without every hardware acceptance observation.",
+      "Autonomous or stored input: no input at boot, no on-device scripts or timers that send input, and no input without a live host command.",
+      "Use against machines the owner does not own or control, and any credential capture or security-bypass use.",
       "Changing BLE backend, framework, board family, security model, or public command/report interface without renewed architecture approval.",
-      "Continuing the inherited universal-ai-project-template issue sequence or publishing to its remote."
+      "Continuing the inherited universal-ai-project-template issue sequence or publishing to its remote.",
+      "FE1.1s USB hub integration or any USB-hub hardware path; this project is BLE HID only."
     ],
     "domain": "software-hardware",
     "template_mode": false,
@@ -179,7 +208,7 @@
     "created": "2026-09-27"
   },
   "documents": {
-    "PROJECT_CHARTER.md": "61d21007fa35d1cb454d4c6e7234be9fa2ed20168f35e7575293a5510aa0281c",
+    "PROJECT_CHARTER.md": "74978e9dc80a48be3266af5601007f4432e446f3e4cdc2dcaece4d45614f2cb8",
     "CONNECTOR_PLAN.md": "45dbdbf4b6513e11517d7d383fcae540616e352ab380f8c380a1e26de96b6667",
     "SKILL_PLAN.md": "e14a47b63afe11db1ff7e9237373a20288ee068f79caa6896289dcee345319a4",
     "DOMAIN_PROFILE.md": "2c1dcd48c9a2dcc56ad0bea54d022cc1e3c25949f95ad2499e12228fce7a216c"

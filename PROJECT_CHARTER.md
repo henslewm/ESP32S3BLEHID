@@ -19,7 +19,7 @@ The owner reports a compiling and booting composite BLE HID baseline whose Windo
 
 Phase 1 (done 2026-09-27): determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner.
 
-Phase 2 (approved by charter revision ESP-ADR-020): use the board as a BLE keyboard and mouse that the owner drives from their own PC to automate their own work. Input is sent only on explicit host commands, with safety rails that make stuck keys and unattended input impossible by design.
+Phase 2 (ESP-ADR-020; authorized only while the bootstrap gate is ACTIVE for this exact charter): use the board as a BLE keyboard and mouse that the owner drives from their own PC to automate their own work. Input is sent only on explicit host commands, with safety rails that make stuck keys and unattended input impossible by design.
 
 ## Definition of done
 
@@ -33,7 +33,7 @@ Phase 2 (approved by charter revision ESP-ADR-020): use the board as a BLE keybo
 ### Phase 2 definition of done
 
 - A host-command protocol on the USB serial link types text, sends key chords (including Ctrl/Shift/Alt/GUI), and moves, clicks and scrolls the mouse. Commands are framed lines that cannot be confused with the existing single-character commands, and every existing command keeps its meaning.
-- Release-all (neutral keyboard and mouse reports) is sent after every chord, on a stop command, on leaving HID mode, on host disconnect, on an idle timeout and on any protocol error. Each case is observed on hardware with no stuck key or button.
+- Release-all (neutral keyboard and mouse reports) is sent after every chord, on a stop command, before any device-initiated disconnect (including leaving HID mode), on an idle timeout and on any protocol error. On a remote disconnect or link loss the device clears its local key and button state and, after the host re-subscribes, sends neutral reports before accepting any new input command; the host's own release-on-disconnect behavior is tested, not assumed. Each case is observed on hardware with no stuck key or button.
 - A host-side PowerShell helper sends commands and reports each command's acknowledgement or error. Protocol tests run without hardware.
 - Operator-observed runs on the owner's PC show typed text, a modifier chord and mouse actions landing correctly, with no reset.
 
@@ -43,6 +43,7 @@ Phase 2 (approved by charter revision ESP-ADR-020): use the board as a BLE keybo
 - Byte-for-byte HID descriptor parser output and Arduino-ESP32 3.3.12 input-report/GATT implementation audit.
 - Primary-source Windows HOGP findings and a small diagnostic experiment logging subscriptions and security without sending HID input.
 - Bounded fixes, compile records, exact ELF/build metadata, operator hardware evidence, and current repository handoff.
+- Phase 2: framed serial host-command module(s) with release-all rails, a host-side PowerShell helper, hardware-free protocol tests, and operator hardware evidence for text, a modifier chord, mouse actions and every release-all trigger.
 
 ## Scope
 
