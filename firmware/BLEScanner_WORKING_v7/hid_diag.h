@@ -8,8 +8,7 @@
 // elf_sha256: the SHA-256 of the exact ELF, embedded in the app image by elf2image
 // (--elf-sha256-offset) and read back at runtime, so it reflects every build input
 // (sources, flags, core, scripts). Evidence binds to it; compare with the recorded ELF hash.
-// FIRMWARE_BUILD_ID is only a readable label (source commit + input hash + toolchain),
-// injected by scripts/pio_build_id.py or -DFIRMWARE_BUILD_ID; never hard-code it.
+// FIRMWARE_BUILD_ID is an optional free-text label (-DFIRMWARE_BUILD_ID="..."), not identity.
 #ifndef FIRMWARE_BUILD_ID
 #define FIRMWARE_BUILD_ID "unlabeled"
 #endif

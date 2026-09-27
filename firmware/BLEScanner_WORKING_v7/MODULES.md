@@ -26,5 +26,5 @@ State shared through `extern` globals is written only by its owning module; the 
 
 - Put a new capability in a new module or in the module that owns that state; don't grow the `.ino`.
 - Keep each module's header the complete description of how other modules may use it.
-- Evidence binds to the `elf_sha256=` value printed by `i` (the exact ELF hash embedded by elf2image); it must equal the recorded ELF hash. `FIRMWARE_BUILD_ID` is a readable label injected at build time (`scripts/pio_build_id.py` for PlatformIO; `$id = python scripts/pio_build_id.py --sketch firmware/BLEScanner_WORKING_v7 --toolchain cli` then `--build-property "compiler.cpp.extra_flags='-DFIRMWARE_BUILD_ID=\"$id\"'"` for arduino-cli (see `docs/PLATFORMIO.md`)). An unlabeled build prints `unlabeled`. Record the ELF hash of every flashed build in evidence.
+- Evidence binds to the `elf_sha256=` value printed by `i` (the exact ELF hash embedded by elf2image); it must equal the recorded ELF hash. `FIRMWARE_BUILD_ID` is an optional free-text label (`-DFIRMWARE_BUILD_ID="..."`); without it the build prints `unlabeled`. Record the ELF hash of every flashed build in evidence.
 - Serial command meanings in `commands.cpp` are a fixed interface (see `PROJECT_CHARTER.md`).
