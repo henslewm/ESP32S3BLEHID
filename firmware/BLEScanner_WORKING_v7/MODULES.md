@@ -17,7 +17,7 @@ Build: `pio run -e dev` (root `platformio.ini`, rules in `docs/PLATFORMIO.md`). 
 | `hid_report_map.*` | HID report descriptor bytes (keyboard ID 1, mouse ID 2) | `HID_REPORT_MAP`, `HID_REPORT_MAP_LEN` | — |
 | `hid_core_workaround.*` | Registers a second 0x2A4D input report that core 3.3.12 would silently drop | `hidAddInputReport` | — |
 | `hid_mode.*` | HID GATT build, connection/subscription tracking, start/stop (stop disconnects the host), mouse-only `t` test | `startHidMode`, `stopHidMode`, `sendHidTestInjection`, `g_hidMode`, `g_hidConnected`, `g_keyboardSubscribed`, `g_mouseSubscribed` | hid_report_map, hid_core_workaround, hid_diag, scanner |
-| `hid_diag.*` | Observation only: build ID, report handles, raw NimBLE GAP events (connect, encryption, every subscribe) | `FIRMWARE_BUILD_ID`, `printBuildIdentity`, `hidDiagBegin` | — |
+| `hid_diag.*` | Observation only: build label and runtime ELF SHA-256, report handles, raw NimBLE GAP events (connect, encryption, every subscribe) | `FIRMWARE_BUILD_ID`, `printBuildIdentity`, `hidDiagBegin` | — |
 | `commands.*` | Serial command contract (`h 1-4 p s i m v r d a u k x + - b B t q`) | `handleCommand` | scanner, device_stats, hid_mode, hid_diag |
 
 State shared through `extern` globals is written only by its owning module; the other modules read it.
@@ -26,5 +26,5 @@ State shared through `extern` globals is written only by its owning module; the 
 
 - Put a new capability in a new module or in the module that owns that state; don't grow the `.ino`.
 - Keep each module's header the complete description of how other modules may use it.
-- `FIRMWARE_BUILD_ID` is injected at build time (`scripts/pio_build_id.py` for PlatformIO; `$id = python scripts/pio_build_id.py --sketch firmware/BLEScanner_WORKING_v7 --toolchain cli` then `--build-property "compiler.cpp.extra_flags='-DFIRMWARE_BUILD_ID=\"$id\"'"` for arduino-cli (see `docs/PLATFORMIO.md`)). An unlabeled build prints `unlabeled`. Record the ELF hash of every flashed build in evidence.
+- Evidence binds to the `elf_sha256=` value printed by `i` (the exact ELF hash embedded by elf2image); it must equal the recorded ELF hash. `FIRMWARE_BUILD_ID` is a readable label injected at build time (`scripts/pio_build_id.py` for PlatformIO; `$id = python scripts/pio_build_id.py --sketch firmware/BLEScanner_WORKING_v7 --toolchain cli` then `--build-property "compiler.cpp.extra_flags='-DFIRMWARE_BUILD_ID=\"$id\"'"` for arduino-cli (see `docs/PLATFORMIO.md`)). An unlabeled build prints `unlabeled`. Record the ELF hash of every flashed build in evidence.
 - Serial command meanings in `commands.cpp` are a fixed interface (see `PROJECT_CHARTER.md`).

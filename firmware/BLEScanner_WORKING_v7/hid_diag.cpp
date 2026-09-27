@@ -1,5 +1,6 @@
 #include "hid_diag.h"
 
+#include "esp_app_desc.h"
 #include "host/ble_gap.h"
 
 static struct ble_gap_event_listener g_diagListener;
@@ -82,7 +83,10 @@ static int diagGapEvent(struct ble_gap_event* event, void* arg) {
 }
 
 void printBuildIdentity() {
-  Serial.printf("Build: %s core=%s compiled %s %s\n", FIRMWARE_BUILD_ID, ESP_ARDUINO_VERSION_STR, __DATE__, __TIME__);
+  char elfSha[65];
+  const uint8_t* sha = esp_app_get_description()->app_elf_sha256;
+  for (int i = 0; i < 32; ++i) snprintf(elfSha + 2 * i, 3, "%02x", sha[i]);
+  Serial.printf("Build: %s core=%s elf_sha256=%s\n", FIRMWARE_BUILD_ID, ESP_ARDUINO_VERSION_STR, elfSha);
 }
 
 void hidDiagBegin(uint16_t keyboardValueHandle, uint16_t mouseValueHandle) {

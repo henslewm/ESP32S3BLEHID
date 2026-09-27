@@ -27,7 +27,11 @@ Every Arduino or ESP32 firmware project keeps a root `platformio.ini` next to it
 8. **Monitor.** Include `monitor_filters = esp32_exception_decoder, time` so crashes decode against the exact ELF.
 9. **Ignore output.** Add `.pio/` to `.gitignore`.
 10. **Keep builds equivalent.** Record the arduino-cli FQBN and `--build-property` values that produce the same configuration, and state which toolchain produced any flashed artifact. A PlatformIO ELF and an arduino-cli ELF are different artifacts.
-11. **Generate the build identifier.** Don't hard-code it. Inject a firmware build ID from build metadata (a SHA-256 prefix over every file in the build-input roots: the sketch/`src_dir`, `lib/`, `include/`, `boards/`, `platformio.ini` and partition CSVs, read from disk whether tracked, untracked or git-ignored. Only `.pio`, `.git` and `build` are skipped. The git commit is only a label, and the toolchain and environment are appended) through an `extra_scripts` pre-script, and through `--build-property compiler.cpp.extra_flags=-DFIRMWARE_BUILD_ID=...` for arduino-cli, so serial evidence binds to the exact artifact.
+11. **Bind evidence to the artifact itself.**
+    - Have the firmware print the ELF SHA-256 that `elf2image --elf-sha256-offset 0xb0` embeds in the app image: `esp_app_get_description()->app_elf_sha256`. arduino-cli and PlatformIO/pioarduino both set this offset.
+    - Evidence compares that runtime value with the recorded ELF hash. It changes with every input: sources, flags, board options, core and scripts.
+    - Also inject a readable `FIRMWARE_BUILD_ID` label from `scripts/pio_build_id.py`, never hard-coded. It combines the git commit, a hash of the source roots from disk, and the toolchain. Inject it through an `extra_scripts` pre-script for PlatformIO. For arduino-cli, run the script with `--sketch <folder> --toolchain cli` and pass `--build-property "compiler.cpp.extra_flags='-DFIRMWARE_BUILD_ID=\"$id\"'"`.
+    - The label is a convenience, not proof of identity.
 12. **Verify before relying on it.** `pio run -e <default>` must succeed. For hardware claims, upload, run the project's smoke test and record the build ID and ELF SHA-256. A successful compile is not hardware verification.
 
 ## This project
