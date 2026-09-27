@@ -2,7 +2,7 @@
 
 - **Status:** ACTIVE — approved foundation
 - **Updated:** 2026-09-27 session close; all work merged to origin/main (PRs #2-#5).
-- **Current task:** mouse issue #1 resolved on hardware pending operator visual confirmation; foundation re-approved (ACTIVE, fingerprint 20fc20c2…).
+- **Current task:** mouse issue #1 resolved on hardware and operator-confirmed on `main` `b30d71f` (ESP-005 Completed); foundation re-approved (ACTIVE, fingerprint 20fc20c2…).
 
 ## Verified state
 
@@ -13,7 +13,7 @@
   - `t` passes with no reset.
   - Scanner return works.
   - Bonded reconnect after reset and after `B`/`b` is automatic.
-  - Cursor motion from `t` is not yet visually confirmed by the operator.
+  - Cursor motion from `t` confirmed by the operator on `main` `b30d71f` (elf_sha256 `52e09739…`).
 - **Automatic pairing works.** `Invoke-BleAutoPair.ps1 -Unpair -Pair` exits 0. It uses exact-address `FromBluetoothAddressAsync` (about 50 ms) and in-process ConfirmOnly custom pairing (`scripts/BleCustomPairing.cs`), with no UI. The earlier `FindAllAsync` timeout and plain `PairAsync` failure are explained and replaced. 44/44 Pester tests pass.
 - **Fixed a pre-existing v7 bug:** `B` and the scan presets left Windows connected. `stopHidMode` now disconnects the host.
 - **Firmware split into modules.** The sketch is now 14 modules listed in [MODULES.md](firmware/BLEScanner_WORKING_v7/MODULES.md), split mechanically from the locked baseline by `scripts/split_v7_sketch.py`. The unsplit and split builds are string-equivalent. The locked baseline SHA-256 `9f3c9099…14c6` is unchanged. The working sketch no longer matches it by design.
@@ -25,6 +25,6 @@
 ## Next
 
 1. Foundation re-approval is complete (ESP-001); validate the gate each session with `python scripts/validate_bootstrap.py config/bootstrap.json --require-active`.
-2. The operator visually confirms cursor motion from `t` and that there are no stuck keys in normal use.
+2. Cursor motion confirmed. No keyboard report is sent by any diagnostic, so there is no stuck-key risk.
 3. Optional: update/close issue #1 and report the core duplicate-UUID bug upstream (each external write needs authority).
 4. Keyboard input beyond neutral reports is still out of scope until the charter is revised.

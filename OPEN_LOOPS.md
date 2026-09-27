@@ -6,7 +6,7 @@
 | ESP-002 | High | Descriptor validation | — | Superseded: the report map was valid; the defect was GATT registration | — | — | Closed by root cause ([record](evidence/mouse-fix-2026-09-27.md)) |
 | ESP-003 | High | Core GATT and Windows HOGP audit | — | Root cause: core 3.3.12 drops duplicate-UUID characteristics; workaround in `hid_core_workaround.cpp` | — | — | Completed |
 | ESP-004 | High | Subscription/security observations | — | `hid_diag` logs handles, encryption and every subscribe; the exact builds are hashed | — | — | Completed |
-| ESP-005 | High | Mouse-only diagnostic and scanner regression | Operator | Visually confirm cursor motion from `t`; everything else observed | Fresh `mouse_sub=yes` observed | Next session | Awaiting operator visual confirmation |
+| ESP-005 | High | Mouse-only diagnostic and scanner regression | — | Operator confirmed the pointer moved in a small square; scanner return observed | — | 2026-09-27 | Completed |
 | ESP-006 | High | Publish checkpoint and mouse issue | — | Done in the previous session | — | 2026-09-27 | Completed |
 | ESP-007 | Medium | Independent hardware acceptance | Integrator | Arrange eligible cross-family review; no implicit waiver | Reviewable implementation and evidence now exist | Before acceptance | Pending |
 | ESP-008 | Medium | Packet validation environment | Codex/user | Find or authorize the pinned jsonschema dependency before worker dispatch | — | Before worker dispatch | Pending; no installation performed |

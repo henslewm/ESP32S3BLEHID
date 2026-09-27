@@ -1,0 +1,53 @@
+2026-09-27T15:58:10.000 # bridge open COM10 921600
+2026-09-27T15:58:13.412 > i
+2026-09-27T15:58:13.488 < 
+2026-09-27T15:58:13.488 < SYSTEM INFO
+2026-09-27T15:58:13.488 < Build: unlabeled core=3.3.12 elf_sha256=52e09739142c05a217478827050cc801fb8fb9ed3437b66469c0a01d0076a8c3
+2026-09-27T15:58:13.488 < BLE stack: NimBLE
+2026-09-27T15:58:13.488 < CPU: 240 MHz
+2026-09-27T15:58:13.488 < Flash: 16777216 bytes
+2026-09-27T15:58:13.488 < Free heap: 178036 bytes
+2026-09-27T15:58:13.488 < PSRAM: 8388608 bytes
+2026-09-27T15:58:13.488 < NimBLE BLE5 feature support: yes
+2026-09-27T15:58:13.488 < Low-level NimBLE EXT_SCAN: not enabled
+2026-09-27T15:58:13.488 < HID mode: off connected=no keyboard_sub=no mouse_sub=no
+2026-09-27T15:58:13.488 < 
+2026-09-27T15:58:14.410 > b
+2026-09-27T15:58:14.487 < [HID] Building GATT/HID services...
+2026-09-27T15:58:14.487 < Build: unlabeled core=3.3.12 elf_sha256=52e09739142c05a217478827050cc801fb8fb9ed3437b66469c0a01d0076a8c3
+2026-09-27T15:58:14.487 < [DIAG] report value handles: keyboard(ID1)=29 mouse(ID2)=33
+2026-09-27T15:58:14.487 < [DIAG] GAP listener register rc=0
+2026-09-27T15:58:14.487 < 
+2026-09-27T15:58:14.487 < [HID] Mode STARTED. Advertising as S3-HID-KM-v7 (Generic HID keyboard + mouse).
+2026-09-27T15:58:14.487 < [HID] Pairing: Just Works (no PIN). Bonding enabled.
+2026-09-27T15:58:14.487 < [HID] GAP appearance=0x03C0 Generic HID; PnP vendor source=Bluetooth SIG, vendor=0x02E5.
+2026-09-27T15:58:14.487 < [HID] The scanner is paused. Use 1-4 to resume scanning,
+2026-09-27T15:58:14.487 < [HID] or B to stop HID mode.
+2026-09-27T15:58:14.487 < [HID] After the target pairs and connects, press t to
+2026-09-27T15:58:14.487 < [HID] run the mouse-only notification diagnostic.
+2026-09-27T15:58:14.783 < [DIAG 11370] connect status=0 conn=1 encrypted=0 authenticated=0 bonded=0 key_size=0 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T15:58:14.783 < 
+2026-09-27T15:58:14.783 < [HID] Central CONNECTED. Pairing/bonding in progress.
+2026-09-27T15:58:14.783 < [HID] Watch the Win11 target now: Defender history,
+2026-09-27T15:58:14.783 < [HID] Sysmon events, and the Bluetooth devices list.
+2026-09-27T15:58:14.922 < [DIAG 11460] enc_change status=0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T15:58:14.922 < [DIAG 11460] subscribe attr=8(OTHER) reason=restore notify 0->0 indicate 0->1 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T15:58:14.922 < [DIAG 11460] subscribe attr=38(OTHER) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T15:58:14.922 < [DIAG 11461] subscribe attr=29(keyboard(ID1)) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T15:58:14.922 < [HID] keyboard notifications: SUBSCRIBED
+2026-09-27T15:58:14.922 < [DIAG 11461] subscribe attr=33(mouse(ID2)) reason=restore notify 0->1 indicate 0->0 encrypted=1 authenticated=0 bonded=1 key_size=16 peer_id=70:32:17:45:B7:D9/0
+2026-09-27T15:58:14.922 < [HID] mouse notifications: SUBSCRIBED
+2026-09-27T15:58:23.401 > q
+2026-09-27T15:58:23.479 < [HID] mode=yes connected=yes keyboard_sub=yes mouse_sub=yes
+2026-09-27T15:59:35.417 > t
+2026-09-27T15:59:35.495 < 
+2026-09-27T15:59:35.495 < [HID t] mouse-only diagnostic test
+2026-09-27T15:59:35.495 < [HID t] mode=yes connected=yes mouse_subscribed=yes
+2026-09-27T15:59:35.495 < [HID t] STEP 1 -> neutral mouse notify
+2026-09-27T15:59:35.635 < [HID t] STEP 2 -> mouse dx=6 dy=0
+2026-09-27T15:59:35.776 < [HID t] STEP 3 -> mouse dx=0 dy=6
+2026-09-27T15:59:35.917 < [HID t] STEP 4 -> mouse dx=-6 dy=0
+2026-09-27T15:59:36.056 < [HID t] STEP 5 -> mouse dx=0 dy=-6
+2026-09-27T15:59:36.200 < [HID t] STEP 6 -> final neutral mouse notify
+2026-09-27T15:59:36.340 < [HID t] PASS: mouse-only HID notification path stayed connected.
+2026-09-27T15:59:59.505 # bridge quit

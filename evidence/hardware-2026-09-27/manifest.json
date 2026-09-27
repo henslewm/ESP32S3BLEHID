@@ -10,7 +10,8 @@
     "diag4-pio",
     "0c1fa862dd-dirty-pio-dev",
     "2ed7b2090c-dirty-srceed3f97e-pio-dev",
-    "ce83a47fac-srcb5d63715-pio-dev"
+    "ce83a47fac-srcb5d63715-pio-dev",
+    "main b30d71f"
   ],
   "builds": [
     {
@@ -66,6 +67,12 @@
       "elfSha256": "27a30b5bd2cbbf8323f6904dcddd010fa449a81d4d8720ec975bc460756c952d",
       "binSha256": "39fe8612213808cb6588dc1867c2f4c25b2516b583f91fc6940146316ef2a6be",
       "binBytes": 636704
+    },
+    {
+      "build": "main b30d71f (PlatformIO dev) - operator-confirmed cursor motion",
+      "elfSha256": "52e09739142c05a217478827050cc801fb8fb9ed3437b66469c0a01d0076a8c3",
+      "binSha256": "dfede446ee800c0f2df5d20e854868bd85a3376414f8dd244d9d62313db3a55f",
+      "binBytes": 636688
     }
   ],
   "files": [
@@ -96,6 +103,10 @@
     {
       "file": "diag7-elfsha.log",
       "sha256": "96d505cc3db9a29207a27cca6d70fd5c8ed9576cf0c1e1b50866871f625cef31"
+    },
+    {
+      "file": "main-b30d71f.log",
+      "sha256": "c0eb588d926339a1e2c0b915915af5c78cc7116d6c8fea813126676aede8f5e4"
     },
     {
       "file": "pair-diag2-1.json",
