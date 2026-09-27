@@ -2,7 +2,7 @@
 
 State: AWAITING_APPROVAL — autonomy is OFF until explicit activation.
 Profile: software-hardware
-Architecture fingerprint: `663d82468889435cb13df32875bd1e892bccc63647508eea0a2c2208adea4e9e`
+Architecture fingerprint: `4f53ec2d9c5d58acd6fbbbceec1d4211f26d0a7cd823dcd76859c57648415aac`
 
 ## Charter
 
@@ -57,7 +57,7 @@ Architecture fingerprint: `663d82468889435cb13df32875bd1e892bccc63647508eea0a2c2
     "Telemetry: subscription, connection and security observations must be obtainable without emitting HID input.",
     "Host: Windows pairing and physical firmware runs require an operator-authorized session; approval of local research alone does not authorize device state changes.",
     "Validation: static parser/source checks and pinned compilation precede operator-attested hardware results; exact artifacts and resets are traceable.",
-    "Input: HID reports are emitted only by the phase 2 command module in response to a framed host command while connected and subscribed; every stop path, timeout and protocol error ends in release-all."
+    "Input: phase 2 keyboard and mouse reports are emitted only by the phase 2 command module in response to a framed host command while connected and subscribed; every stop path, timeout and protocol error ends in release-all. Exception: the preserved single-character `t` mouse-only diagnostic keeps its existing path and meaning."
   ],
   "milestones": [
     "Preserve baseline and approve foundation",

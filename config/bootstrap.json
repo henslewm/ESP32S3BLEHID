@@ -47,7 +47,7 @@
       "Telemetry: subscription, connection and security observations must be obtainable without emitting HID input.",
       "Host: Windows pairing and physical firmware runs require an operator-authorized session; approval of local research alone does not authorize device state changes.",
       "Validation: static parser/source checks and pinned compilation precede operator-attested hardware results; exact artifacts and resets are traceable.",
-      "Input: HID reports are emitted only by the phase 2 command module in response to a framed host command while connected and subscribed; every stop path, timeout and protocol error ends in release-all."
+      "Input: phase 2 keyboard and mouse reports are emitted only by the phase 2 command module in response to a framed host command while connected and subscribed; every stop path, timeout and protocol error ends in release-all. Exception: the preserved single-character `t` mouse-only diagnostic keeps its existing path and meaning."
     ],
     "milestones": [
       "Preserve baseline and approve foundation",
