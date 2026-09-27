@@ -8,7 +8,7 @@ The user clarified that the earlier PowerShell pop-up question was not a stop in
 
 ## Next mouse chat
 
-Start with [docs/MOUSE_INVESTIGATION.md](docs/MOUSE_INVESTIGATION.md). The unresolved observation is q twice reporting `mode=yes connected=yes keyboard_sub=yes mouse_sub=no` after the operator's manual Settings action. [Exact operator text](evidence/operator-serial-q-2026-09-27.md).
+Start with [mouse issue #1](https://github.com/henslewm/ESP32S3BLEHID/issues/1) and [docs/MOUSE_INVESTIGATION.md](docs/MOUSE_INVESTIGATION.md). The unresolved observation is q twice reporting `mode=yes connected=yes keyboard_sub=yes mouse_sub=no` after the operator's manual Settings action. [Exact operator text](evidence/operator-serial-q-2026-09-27.md).
 
 The suggested first small slice is the existing descriptor/report-reference audit: parse v7's map, trace keyboard ID 1 and mouse ID 2 through the exact core/GATT construction, and return evidence plus one bounded next experiment proposal. [Reference review](evidence/hid-reference-review-2026-09-27.md) covers combo/Hijel construction, Bit Pirate v1.6 report corrections and USB/BLE/Classic distinctions. No replacement library was selected.
 
@@ -28,4 +28,6 @@ Locked/working v7 SHA-256 remains `9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76
 
 ACTIVE validation passed under Winston's carried approval for fingerprint `e0e761e7c553168d736883930d282a074856095928ed7e45e82c091397b630b2`. This closeout does not change bound architecture documents. README records the existing fallback Python. No installation occurred. A future execution worker still needs its validated packet/environment; the mouse issue is investigation intake, not a dispatched packet.
 
-Prepared on main from `508764d`. The user explicitly requested a new private repository. [henslewm/ESP32S3BLEHID](https://github.com/henslewm/ESP32S3BLEHID) was created and verified private with ADMIN access; origin now points there. No write to the inherited template repository occurred. Commit/push and the mouse issue are pending publication receipts.
+Prepared on main from `508764d`. At the user's request, [henslewm/ESP32S3BLEHID](https://github.com/henslewm/ESP32S3BLEHID) was created and verified private with ADMIN access; origin now points there. Implementation/evidence checkpoint [43281a2](https://github.com/henslewm/ESP32S3BLEHID/commit/43281a201e1879c06ed054bfc27a04f14e911b7a) was pushed to main and verified by GitHub branch readback. Mouse issue [#1](https://github.com/henslewm/ESP32S3BLEHID/issues/1) is OPEN, with its body verified against the prepared text. This follow-up links those receipts. No write to the inherited template repository occurred.
+
+Suggested opening instruction for the next chat: "Work on issue #1's first descriptor/report-reference audit slice. Read the current handoff and issue, inspect source only, and return findings plus one bounded next experiment proposal."

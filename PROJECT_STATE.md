@@ -18,10 +18,10 @@
 
 ## Publication
 
-The user explicitly requested a new private repository after the destination check. Created and verified [henslewm/ESP32S3BLEHID](https://github.com/henslewm/ESP32S3BLEHID) with isPrivate=true and ADMIN access, and changed this checkout's origin to that repository. No template repository write occurred. Commit/push and the focused mouse issue are the remaining closeout steps.
+The user explicitly requested a new private repository after the destination check. Created and verified [henslewm/ESP32S3BLEHID](https://github.com/henslewm/ESP32S3BLEHID) with isPrivate=true and ADMIN access; origin now points there. [Checkpoint 43281a2](https://github.com/henslewm/ESP32S3BLEHID/commit/43281a201e1879c06ed054bfc27a04f14e911b7a) was pushed to main and read back from GitHub. [Mouse issue #1](https://github.com/henslewm/ESP32S3BLEHID/issues/1) is OPEN and its posted body matches the prepared handoff. No template repository write occurred. These navigation updates are a follow-up to the implementation checkpoint.
 
 ## Next focused work
 
-Use [MOUSE_INVESTIGATION.md](docs/MOUSE_INVESTIGATION.md) and the new mouse issue as the next chat's entry point. The suggested first slice is the existing descriptor/report-reference audit. Keep scripted discovery and telemetry findings separate from the mouse subscription problem. The current closeout does not perform hardware work.
+Use [mouse issue #1](https://github.com/henslewm/ESP32S3BLEHID/issues/1) and [MOUSE_INVESTIGATION.md](docs/MOUSE_INVESTIGATION.md) as the next chat's entry point. The suggested first slice is the existing descriptor/report-reference audit. Keep scripted discovery and telemetry findings separate from the mouse subscription problem. The current closeout does not perform hardware work.
 
 Python is absent from PATH; README records the existing fallback. Its missing jsonschema matters before future execution-worker dispatch, not for creating this investigation issue. Inherited template controls are archived and do not define the ESP32 task queue.

@@ -1,5 +1,7 @@
 # Mouse subscription investigation handoff
 
+Tracking issue: [#1 — Windows subscribes to keyboard but not mouse report](https://github.com/henslewm/ESP32S3BLEHID/issues/1). Implementation/evidence checkpoint: [43281a2](https://github.com/henslewm/ESP32S3BLEHID/commit/43281a201e1879c06ed054bfc27a04f14e911b7a).
+
 ## Problem
 
 On WINSTONDESKTOP, the operator's ESP32-S3 advertises as `S3-HID-KM-v7` at reported address `7C:4F:AD:21:52:89`. Following a manual Windows Settings action, two serial `q` readings showed:

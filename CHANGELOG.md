@@ -9,6 +9,7 @@
 - Restored the master files after the unauthorized additions; documented the successful one-line execution test without claiming it was windowless.
 - Adapted the inherited CI closeout check to validate this project's ACTIVE foundation instead of checking that a generated project is identical to the distributable template. Existing Python tests remain in the workflow.
 - Fresh 40-test PS5.1 run, project/ACTIVE validators and protected source hashes passed. Added Git attributes to preserve evidence/import bytes across clones; retained the fresh test receipt.
+- Published implementation/evidence checkpoint 43281a2 to the private project and verified remote main at the same SHA. Opened and read back mouse issue #1, then linked the issue and checkpoint from the continuation documents.
 
 ## 2026-09-27 — correction of unauthorized instruction edits
 

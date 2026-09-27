@@ -4,7 +4,7 @@ Start with [PROJECT_STATE.md](PROJECT_STATE.md) and [HANDOFF_CURRENT.md](HANDOFF
 
 Windows pairing and telemetry tooling is documented in [BLE_PAIRING.md](docs/BLE_PAIRING.md). Exact-device pairing and mouse subscription remain unverified. Run `powershell.exe -NoProfile -File scripts/Test-BlePairing.ps1` for software checks without Bluetooth actions.
 
-The next focused chat starts with [MOUSE_INVESTIGATION.md](docs/MOUSE_INVESTIGATION.md), the [two q observations](evidence/operator-serial-q-2026-09-27.md) and the [reference-library review](evidence/hid-reference-review-2026-09-27.md). The user requested a publication checkpoint and a dedicated mouse issue.
+The next focused chat starts with [mouse issue #1](https://github.com/henslewm/ESP32S3BLEHID/issues/1), [MOUSE_INVESTIGATION.md](docs/MOUSE_INVESTIGATION.md), the [two q observations](evidence/operator-serial-q-2026-09-27.md) and the [reference-library review](evidence/hid-reference-review-2026-09-27.md). The implementation/evidence checkpoint is [43281a2](https://github.com/henslewm/ESP32S3BLEHID/commit/43281a201e1879c06ed054bfc27a04f14e911b7a).
 
 - Locked source: [evidence/baseline-v7/BLEScanner_LOCKED_BASELINE_v7.ino](evidence/baseline-v7/BLEScanner_LOCKED_BASELINE_v7.ino). Never modify or overwrite it.
 - Editable sketch: [firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino](firmware/BLEScanner_WORKING_v7/BLEScanner_WORKING_v7.ino). Currently byte-identical to the baseline.
