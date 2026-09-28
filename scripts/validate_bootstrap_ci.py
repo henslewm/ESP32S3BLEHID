@@ -9,8 +9,7 @@ from pathlib import Path
 
 
 def require_active(event_name: str, ref: str) -> bool:
-    del event_name
-    return ref == "refs/heads/main"
+    return event_name == "push" and ref == "refs/heads/main"
 
 
 def command(event_name: str, ref: str, path: str) -> list[str]:
