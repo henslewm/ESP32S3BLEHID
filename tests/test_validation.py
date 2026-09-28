@@ -8,10 +8,15 @@ from pathlib import Path
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parent.parent
-SPEC = importlib.util.spec_from_file_location("validate_bootstrap_ci", ROOT / "scripts" / "validate_bootstrap_ci.py")
-MODULE = importlib.util.module_from_spec(SPEC)
-assert SPEC and SPEC.loader
-SPEC.loader.exec_module(MODULE)
+
+
+def load_validate_bootstrap_ci():
+    spec = importlib.util.spec_from_file_location("validate_bootstrap_ci", ROOT / "scripts" / "validate_bootstrap_ci.py")
+    if spec is None or spec.loader is None:
+        raise AssertionError("cannot load scripts/validate_bootstrap_ci.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 class ValidationTests(unittest.TestCase):
@@ -27,15 +32,17 @@ class ValidationTests(unittest.TestCase):
 
 class BootstrapCiValidationTests(unittest.TestCase):
     def test_require_active_only_for_push_to_main(self) -> None:
-        self.assertTrue(MODULE.require_active("push", "refs/heads/main"))
-        self.assertFalse(MODULE.require_active("pull_request", "refs/heads/main"))
-        self.assertFalse(MODULE.require_active("push", "refs/heads/feature"))
+        module = load_validate_bootstrap_ci()
 
-    @mock.patch.object(MODULE.subprocess, "run")
-    def test_main_push_adds_require_active(self, run: mock.Mock) -> None:
-        run.return_value = mock.Mock(returncode=0)
+        self.assertTrue(module.require_active("push", "refs/heads/main"))
+        self.assertFalse(module.require_active("pull_request", "refs/heads/main"))
+        self.assertFalse(module.require_active("push", "refs/heads/feature"))
 
-        code = MODULE.main(["--event-name", "push", "--ref", "refs/heads/main"])
+    def test_main_push_adds_require_active(self) -> None:
+        module = load_validate_bootstrap_ci()
+
+        with mock.patch.object(module.subprocess, "run", return_value=mock.Mock(returncode=0)) as run:
+            code = module.main(["--event-name", "push", "--ref", "refs/heads/main"])
 
         self.assertEqual(code, 0)
         run.assert_called_once_with(
@@ -43,11 +50,11 @@ class BootstrapCiValidationTests(unittest.TestCase):
             check=False,
         )
 
-    @mock.patch.object(MODULE.subprocess, "run")
-    def test_pull_request_uses_structural_validation(self, run: mock.Mock) -> None:
-        run.return_value = mock.Mock(returncode=0)
+    def test_pull_request_uses_structural_validation(self) -> None:
+        module = load_validate_bootstrap_ci()
 
-        code = MODULE.main(["--event-name", "pull_request", "--ref", "refs/pull/14/merge"])
+        with mock.patch.object(module.subprocess, "run", return_value=mock.Mock(returncode=0)) as run:
+            code = module.main(["--event-name", "pull_request", "--ref", "refs/pull/14/merge"])
 
         self.assertEqual(code, 0)
         run.assert_called_once_with(
