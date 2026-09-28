@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "domain_profile": "software-hardware",
-  "state": "ACTIVE",
+  "state": "AWAITING_APPROVAL",
   "project": {
     "name": "ESP32-S3 BLE Scanner / HID Research",
     "objective": "Phase 1 (done 2026-09-27): determine and resolve why Windows subscribes to keyboard report ID 1 but not mouse report ID 2 while preserving the locked v7 baseline, quiet boot, and working interactive BLE scanner. Phase 2 (ESP-ADR-020): use the board as a BLE keyboard and mouse the owner drives from their own PC to automate their own work; input only on explicit host commands, with release-all safety rails.",
@@ -47,7 +47,7 @@
       "Telemetry: subscription, connection and security observations must be obtainable without emitting HID input.",
       "Host: Windows pairing and physical firmware runs require an operator-authorized session; approval of local research alone does not authorize device state changes.",
       "Validation: static parser/source checks and pinned compilation precede operator-attested hardware results; exact artifacts and resets are traceable.",
-      "Input: phase 2 keyboard and mouse reports are emitted only by the phase 2 command module in response to a framed host command while connected and subscribed; every stop path, timeout and protocol error ends in release-all. Exception: the preserved single-character `t` mouse-only diagnostic keeps its existing path and meaning."
+      "Input: phase 2 keyboard and mouse reports are emitted only by the phase 2 command module in response to a framed host command while connected and subscribed; every stop path, timeout and protocol error ends in release-all. Safety-generated neutral/release-all reports (idle timeout, post-reconnect re-subscription, protocol error) are exempt from the host-command requirement and may fire without a new incoming command; only non-neutral input remains command-gated. Exception: the preserved single-character `t` mouse-only diagnostic keeps its existing path and meaning."
     ],
     "milestones": [
       "Preserve baseline and approve foundation",
@@ -208,15 +208,15 @@
     "created": "2026-09-27"
   },
   "documents": {
-    "PROJECT_CHARTER.md": "74978e9dc80a48be3266af5601007f4432e446f3e4cdc2dcaece4d45614f2cb8",
+    "PROJECT_CHARTER.md": "6343596d43839ea1b9f22c2bfc9695e328256de26ff1ca46afc2b679fe4bbc1c",
     "CONNECTOR_PLAN.md": "45dbdbf4b6513e11517d7d383fcae540616e352ab380f8c380a1e26de96b6667",
     "SKILL_PLAN.md": "e14a47b63afe11db1ff7e9237373a20288ee068f79caa6896289dcee345319a4",
     "DOMAIN_PROFILE.md": "2c1dcd48c9a2dcc56ad0bea54d022cc1e3c25949f95ad2499e12228fce7a216c"
   },
   "approval": {
-    "approved": true,
-    "approved_by": "Winston",
-    "approved_at": "2026-09-27T22:22:16.505968+00:00",
-    "architecture_fingerprint": "4f53ec2d9c5d58acd6fbbbceec1d4211f26d0a7cd823dcd76859c57648415aac"
+    "approved": false,
+    "approved_by": null,
+    "approved_at": null,
+    "architecture_fingerprint": null
   }
 }

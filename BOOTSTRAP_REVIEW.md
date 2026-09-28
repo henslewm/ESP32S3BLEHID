@@ -2,7 +2,7 @@
 
 State: AWAITING_APPROVAL — autonomy is OFF until explicit activation.
 Profile: software-hardware
-Architecture fingerprint: `4f53ec2d9c5d58acd6fbbbceec1d4211f26d0a7cd823dcd76859c57648415aac`
+Architecture fingerprint: `504fc29198f4470cd370b48e4cca0a590c74babfeb0125f8e2b75dfe4aae39ae`
 
 ## Charter
 
@@ -57,7 +57,7 @@ Architecture fingerprint: `4f53ec2d9c5d58acd6fbbbceec1d4211f26d0a7cd823dcd76859c
     "Telemetry: subscription, connection and security observations must be obtainable without emitting HID input.",
     "Host: Windows pairing and physical firmware runs require an operator-authorized session; approval of local research alone does not authorize device state changes.",
     "Validation: static parser/source checks and pinned compilation precede operator-attested hardware results; exact artifacts and resets are traceable.",
-    "Input: phase 2 keyboard and mouse reports are emitted only by the phase 2 command module in response to a framed host command while connected and subscribed; every stop path, timeout and protocol error ends in release-all. Exception: the preserved single-character `t` mouse-only diagnostic keeps its existing path and meaning."
+    "Input: phase 2 keyboard and mouse reports are emitted only by the phase 2 command module in response to a framed host command while connected and subscribed; every stop path, timeout and protocol error ends in release-all. Safety-generated neutral/release-all reports (idle timeout, post-reconnect re-subscription, protocol error) are exempt from the host-command requirement and may fire without a new incoming command; only non-neutral input remains command-gated. Exception: the preserved single-character `t` mouse-only diagnostic keeps its existing path and meaning."
   ],
   "milestones": [
     "Preserve baseline and approve foundation",
@@ -263,7 +263,7 @@ Architecture fingerprint: `4f53ec2d9c5d58acd6fbbbceec1d4211f26d0a7cd823dcd76859c
 
 ```json
 {
-  "PROJECT_CHARTER.md": "74978e9dc80a48be3266af5601007f4432e446f3e4cdc2dcaece4d45614f2cb8",
+  "PROJECT_CHARTER.md": "6343596d43839ea1b9f22c2bfc9695e328256de26ff1ca46afc2b679fe4bbc1c",
   "CONNECTOR_PLAN.md": "45dbdbf4b6513e11517d7d383fcae540616e352ab380f8c380a1e26de96b6667",
   "SKILL_PLAN.md": "e14a47b63afe11db1ff7e9237373a20288ee068f79caa6896289dcee345319a4",
   "DOMAIN_PROFILE.md": "2c1dcd48c9a2dcc56ad0bea54d022cc1e3c25949f95ad2499e12228fce7a216c"
@@ -345,7 +345,7 @@ Phase 2 (ESP-ADR-020; authorized only while the bootstrap gate is ACTIVE for thi
 - Pin Arduino-ESP32 3.3.12, built-in NimBLE, and esp32:esp32:esp32s3; do not reintroduce Bluedroid-only APIs or call BLEScan::clearDuplicateCache().
 - Create BLEHIDDevice manufacturer characteristic with manufacturer() before setting its value; never prepend report IDs to GATT input values.
 - `t` stays the mouse-only diagnostic and never runs before mouse_sub=yes.
-- Keyboard and mouse input (phase 2) is sent only in response to explicit host commands and only while connected and subscribed to the target report. It must be bounded: a maximum text length per command, a per-report rate limit, and release-all after every chord and on each trigger listed in the phase 2 definition of done. Modifier chords are enabled only after release-all has been observed on hardware. New commands are additive and must not change the existing command meanings.
+- Keyboard and mouse input (phase 2) is sent only in response to explicit host commands and only while connected and subscribed to the target report; safety-generated neutral/release-all reports (idle timeout, post-reconnect re-subscription, protocol error) are exempt from this host-command requirement and fire regardless of an incoming command. It must be bounded: a maximum text length per command, a per-report rate limit, and release-all after every chord and on each trigger listed in the phase 2 definition of done. Modifier chords are enabled only after release-all has been observed on hardware. New commands are additive and must not change the existing command meanings.
 - Before changing report map bytes, parse the existing descriptor and inspect the exact 3.3.12 implementation and primary Windows HOGP expectations.
 - Use small testable changes and retain each result; a successful build is not hardware verification.
 - Keep code modular so a model can work on one part without re-reading the whole codebase. Firmware lives in single-responsibility modules listed in `firmware/BLEScanner_WORKING_v7/MODULES.md`, each with a header that is its contract. New behavior goes in its owning module or a new one, never back into a monolithic sketch, and the index is updated in the same change. Scripts follow the same rule: one focused module or helper per concern.
