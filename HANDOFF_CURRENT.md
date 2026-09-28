@@ -14,7 +14,7 @@ The ESP32-S3 pairs with the Windows host as a BLE keyboard and mouse, and Window
 
 ## Open
 
-1. **Foundation.** The bootstrap gate is `ACTIVE` for the phase 2 charter (ESP-ADR-020), approved by Winston 2026-09-27T22:22Z, fingerprint 4f53ec2d… in `config/bootstrap.json`.
+1. **Foundation.** This review branch's `config/bootstrap.json` is intentionally `AWAITING_APPROVAL` after the latest phase 2 wording/risk update. Structural validation passes; exact-package approval and activation are still required before any session treats the branch as autonomous.
 2. **Cursor motion from `t`.** Confirmed by the operator on `main` `b30d71f`.
 3. **Issue #1 and upstream.** Issue #1 is closed with a resolution note. The core bug is reported as espressif/arduino-esp32#12951.
 4. **Charter scope.** Phase 2 is approved: keyboard and mouse input only on explicit framed host commands, bounded, with release-all on every stop path. Modifier chords come after release-all is observed on hardware. Next: ESP-015, protocol design. Review: CodeRabbit (`@coderabbitai review`) while Codex's quota is exhausted.

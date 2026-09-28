@@ -2,7 +2,7 @@
 
 - **Status:** SETUP — autonomy OFF
 - **Updated:** 2026-09-27 session close; all work merged to origin/main (PRs #2-#7, #9, #10).
-- **Current task:** mouse issue #1 resolved on hardware and operator-confirmed on `main` `b30d71f` (ESP-005 Completed); phase 2 foundation (ESP-ADR-020) approved and ACTIVE, fingerprint 4f53ec2d….
+- **Current task:** mouse issue #1 resolved on hardware and operator-confirmed on `main` `b30d71f` (ESP-005 Completed); this review branch updates the phase 2 foundation wording and is currently `AWAITING_APPROVAL` until the exact revised package is re-approved.
 
 ## Verified state
 
@@ -24,7 +24,7 @@
 
 ## Next
 
-1. The phase 2 foundation is ACTIVE (ESP-ADR-020, fingerprint 4f53ec2d…); validate the gate each session with `python scripts/validate_bootstrap.py config/bootstrap.json --require-active`.
+1. This review branch's phase 2 foundation is `AWAITING_APPROVAL`; structurally validate it with `python scripts/validate_bootstrap.py config/bootstrap.json`, and require `--require-active` only after the revised package is approved and activated.
 2. Cursor motion confirmed. No keyboard report is sent by any diagnostic, so there is no stuck-key risk.
 3. Issue #1 closed with a resolution note; core duplicate-UUID bug filed upstream as espressif/arduino-esp32#12951 (ESP-012). Cross-family Codex review (ESP-007) done in PR #10 (C1-C9); unmet charter deliverables tracked as #11 (descriptor parser output) and #12 (Windows HOGP primary sources).
 4. Phase 2 (keyboard and mouse automation on explicit host commands, with release-all rails) is approved. Next milestone: design the framed host-command protocol (ESP-015).
