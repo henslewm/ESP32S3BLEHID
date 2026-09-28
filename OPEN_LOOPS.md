@@ -14,6 +14,7 @@
 | ESP-010 | Medium | Scripted/manual telemetry comparison | Operator | Resume local comparison when wanted; the scripted pairing path now works | — | Not fixed | Deferred by user |
 | ESP-011 | Medium | Publish this session's work | — | Merged to origin/main via PRs #2-#7, #9, #10 | — | 2026-09-27 | Completed; issue #1 closed with a resolution note |
 | ESP-013 | Medium | Template adoption | User | PR #52 merged by user direction; any final Codex findings tracked in a new template issue | Issue #51 | — | Merged |
+| ESP-015 | High | Phase 2 host-command protocol | Claude/operator | Design the framed protocol, then implement the input module with release-all rails, then the host helper and hardware-free tests, then operator hardware observation | ESP-ADR-020 ACTIVE | Not fixed | Pending |
 | ESP-014 | Medium | Pre-existing CI failure | — | `test_bootstrap_in_place` now skips when `template_mode` is false (template-only test) | — | 2026-09-27 | Completed; same fix proposed upstream |
 | ESP-012 | Low | Upstream core bug report | — | Filed espressif/arduino-esp32#12951 with a minimal repro captured on this board | — | 2026-09-27 | Completed; watch the upstream issue |
 

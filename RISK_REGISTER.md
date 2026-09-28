@@ -4,7 +4,7 @@
 |---|---|---|---|---|---|---|
 | ESP-R01 | Baseline overwritten | Medium | High | Hash before/after; fresh import destinations; isolated editable sketch | Codex | Controlled during import |
 | ESP-R02 | Duplicate full sketches compiled together | Medium | High | Build only firmware/BLEScanner_WORKING_v7; evidence is not a build target | Codex | Mitigated |
-| ESP-R03 | Input causes unintended host actions, stuck modifiers or reset | Medium | High | Observe first; no modifiers; mouse-only t after fresh mouse_sub=yes; operator authority | Operator/Codex | Open |
+| ESP-R03 | Input causes unintended host actions, stuck modifiers or reset | Medium | High | Phase 2 (ESP-ADR-020): bounded framed commands only; release-all on every chord, stop, idle timeout, reconnect and protocol error (safety releases are exempt from the host-command gate); modifiers enabled only after release-all is hardware-observed; `t` stays mouse-only and unaffected | Operator/Claude | Open; mitigations designed under ESP-ADR-020, not yet implemented (ESP-015) |
 | ESP-R04 | History/compile mistaken for hardware proof | Medium | High | Label source and evidence level; exact-build operator observations for acceptance | Integrator | Open |
 | ESP-R05 | Wrong core/backend, cache or security assumptions | Medium | High | Inspect exact implementation/recipe; capture subscriptions/security and host/unit identity | Codex/operator | Open |
 | ESP-R06 | Publish to template origin | Medium | High | Use explicit verified henslewm/ESP32S3BLEHID target; origin now points there | Codex | New private project created at user's request; no template repository write |

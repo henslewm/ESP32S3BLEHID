@@ -4,7 +4,7 @@ This project specializes [the canonical software-hardware profile](templates/sof
 
 ## Fixed foundation
 
-Keep immutable v7 evidence and experiment only in copied sketches. Pin esp32:esp32:esp32s3, Arduino-ESP32 3.3.12, built-in NimBLE and serial 921600. Preserve quiet boot, scanner command behavior, manufacturer-characteristic creation workaround, separate keyboard report 1/mouse report 2, and Report Reference semantics. Never prepend report IDs to GATT values, use clearDuplicateCache(), reintroduce Bluedroid-only APIs, or send Ctrl/Shift/Alt/GUI tests while notification stability is unresolved.
+Keep immutable v7 evidence and experiment only in copied sketches. Pin esp32:esp32:esp32s3, Arduino-ESP32 3.3.12, built-in NimBLE and serial 921600. Preserve quiet boot, scanner command behavior, manufacturer-characteristic creation workaround, separate keyboard report 1/mouse report 2, and Report Reference semantics. Never prepend report IDs to GATT values, use clearDuplicateCache(), reintroduce Bluedroid-only APIs, or send keyboard or mouse input except under the charter's phase 2 rails (explicit host command, bounded, release-all on every stop path).
 
 ## Build configuration
 

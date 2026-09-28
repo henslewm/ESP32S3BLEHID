@@ -1,8 +1,8 @@
 # Project State
 
-- **Status:** ACTIVE — approved foundation
+- **Status:** SETUP — autonomy OFF
 - **Updated:** 2026-09-27 session close; all work merged to origin/main (PRs #2-#7, #9, #10).
-- **Current task:** mouse issue #1 resolved on hardware and operator-confirmed on `main` `b30d71f` (ESP-005 Completed); foundation re-approved (ACTIVE, fingerprint 20fc20c2…).
+- **Current task:** mouse issue #1 resolved on hardware and operator-confirmed on `main` `b30d71f` (ESP-005 Completed); this review branch updates the phase 2 foundation wording and is currently `AWAITING_APPROVAL` until the exact revised package is re-approved.
 
 ## Verified state
 
@@ -17,14 +17,15 @@
 - **Automatic pairing works.** `Invoke-BleAutoPair.ps1 -Unpair -Pair` exits 0. It uses exact-address `FromBluetoothAddressAsync` (about 50 ms) and in-process ConfirmOnly custom pairing (`scripts/BleCustomPairing.cs`), with no UI. The earlier `FindAllAsync` timeout and plain `PairAsync` failure are explained and replaced. 44/44 Pester tests pass.
 - **Fixed a pre-existing v7 bug:** `B` and the scan presets left Windows connected. `stopHidMode` now disconnects the host.
 - **Firmware split into modules.** The sketch is now 14 modules listed in [MODULES.md](firmware/BLEScanner_WORKING_v7/MODULES.md), split mechanically from the locked baseline by `scripts/split_v7_sketch.py`. The unsplit and split builds are string-equivalent. The locked baseline SHA-256 `9f3c9099…14c6` is unchanged. The working sketch no longer matches it by design.
-- **Modular-code rule added** to `PROJECT_CHARTER.md` (constraints) and `.claude/rules/05-modular-code.md`, at the user's direction. The charter is hash-bound; the foundation was re-approved (ACTIVE, fingerprint 20fc20c2…).
+- **Modular-code rule added** to `PROJECT_CHARTER.md` (constraints) and `.claude/rules/05-modular-code.md`, at the user's direction. The charter is hash-bound; the foundation was re-approved (fingerprint 20fc20c2…), then superseded by the phase 2 approval (4f53ec2d…).
 - FE1.1s USB hub integration is explicitly out of scope (ESP-ADR-012; renewed approval recorded).
 - Tooling: `scripts/serial_bridge.py` holds COM10, logs, and sends newline-terminated commands appended to `build/serial/inbox.txt`. Build with `pio run -e dev` (`platformio.ini`, pioarduino 55.03.312-1); see `docs/PLATFORMIO.md`.
 - **Artifact identity:** the firmware prints its embedded `elf_sha256`, and evidence binds to it. The generated build-label script was removed at the user's direction (ESP-ADR-018).
 
 ## Next
 
-1. Foundation re-approval is complete (ESP-001); validate the gate each session with `python scripts/validate_bootstrap.py config/bootstrap.json --require-active`.
+1. This review branch's phase 2 foundation is `AWAITING_APPROVAL`; structurally validate it with `python scripts/validate_bootstrap.py config/bootstrap.json`, and require `--require-active` only after the revised package is approved and activated.
 2. Cursor motion confirmed. No keyboard report is sent by any diagnostic, so there is no stuck-key risk.
 3. Issue #1 closed with a resolution note; core duplicate-UUID bug filed upstream as espressif/arduino-esp32#12951 (ESP-012). Cross-family Codex review (ESP-007) done in PR #10 (C1-C9); unmet charter deliverables tracked as #11 (descriptor parser output) and #12 (Windows HOGP primary sources).
-4. Keyboard input beyond neutral reports is still out of scope until the charter is revised.
+4. Phase 2 (keyboard and mouse automation on explicit host commands, with release-all rails) is approved. Next milestone: design the framed host-command protocol (ESP-015).
+5. Workflow validation now enforces `config/bootstrap.json` `ACTIVE` only on `push` to `main`; pull requests and non-`main` branch pushes structurally validate the bootstrap package so approval-reset review branches can still pass CI.

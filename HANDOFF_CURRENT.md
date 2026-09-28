@@ -14,11 +14,12 @@ The ESP32-S3 pairs with the Windows host as a BLE keyboard and mouse, and Window
 
 ## Open
 
-1. **Foundation re-approval.** Completed: the bootstrap gate is `ACTIVE` (charter modular rule plus profile build section), approved by Winston 2026-09-27, fingerprint 20fc20c2… in `config/bootstrap.json`.
+1. **Foundation.** This review branch's `config/bootstrap.json` is intentionally `AWAITING_APPROVAL` after the latest phase 2 wording/risk update. Structural validation passes; exact-package approval and activation are still required before any session treats the branch as autonomous.
 2. **Cursor motion from `t`.** Confirmed by the operator on `main` `b30d71f`.
 3. **Issue #1 and upstream.** Issue #1 is closed with a resolution note. The core bug is reported as espressif/arduino-esp32#12951.
-4. **Charter scope.** Keyboard input beyond neutral reports stays out of scope. Scripted automation of real work needs a charter revision.
+4. **Charter scope.** Phase 2 is approved: keyboard and mouse input only on explicit framed host commands, bounded, with release-all on every stop path. Modifier chords come after release-all is observed on hardware. Next: ESP-015, protocol design. Review: CodeRabbit (`@coderabbitai review`) while Codex's quota is exhausted.
 5. **Remaining items.** The telemetry comparison. Cross-family review (ESP-007) is done (PR #10). Unmet charter deliverables: #11 (descriptor parser output) and #12 (Windows HOGP primary sources). The pre-existing CI failure (ESP-014, `test_bootstrap_in_place`) is fixed; the test skips outside a template checkout and CI is green.
 6. **Template follow-ups.** Template PR #52 is merged. Any Codex findings from its final review are tracked in a new template issue linked from ESP-013.
+7. **Validation workflow.** `Validate AI project repository` now requires `config/bootstrap.json` to be `ACTIVE` only on `push` to `main`; pull requests and review-branch pushes run structural bootstrap validation instead, so exact-package approval can still happen after review changes.
 
 Locked baseline SHA-256 `9f3c9099a50d7b83f9ff219d1a83767ffc319d4119f76e21b4088682a84914c6` is unchanged. The working sketch differs by design (split plus fixes). Placeholder values for the public template issue are in ignored `build/local-identifiers.ps1`.
