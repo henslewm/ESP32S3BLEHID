@@ -21,4 +21,4 @@ jobs:
           python -m pip install -r requirements-work-packets.txt
           python -m unittest discover -s tests -p "test_*.py"
       - name: Validate project foundation
-        run: python scripts/validate_bootstrap_ci.py --event-name "${{ github.event_name }}" --ref "${{ github.ref }}"
+        run: python scripts/validate_bootstrap_ci.py --event-name "${{ github.event_name }}" --ref "${{ github.ref }}" --path config/bootstrap.json
