@@ -35,7 +35,8 @@ class BootstrapCiValidationTests(unittest.TestCase):
         module = load_validate_bootstrap_ci()
 
         self.assertTrue(module.require_active("push", "refs/heads/main"))
-        self.assertFalse(module.require_active("pull_request", "refs/heads/main"))
+        self.assertTrue(module.require_active("workflow_dispatch", "refs/heads/main"))
+        self.assertFalse(module.require_active("pull_request", "refs/pull/14/merge"))
         self.assertFalse(module.require_active("push", "refs/heads/feature"))
 
     def test_main_push_adds_require_active(self) -> None:
