@@ -28,3 +28,4 @@
 2. Cursor motion confirmed. No keyboard report is sent by any diagnostic, so there is no stuck-key risk.
 3. Issue #1 closed with a resolution note; core duplicate-UUID bug filed upstream as espressif/arduino-esp32#12951 (ESP-012). Cross-family Codex review (ESP-007) done in PR #10 (C1-C9); unmet charter deliverables tracked as #11 (descriptor parser output) and #12 (Windows HOGP primary sources).
 4. Phase 2 (keyboard and mouse automation on explicit host commands, with release-all rails) is approved. Next milestone: design the framed host-command protocol (ESP-015).
+5. Workflow validation now enforces `config/bootstrap.json` `ACTIVE` only on `push` to `main`; pull requests and non-`main` branch pushes structurally validate the bootstrap package so approval-reset review branches can still pass CI.

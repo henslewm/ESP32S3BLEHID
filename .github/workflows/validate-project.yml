@@ -20,5 +20,10 @@ jobs:
         run: |
           python -m pip install -r requirements-work-packets.txt
           python -m unittest discover -s tests -p "test_*.py"
-      - name: Validate approved project foundation
-        run: python scripts/validate_bootstrap.py config/bootstrap.json --require-active
+      - name: Validate project foundation
+        run: |
+          if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            python scripts/validate_bootstrap.py config/bootstrap.json --require-active
+          else
+            python scripts/validate_bootstrap.py config/bootstrap.json
+          fi
